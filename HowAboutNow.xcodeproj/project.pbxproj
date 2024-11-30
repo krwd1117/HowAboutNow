@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		03BD9A5DCB219815D5C82887 /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2BEFA2E507413F748053B25 /* UI.framework */; };
+		04DBF6EFB02340370C124DD0 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E642500D6CF54603F195F566 /* Logger.swift */; };
 		078A6D5969785B42A6ECEF68 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083B9BBC23F7B7BF12E5D790 /* Core.framework */; };
+		1049B72B7F2FEF6E47040B33 /* DiaryDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48684C5DE0BF49ACC711C4BC /* DiaryDataRepository.swift */; };
 		1210366882A7BBE1CE6499D8 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083B9BBC23F7B7BF12E5D790 /* Core.framework */; };
 		3022D9ED2C73849471A21684 /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F0C08FCB46F438E579C5B /* DiaryListViewModel.swift */; };
 		30F7A2F799D2B170EA7ADD73 /* DiaryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD1DF5E5D961456C0A6D42 /* DiaryRepository.swift */; };
@@ -131,11 +133,13 @@
 		31934822F47659E2BB5196BA /* Core-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Core-Info.plist"; sourceTree = "<group>"; };
 		3EBD1DF5E5D961456C0A6D42 /* DiaryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRepository.swift; sourceTree = "<group>"; };
 		42D5B82EF60369E40BE57213 /* UIModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIModule.swift; sourceTree = "<group>"; };
+		48684C5DE0BF49ACC711C4BC /* DiaryDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDataRepository.swift; sourceTree = "<group>"; };
 		52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HowAboutNow.entitlements; sourceTree = "<group>"; };
 		5D33030F15EC96D72F4E5EED /* UI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "UI-Info.plist"; sourceTree = "<group>"; };
 		BE3152EA26B750A16B8E15F7 /* Feature-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Feature-Info.plist"; sourceTree = "<group>"; };
 		C621CED02BA10FE2967F7E94 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		DD3947BC8C5C117E2FB9ED50 /* TuistBundle+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+HowAboutNow.swift"; sourceTree = "<group>"; };
+		E642500D6CF54603F195F566 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		F2BEFA2E507413F748053B25 /* UI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77DB478DB54A3747A837842 /* Feature.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Feature.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB65F8FE973BC1E4726A8E5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -250,6 +254,14 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
+		686195AE8910160C83441412 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E642500D6CF54603F195F566 /* Logger.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		71852A7A7DDD492543080B63 /* InfoPlists */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,6 +276,8 @@
 		719F0DA04EF205C60BFCDCA0 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				686195AE8910160C83441412 /* Common */,
+				853F2D15A74E4E26708B936C /* Data */,
 				B2E089485DD614C1400FA739 /* Domain */,
 			);
 			path = Sources;
@@ -275,6 +289,14 @@
 				2ED1D6BB860F0C5CEA3F96B0 /* DiaryListView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		853F2D15A74E4E26708B936C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				A93E69F24BE3C245B181447A /* Repositories */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		990280C9A49D2237D84F8B06 /* UI */ = {
@@ -300,6 +322,14 @@
 				DD3947BC8C5C117E2FB9ED50 /* TuistBundle+HowAboutNow.swift */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		A93E69F24BE3C245B181447A /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				48684C5DE0BF49ACC711C4BC /* DiaryDataRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		B2E089485DD614C1400FA739 /* Domain */ = {
@@ -551,6 +581,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04DBF6EFB02340370C124DD0 /* Logger.swift in Sources */,
+				1049B72B7F2FEF6E47040B33 /* DiaryDataRepository.swift in Sources */,
 				DB5E6E2AB8EDA1D02305870F /* Diary.swift in Sources */,
 				30F7A2F799D2B170EA7ADD73 /* DiaryRepository.swift in Sources */,
 			);

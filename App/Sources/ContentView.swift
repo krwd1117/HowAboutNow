@@ -2,20 +2,20 @@ import SwiftUI
 import Feature
 import Core
 
-class MockDiaryRepository: DiaryRepository {
-    func getDiaries() async throws -> [Diary] {
-        return []
+struct ContentView: View {
+    private let repository: DiaryRepository
+    
+    init() {
+        do {
+            repository = try DiaryDataRepository()
+        } catch {
+            fatalError("Failed to initialize repository: \(error)")
+        }
     }
     
-    func saveDiary(_ diary: Diary) async throws {}
-    func updateDiary(_ diary: Diary) async throws {}
-    func deleteDiary(_ diary: Diary) async throws {}
-}
-
-struct ContentView: View {
     var body: some View {
         NavigationStack {
-            DiaryListView(viewModel: DiaryListViewModel(repository: MockDiaryRepository()))
+            DiaryListView(viewModel: DiaryListViewModel(repository: repository))
                 .navigationTitle("How About Now")
         }
     }

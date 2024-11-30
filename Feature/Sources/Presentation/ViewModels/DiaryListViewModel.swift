@@ -1,6 +1,4 @@
 import Foundation
-import SwiftUI
-@preconcurrency import SwiftUI
 import Core
 
 @MainActor

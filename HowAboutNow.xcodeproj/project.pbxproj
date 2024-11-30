@@ -23,6 +23,7 @@
 		599DD2D8B14EC550BEA51513 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083B9BBC23F7B7BF12E5D790 /* Core.framework */; };
 		5C9CA81C77F30A4338FB3B7F /* Feature.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77DB478DB54A3747A837842 /* Feature.framework */; };
 		60F2DE1CCCC66AD4435E792D /* EmotionStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D049E2532F07C2518D9519 /* EmotionStatistics.swift */; };
+		6B9E09F32CFB58C000118A5B /* DiaryEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9E09F22CFB58C000118A5B /* DiaryEditorViewModel.swift */; };
 		739F6EB13E35260932463BF7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 05A2E54D5666F61D9DFDB376 /* Alamofire */; };
 		7486B63DB242CF0EA82D1C29 /* UIModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D5B82EF60369E40BE57213 /* UIModule.swift */; };
 		7FF5EDCFAAFA1AA44BD48996 /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2BEFA2E507413F748053B25 /* UI.framework */; };
@@ -149,6 +150,7 @@
 		48684C5DE0BF49ACC711C4BC /* DiaryDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDataRepository.swift; sourceTree = "<group>"; };
 		52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HowAboutNow.entitlements; sourceTree = "<group>"; };
 		5D33030F15EC96D72F4E5EED /* UI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "UI-Info.plist"; sourceTree = "<group>"; };
+		6B9E09F22CFB58C000118A5B /* DiaryEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditorViewModel.swift; sourceTree = "<group>"; };
 		743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistPlists+HowAboutNow.swift"; sourceTree = "<group>"; };
 		78B057CC5196A9E3750546F3 /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Configuration.template.plist; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 			isa = PBXGroup;
 			children = (
 				0E3F0C08FCB46F438E579C5B /* DiaryListViewModel.swift */,
+				6B9E09F22CFB58C000118A5B /* DiaryEditorViewModel.swift */,
 				C70D945701043B28748338B5 /* EmotionStatisticsViewModel.swift */,
 			);
 			path = ViewModels;
@@ -658,6 +661,7 @@
 				3022D9ED2C73849471A21684 /* DiaryListViewModel.swift in Sources */,
 				E4B1BC81CBFC122FF55B2179 /* EmotionStatisticsViewModel.swift in Sources */,
 				446063189D87955F5A2D4C37 /* DiaryEditorView.swift in Sources */,
+				6B9E09F32CFB58C000118A5B /* DiaryEditorViewModel.swift in Sources */,
 				AA198F9190D7BB36DDDA4D31 /* DiaryListView.swift in Sources */,
 				0781C335F2C5F92B58C9C5F4 /* EmotionStatisticsView.swift in Sources */,
 			);

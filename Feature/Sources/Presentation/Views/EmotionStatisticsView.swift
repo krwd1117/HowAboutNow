@@ -14,24 +14,27 @@ public struct EmotionStatisticsView: View {
             VStack(spacing: 24) {
                 if let statistics = viewModel.statistics {
                     periodPicker
+                        .padding(.horizontal)
                     
                     if let mostFrequent = statistics.mostFrequentEmotion {
                         mostFrequentEmotionCard(emotion: mostFrequent)
+                            .padding(.horizontal)
                     }
                     
                     EmotionPieChart(statistics: statistics)
-                        .frame(height: 240)
+                        .padding(.horizontal)
                     
                     EmotionBarChart(statistics: statistics)
-                        .frame(height: 200)
+                        .padding(.horizontal)
                     
                     EmotionList(statistics: statistics)
+                        .padding(.horizontal)
                 }
             }
-            .padding()
+            .padding(.vertical)
         }
         .navigationTitle("감정 통계")
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .task {
             await viewModel.loadStatistics()
         }
@@ -49,23 +52,33 @@ public struct EmotionStatisticsView: View {
             }
         }
         .pickerStyle(.segmented)
+        .tint(.pink)
     }
     
     private func mostFrequentEmotionCard(emotion: String) -> some View {
-        VStack(spacing: 8) {
-            Text("가장 많이 느낀 감정")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+        VStack(spacing: 12) {
+            Label {
+                Text("가장 많이 느낀 감정")
+                    .font(.headline)
+            } icon: {
+                Image(systemName: "heart.circle.fill")
+                    .symbolRenderingMode(.multicolor)
+                    .foregroundStyle(.pink)
+            }
             
             EmotionBadge(emotion: emotion)
                 .scaleEffect(1.2)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 20)
+        .padding(.vertical, 24)
         .background {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(.background)
-                .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
+                .shadow(color: .black.opacity(0.03), radius: 8, y: 4)
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .strokeBorder(.quaternary, lineWidth: 0.5)
         }
     }
 }
@@ -75,8 +88,14 @@ private struct EmotionPieChart: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("감정 분포")
-                .font(.headline)
+            Label {
+                Text("감정 분포")
+                    .font(.headline)
+            } icon: {
+                Image(systemName: "chart.pie.fill")
+                    .symbolRenderingMode(.multicolor)
+                    .foregroundStyle(.pink)
+            }
             
             Chart(statistics.emotions) { emotion in
                 SectorMark(
@@ -84,16 +103,21 @@ private struct EmotionPieChart: View {
                     innerRadius: .ratio(0.618),
                     angularInset: 1.5
                 )
-                .cornerRadius(3)
+                .cornerRadius(4)
                 .foregroundStyle(by: .value("Emotion", emotion.name))
             }
             .chartLegend(.visible)
+            .frame(height: 240)
         }
-        .padding()
+        .padding(20)
         .background {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(.background)
-                .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
+                .shadow(color: .black.opacity(0.03), radius: 8, y: 4)
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .strokeBorder(.quaternary, lineWidth: 0.5)
         }
     }
 }
@@ -103,8 +127,14 @@ private struct EmotionBarChart: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("감정별 횟수")
-                .font(.headline)
+            Label {
+                Text("감정 추이")
+                    .font(.headline)
+            } icon: {
+                Image(systemName: "chart.line.uptrend.xyaxis.circle.fill")
+                    .symbolRenderingMode(.multicolor)
+                    .foregroundStyle(.pink)
+            }
             
             Chart(statistics.emotions) { emotion in
                 BarMark(
@@ -114,22 +144,18 @@ private struct EmotionBarChart: View {
                 .cornerRadius(4)
                 .foregroundStyle(by: .value("Emotion", emotion.name))
             }
-            .chartXAxis {
-                AxisMarks(values: .automatic) { value in
-                    AxisValueLabel {
-                        if let name = value.as(String.self) {
-                            Text(name)
-                                .rotationEffect(.degrees(-45))
-                        }
-                    }
-                }
-            }
+            .chartLegend(.hidden)
+            .frame(height: 200)
         }
-        .padding()
+        .padding(20)
         .background {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(.background)
-                .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
+                .shadow(color: .black.opacity(0.03), radius: 8, y: 4)
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .strokeBorder(.quaternary, lineWidth: 0.5)
         }
     }
 }
@@ -139,24 +165,37 @@ private struct EmotionList: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("감정 목록")
-                .font(.headline)
+            Label {
+                Text("감정 순위")
+                    .font(.headline)
+            } icon: {
+                Image(systemName: "list.number.circle.fill")
+                    .symbolRenderingMode(.multicolor)
+                    .foregroundStyle(.pink)
+            }
             
             ForEach(statistics.emotions) { emotion in
                 HStack {
                     EmotionBadge(emotion: emotion.name)
+                        .scaleEffect(0.9)
+                    
                     Spacer()
+                    
                     Text("\(emotion.count)회")
-                        .monospacedDigit()
+                        .font(.subheadline.monospacedDigit())
                         .foregroundStyle(.secondary)
                 }
             }
         }
-        .padding()
+        .padding(20)
         .background {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .fill(.background)
-                .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
+                .shadow(color: .black.opacity(0.03), radius: 8, y: 4)
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .strokeBorder(.quaternary, lineWidth: 0.5)
         }
     }
 }

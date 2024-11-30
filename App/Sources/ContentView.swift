@@ -17,13 +17,25 @@ struct ContentView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            DiaryListView(viewModel: DiaryListViewModel(
-                repository: repository,
-                emotionAnalysisService: emotionAnalysisService
-            ))
-            .navigationTitle("How About Now")
+        TabView {
+            NavigationStack {
+                DiaryListView(viewModel: DiaryListViewModel(
+                    repository: repository,
+                    emotionAnalysisService: emotionAnalysisService
+                ))
+            }
+            .tabItem {
+                Label("일기", systemImage: "book.fill")
+            }
+            
+            NavigationStack {
+                EmotionStatisticsView(viewModel: EmotionStatisticsViewModel(repository: repository))
+            }
+            .tabItem {
+                Label("통계", systemImage: "chart.pie.fill")
+            }
         }
+        .tint(.pink)
     }
 }
 

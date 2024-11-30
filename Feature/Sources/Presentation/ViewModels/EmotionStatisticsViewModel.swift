@@ -1,6 +1,6 @@
 import Foundation
 import Core
-import SwiftUI
+//import SwiftUI
 
 @MainActor
 public final class EmotionStatisticsViewModel: ObservableObject {
@@ -75,12 +75,6 @@ public final class EmotionStatisticsViewModel: ObservableObject {
     }
     
     public var selectedPeriod: StatisticsPeriod = .week
-}
-
-#Preview {
-    EmotionStatisticsView(viewModel: EmotionStatisticsViewModel(
-        repository: PreviewDiaryRepository()
-    ))
 }
 
 private actor PreviewDiaryRepository: DiaryRepository {

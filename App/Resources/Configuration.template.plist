@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>OpenAIAPIKey</key>
-    <string>your_openai_api_key_here</string>
+    <string>YOUR_API_KEY_HERE</string>
     <key>OpenAIEndpoint</key>
     <string>https://api.openai.com/v1/chat/completions</string>
 </dict>

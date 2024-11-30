@@ -84,47 +84,5 @@ let project = Project(
                 .target(name: "Core")
             ]
         )
-    ],
-    schemes: [
-        .scheme(
-            name: "HowAboutNow",
-            shared: true,
-            buildAction: .buildAction(targets: ["HowAboutNow"]),
-            testAction: nil,
-            runAction: .runAction(configuration: "Debug"),
-            archiveAction: .archiveAction(configuration: "Release"),
-            profileAction: .profileAction(configuration: "Release"),
-            analyzeAction: .analyzeAction(configuration: "Debug")
-        ),
-        .scheme(
-            name: "Core",
-            shared: true,
-            buildAction: .buildAction(targets: ["Core"]),
-            testAction: nil,
-            runAction: nil,
-            archiveAction: .archiveAction(configuration: "Release"),
-            profileAction: .profileAction(configuration: "Release"),
-            analyzeAction: .analyzeAction(configuration: "Debug")
-        ),
-        .scheme(
-            name: "Feature",
-            shared: true,
-            buildAction: .buildAction(targets: ["Feature"]),
-            testAction: nil,
-            runAction: nil,
-            archiveAction: .archiveAction(configuration: "Release"),
-            profileAction: .profileAction(configuration: "Release"),
-            analyzeAction: .analyzeAction(configuration: "Debug")
-        ),
-        .scheme(
-            name: "UI",
-            shared: true,
-            buildAction: .buildAction(targets: ["UI"]),
-            testAction: nil,
-            runAction: nil,
-            archiveAction: .archiveAction(configuration: "Release"),
-            profileAction: .profileAction(configuration: "Release"),
-            analyzeAction: .analyzeAction(configuration: "Debug")
-        )
     ]
 )

@@ -1,25 +1,26 @@
-//
-//  ContentView.swift
-//  HowAboutNow
-//
-//  Created by Jeongwan Kim on 11/29/24.
-//
-
 import SwiftUI
+import Feature
+import Core
+
+class MockDiaryRepository: DiaryRepository {
+    func getDiaries() async throws -> [Diary] {
+        return []
+    }
+    
+    func saveDiary(_ diary: Diary) async throws {}
+    func updateDiary(_ diary: Diary) async throws {}
+    func deleteDiary(_ diary: Diary) async throws {}
+}
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            DiaryListView(viewModel: DiaryListViewModel(repository: MockDiaryRepository()))
+                .navigationTitle("How About Now")
         }
-        .padding()
-        .ignoresSafeArea(.all, edges: [])
     }
 }
 
-//#Preview {
-//    ContentView()
-//}
+#Preview {
+    ContentView()
+}

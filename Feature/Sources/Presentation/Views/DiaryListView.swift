@@ -2,160 +2,146 @@ import SwiftUI
 import Core
 
 public struct DiaryListView: View {
-    @State private var viewModel: DiaryListViewModel
-    @State private var isShowingNewDiary = false
-    @State private var isShowingEditDiary = false
+    @StateObject private var viewModel: DiaryListViewModel
+    @State private var showingAddDiarySheet = false
+    @State private var showingEditDiarySheet = false
     @State private var selectedDiary: Diary?
-    @State private var editingContent = ""
+    @State private var showingDeleteAlert = false
+    @State private var diaryToDelete: Diary?
     
     public init(viewModel: DiaryListViewModel) {
-        self._viewModel = State(initialValue: viewModel)
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
     
     public var body: some View {
-        List {
-            ForEach(viewModel.diaries) { diary in
-                DiaryRowView(diary: diary)
-                    .swipeActions(edge: .trailing) {
-                        Button(role: .destructive) {
-                            Task {
-                                await viewModel.deleteDiary(diary)
-                            }
-                        } label: {
-                            Label("삭제", systemImage: "trash")
-                        }
-                    }
-                    .onTapGesture {
-                        selectedDiary = diary
-                        editingContent = diary.content
-                        isShowingEditDiary = true
-                    }
+        NavigationStack {
+            Group {
+                if viewModel.isLoading {
+                    ProgressView()
+                } else if viewModel.diaries.isEmpty {
+                    ContentUnavailableView("일기가 없습니다", systemImage: "book.closed")
+                } else {
+                    diaryList
+                }
             }
-        }
-        .navigationTitle("일기")
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                HStack {
-                    NavigationLink {
-                        EmotionStatisticsView(viewModel: EmotionStatisticsViewModel(repository: viewModel.repository))
-                    } label: {
+            .navigationTitle("감정 일기")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink(destination: EmotionStatisticsView(viewModel: EmotionStatisticsViewModel(repository: viewModel.repository))) {
                         Image(systemName: "chart.pie")
                     }
-                    
-                    Button {
-                        editingContent = ""
-                        isShowingNewDiary = true
-                    } label: {
-                        Image(systemName: "plus")
+                }
+                
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: { showingAddDiarySheet = true }) {
+                        Image(systemName: "square.and.pencil")
                     }
                 }
             }
-        }
-        .sheet(isPresented: $isShowingNewDiary) {
-            NavigationStack {
-                DiaryEditorView(
-                    mode: .new,
-                    content: editingContent
-                ) { content in
+            .sheet(isPresented: $showingAddDiarySheet) {
+                DiaryEditorView(content: "") { content in
                     Task {
                         await viewModel.addDiary(content: content)
                     }
                 }
             }
-        }
-        .sheet(isPresented: $isShowingEditDiary) {
-            if let diary = selectedDiary {
-                NavigationStack {
-                    DiaryEditorView(
-                        mode: .edit(diary),
-                        content: editingContent
-                    ) { content in
-                        Task {
-                            await viewModel.updateDiary(diary, content: content)
-                        }
+            .sheet(item: $selectedDiary) { diary in
+                DiaryEditorView(content: diary.content) { content in
+                    Task {
+                        await viewModel.updateDiary(diary, content: content)
                     }
                 }
             }
+            .alert("일기 삭제", isPresented: $showingDeleteAlert) {
+                Button("취소", role: .cancel) { }
+                Button("삭제", role: .destructive) {
+                    if let diary = diaryToDelete {
+                        Task {
+                            await viewModel.deleteDiary(diary)
+                        }
+                    }
+                }
+            } message: {
+                Text("정말 삭제하시겠습니까?")
+            }
         }
         .task {
-            await viewModel.fetchDiaries()
+            await viewModel.loadDiaries()
+        }
+    }
+    
+    private var diaryList: some View {
+        List {
+            ForEach(viewModel.diaries) { diary in
+                DiaryCell(diary: diary)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        selectedDiary = diary
+                    }
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button(role: .destructive) {
+                            diaryToDelete = diary
+                            showingDeleteAlert = true
+                        } label: {
+                            Label("삭제", systemImage: "trash")
+                        }
+                    }
+            }
         }
     }
 }
 
-struct DiaryRowView: View {
+private struct DiaryCell: View {
     let diary: Diary
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(diary.content)
-                .lineLimit(2)
+                .lineLimit(3)
             
             HStack {
-                Text(diary.date.formatted(date: .abbreviated, time: .shortened))
+                Text(diary.emotion)
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 
                 Spacer()
                 
-                Text(diary.emotion)
-                    .font(.caption)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color.accentColor.opacity(0.1))
-                    .clipShape(Capsule())
+                Text(diary.date.formatted(date: .abbreviated, time: .shortened))
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
             }
         }
         .padding(.vertical, 4)
     }
 }
 
-struct DiaryEditorView: View {
-    enum Mode {
-        case new
-        case edit(Diary)
-        
-        var title: String {
-            switch self {
-            case .new: return "새 일기"
-            case .edit: return "일기 수정"
-            }
+struct DiaryListView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack {
+            DiaryListView(viewModel: DiaryListViewModel(
+                repository: MockDiaryRepository(),
+                emotionAnalysisService: MockEmotionAnalysisService()
+            ))
         }
     }
-    
-    let mode: Mode
-    let content: String
-    let onSave: (String) -> Void
-    
-    @State private var editedContent: String
-    @Environment(\.dismiss) private var dismiss
-    
-    init(mode: Mode, content: String, onSave: @escaping (String) -> Void) {
-        self.mode = mode
-        self.content = content
-        self.onSave = onSave
-        self._editedContent = State(initialValue: content)
+}
+
+private actor MockDiaryRepository: DiaryRepository {
+    func getDiaries() async throws -> [Diary] {
+        return [
+            Diary(content: "오늘은 정말 행복한 하루였다", emotion: "행복"),
+            Diary(content: "조금 우울한 기분이다", emotion: "우울"),
+            Diary(content: "매우 신나는 일이 있었다", emotion: "기쁨")
+        ]
     }
     
-    var body: some View {
-        Form {
-            TextField("오늘 하루는 어땠나요?", text: $editedContent, axis: .vertical)
-                .lineLimit(5...10)
-        }
-        .navigationTitle(mode.title)
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button("취소") {
-                    dismiss()
-                }
-            }
-            ToolbarItem(placement: .confirmationAction) {
-                Button("저장") {
-                    onSave(editedContent)
-                    dismiss()
-                }
-                .disabled(editedContent.isEmpty)
-            }
-        }
+    func saveDiary(_ diary: Diary) async throws {}
+    func updateDiary(_ diary: Diary) async throws {}
+    func deleteDiary(_ diary: Diary) async throws {}
+}
+
+private actor MockEmotionAnalysisService: EmotionAnalysisService {
+    func analyzeEmotion(from text: String) async throws -> String {
+        return "행복"
     }
 }

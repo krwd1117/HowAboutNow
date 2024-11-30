@@ -6,125 +6,98 @@ public struct EmotionStatisticsView: View {
     @State private var viewModel: EmotionStatisticsViewModel
     
     public init(viewModel: EmotionStatisticsViewModel) {
-        self.viewModel = viewModel
+        self._viewModel = State(initialValue: viewModel)
     }
     
     public var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                periodSelector
-                
                 if let statistics = viewModel.statistics {
-                    summarySection(statistics)
-                    chartSection(statistics)
-                    detailSection(statistics)
-                } else {
-                    ContentUnavailableView("통계 없음", 
-                        systemImage: "chart.pie",
-                        description: Text("아직 작성된 일기가 없습니다")
-                    )
+                    EmotionPieChart(statistics: statistics)
+                    EmotionBarChart(statistics: statistics)
+                    EmotionList(statistics: statistics)
                 }
             }
             .padding()
         }
         .navigationTitle("감정 통계")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Picker("기간", selection: $viewModel.selectedPeriod) {
+                    ForEach(EmotionStatisticsViewModel.StatisticsPeriod.allCases, id: \.self) { period in
+                        Text(period.rawValue).tag(period)
+                    }
+                }
+            }
+        }
         .task {
-            await viewModel.fetchStatistics()
+            await viewModel.loadStatistics()
         }
-    }
-    
-    private var periodSelector: some View {
-        Picker("기간", selection: $viewModel.selectedPeriod) {
-            ForEach(EmotionStatisticsViewModel.StatisticsPeriod.allCases, id: \.self) { period in
-                Text(period.rawValue).tag(period)
-            }
-        }
-        .pickerStyle(.segmented)
-        .onChange(of: viewModel.selectedPeriod) {
+        .onChange(of: viewModel.selectedPeriod) { _, _ in
             Task {
-                await viewModel.fetchStatistics()
+                await viewModel.loadStatistics()
             }
         }
     }
+}
+
+private struct EmotionPieChart: View {
+    let statistics: EmotionStatistics
     
-    private func summarySection(_ statistics: EmotionStatistics) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("요약")
-                .font(.headline)
-            
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("전체 일기")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                    Text("\(statistics.totalCount)개")
-                        .font(.title2)
-                        .bold()
-                }
-                
-                Spacer()
-                
-                if let mostFrequent = statistics.mostFrequentEmotion {
-                    VStack(alignment: .trailing) {
-                        Text("가장 많은 감정")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                        Text(mostFrequent)
-                            .font(.title2)
-                            .bold()
+    var body: some View {
+        Chart(statistics.emotions) { emotion in
+            SectorMark(
+                angle: .value("Count", emotion.count),
+                innerRadius: .ratio(0.618),
+                angularInset: 1.5
+            )
+            .cornerRadius(3)
+            .foregroundStyle(by: .value("Emotion", emotion.name))
+        }
+        .chartLegend(.visible)
+        .frame(height: 200)
+    }
+}
+
+private struct EmotionBarChart: View {
+    let statistics: EmotionStatistics
+    
+    var body: some View {
+        Chart(statistics.emotions) { emotion in
+            BarMark(
+                x: .value("Emotion", emotion.name),
+                y: .value("Count", emotion.count)
+            )
+        }
+        .chartXAxis {
+            AxisMarks(values: .automatic) { value in
+                AxisValueLabel {
+                    if let name = value.as(String.self) {
+                        Text(name)
+                            .rotationEffect(.degrees(-45))
                     }
                 }
             }
-            .padding()
-            .background(Color.secondary.opacity(0.1))
-            .clipShape(RoundedRectangle(cornerRadius: 10))
         }
+        .frame(height: 200)
     }
+}
+
+private struct EmotionList: View {
+    let statistics: EmotionStatistics
     
-    private func chartSection(_ statistics: EmotionStatistics) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("감정 분포")
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("감정 목록")
                 .font(.headline)
             
-            if #available(iOS 17.0, *) {
-                Chart(statistics.counts, id: \.emotion) { item in
-                    SectorMark(
-                        angle: .value("비율", Double(item.count)),
-                        innerRadius: .ratio(0.618),
-                        angularInset: 1.5
-                    )
-                    .foregroundStyle(by: .value("감정", item.emotion))
-                }
-                .frame(height: 200)
-            } else {
-                Text("iOS 17 이상에서 차트를 확인할 수 있습니다")
-                    .foregroundStyle(.secondary)
-            }
-        }
-    }
-    
-    private func detailSection(_ statistics: EmotionStatistics) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("상세 통계")
-                .font(.headline)
-            
-            ForEach(statistics.counts, id: \.emotion) { item in
+            ForEach(statistics.emotions) { emotion in
                 HStack {
-                    Text(item.emotion)
-                        .frame(width: 80, alignment: .leading)
-                    
-                    GeometryReader { geometry in
-                        RoundedRectangle(cornerRadius: 5)
-                            .fill(Color.accentColor.opacity(0.2))
-                            .frame(width: geometry.size.width * item.percentage / 100)
-                            .overlay(alignment: .leading) {
-                                Text("\(item.count)회 (\(Int(item.percentage))%)")
-                                    .font(.caption)
-                                    .padding(.leading, 8)
-                            }
-                    }
+                    Text(emotion.name)
+                    Spacer()
+                    Text("\(emotion.count)회")
+                        .foregroundColor(.secondary)
                 }
-                .frame(height: 30)
             }
         }
     }
@@ -136,7 +109,7 @@ public struct EmotionStatisticsView: View {
     }
 }
 
-private class MockDiaryRepository: DiaryRepository {
+private actor MockDiaryRepository: DiaryRepository {
     func getDiaries() async throws -> [Diary] {
         return [
             Diary(content: "행복한 하루", emotion: "행복"),
@@ -145,7 +118,7 @@ private class MockDiaryRepository: DiaryRepository {
             Diary(content: "우울한 하루", emotion: "슬픔"),
             Diary(content: "화난 하루", emotion: "분노"),
             Diary(content: "불안한 하루", emotion: "불안"),
-            Diary(content: "희망찬 하루", emotion: "희망"),
+            Diary(content: "희망찬 하루", emotion: "희망")
         ]
     }
     

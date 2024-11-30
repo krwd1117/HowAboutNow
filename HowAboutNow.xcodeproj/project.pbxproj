@@ -17,7 +17,7 @@
 		1210366882A7BBE1CE6499D8 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083B9BBC23F7B7BF12E5D790 /* Core.framework */; };
 		3022D9ED2C73849471A21684 /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F0C08FCB46F438E579C5B /* DiaryListViewModel.swift */; };
 		30F7A2F799D2B170EA7ADD73 /* DiaryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD1DF5E5D961456C0A6D42 /* DiaryRepository.swift */; };
-		4BC9AF53EB84413D6980BAF5 /* HowAboutNow.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */; };
+		446063189D87955F5A2D4C37 /* DiaryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19C3838D4AF5948750A1C55 /* DiaryEditorView.swift */; };
 		53946BC875507A6392D00D2B /* EmotionAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096382B7EBA7EBC1E57D4EB6 /* EmotionAnalysisService.swift */; };
 		56942D45E440352F0FFB1D6E /* Configuration.template.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */; };
 		599DD2D8B14EC550BEA51513 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083B9BBC23F7B7BF12E5D790 /* Core.framework */; };
@@ -32,7 +32,6 @@
 		AEC596BE458CD7BB56C2BB1F /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B057CC5196A9E3750546F3 /* ConfigurationManager.swift */; };
 		BDB2D28992E84257B1438E41 /* TuistBundle+HowAboutNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3947BC8C5C117E2FB9ED50 /* TuistBundle+HowAboutNow.swift */; };
 		C10CDC09A15CFB8844E473C4 /* HowAboutNowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0005D74FC91600ACEF41D551 /* HowAboutNowApp.swift */; };
-		C1933F0020197F4BDF3F0A9C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F153020528B2D6C5E1CAA /* Config.swift */; };
 		C5A7BC79C056FD6A5022F3A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB65F8FE973BC1E4726A8E5A /* Assets.xcassets */; };
 		C9290A4F6BAA003F51EFB3E2 /* UI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F2BEFA2E507413F748053B25 /* UI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB5E6E2AB8EDA1D02305870F /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C621CED02BA10FE2967F7E94 /* Diary.swift */; };
@@ -153,13 +152,13 @@
 		743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistPlists+HowAboutNow.swift"; sourceTree = "<group>"; };
 		78B057CC5196A9E3750546F3 /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Configuration.template.plist; sourceTree = "<group>"; };
+		B19C3838D4AF5948750A1C55 /* DiaryEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditorView.swift; sourceTree = "<group>"; };
 		B1D049E2532F07C2518D9519 /* EmotionStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionStatistics.swift; sourceTree = "<group>"; };
 		BE3152EA26B750A16B8E15F7 /* Feature-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Feature-Info.plist"; sourceTree = "<group>"; };
 		C621CED02BA10FE2967F7E94 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		C70D945701043B28748338B5 /* EmotionStatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionStatisticsViewModel.swift; sourceTree = "<group>"; };
 		DD3947BC8C5C117E2FB9ED50 /* TuistBundle+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+HowAboutNow.swift"; sourceTree = "<group>"; };
 		E642500D6CF54603F195F566 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		F18F153020528B2D6C5E1CAA /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		F2BEFA2E507413F748053B25 /* UI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77DB478DB54A3747A837842 /* Feature.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Feature.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB65F8FE973BC1E4726A8E5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -295,7 +294,6 @@
 		686195AE8910160C83441412 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				F18F153020528B2D6C5E1CAA /* Config.swift */,
 				78B057CC5196A9E3750546F3 /* ConfigurationManager.swift */,
 				E642500D6CF54603F195F566 /* Logger.swift */,
 			);
@@ -334,6 +332,7 @@
 		7C53C577AA32EFAD8D04B345 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B19C3838D4AF5948750A1C55 /* DiaryEditorView.swift */,
 				2ED1D6BB860F0C5CEA3F96B0 /* DiaryListView.swift */,
 				4491E713E85ED6C208298EA6 /* EmotionStatisticsView.swift */,
 			);
@@ -597,7 +596,6 @@
 				C5A7BC79C056FD6A5022F3A9 /* Assets.xcassets in Resources */,
 				003A790B251B0AA541AEE626 /* Configuration.plist in Resources */,
 				56942D45E440352F0FFB1D6E /* Configuration.template.plist in Resources */,
-				4BC9AF53EB84413D6980BAF5 /* HowAboutNow.entitlements in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,7 +640,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1933F0020197F4BDF3F0A9C /* Config.swift in Sources */,
 				AEC596BE458CD7BB56C2BB1F /* ConfigurationManager.swift in Sources */,
 				04DBF6EFB02340370C124DD0 /* Logger.swift in Sources */,
 				1049B72B7F2FEF6E47040B33 /* DiaryDataRepository.swift in Sources */,
@@ -660,6 +657,7 @@
 			files = (
 				3022D9ED2C73849471A21684 /* DiaryListViewModel.swift in Sources */,
 				E4B1BC81CBFC122FF55B2179 /* EmotionStatisticsViewModel.swift in Sources */,
+				446063189D87955F5A2D4C37 /* DiaryEditorView.swift in Sources */,
 				AA198F9190D7BB36DDDA4D31 /* DiaryListView.swift in Sources */,
 				0781C335F2C5F92B58C9C5F4 /* EmotionStatisticsView.swift in Sources */,
 			);
@@ -741,21 +739,33 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_MODULE_INTERFACE = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -787,7 +797,6 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -820,7 +829,6 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -849,7 +857,6 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -880,7 +887,6 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -914,7 +920,6 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -947,7 +952,6 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -977,7 +981,6 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1009,7 +1012,6 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1050,11 +1052,15 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1063,15 +1069,22 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_MODULE_INTERFACE = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};

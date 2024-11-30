@@ -20,13 +20,13 @@ public class EmotionStatisticsViewModel {
             
             switch self {
             case .week:
-                let startDate = calendar.date(byAdding: .day, value: -7, to: now) ?? now
+                let startDate = calendar.date(byAdding: .day, value: -7, to: now)!
                 return DateInterval(start: startDate, end: now)
             case .month:
-                let startDate = calendar.date(byAdding: .month, value: -1, to: now) ?? now
+                let startDate = calendar.date(byAdding: .month, value: -1, to: now)!
                 return DateInterval(start: startDate, end: now)
             case .year:
-                let startDate = calendar.date(byAdding: .year, value: -1, to: now) ?? now
+                let startDate = calendar.date(byAdding: .year, value: -1, to: now)!
                 return DateInterval(start: startDate, end: now)
             }
         }
@@ -35,22 +35,26 @@ public class EmotionStatisticsViewModel {
     public init(repository: DiaryRepository) {
         self.repository = repository
         Task { @MainActor in
-            await fetchStatistics()
+            await loadStatistics()
         }
     }
     
     @MainActor
-    public func fetchStatistics() async {
+    public func loadStatistics() async {
         do {
-            let interval = selectedPeriod.dateInterval
             let diaries = try await repository.getDiaries()
+            let interval = selectedPeriod.dateInterval
             let filteredDiaries = diaries.filter { interval.contains($0.date) }
             
-            statistics = EmotionStatistics(
-                diaries: filteredDiaries,
-                startDate: interval.start,
-                endDate: interval.end
-            )
+            var emotionCounts: [String: Int] = [:]
+            for diary in filteredDiaries {
+                emotionCounts[diary.emotion, default: 0] += 1
+            }
+            
+            let emotions = emotionCounts.map { EmotionStatistics.Emotion(name: $0.key, count: $0.value) }
+                .sorted { $0.count > $1.count }
+            
+            statistics = EmotionStatistics(emotions: emotions, startDate: interval.start, endDate: interval.end)
             
             Logger.d("Fetched statistics for period: \(selectedPeriod.rawValue)")
             Logger.d("Total diaries: \(statistics?.totalCount ?? 0)")

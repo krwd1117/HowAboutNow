@@ -1,7 +1,7 @@
 import Foundation
 import Alamofire
 
-public final class OpenAIEmotionAnalysisService: EmotionAnalysisService {
+public actor OpenAIEmotionAnalysisService: EmotionAnalysisService {
     private let apiKey: String
     private let baseURL: String
     

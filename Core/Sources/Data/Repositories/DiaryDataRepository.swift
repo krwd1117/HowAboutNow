@@ -1,41 +1,61 @@
 import Foundation
-import SwiftData
 
-public final class DiaryDataRepository {
-    private let modelContainer: ModelContainer
-    private let modelContext: ModelContext
+public actor DiaryDataRepository: DiaryRepository {
+    private let userDefaults: UserDefaults
+    private let diaryKey = "com.krwd.howaboutnow.diaries"
     
-    public init() throws {
-        let schema = Schema([Diary.self])
-        let modelConfiguration = ModelConfiguration(schema: schema)
+    public init(userDefaults: UserDefaults = .standard) {
+        self.userDefaults = userDefaults
+    }
+    
+    public func getDiaries() async throws -> [Diary] {
+        guard let data = userDefaults.data(forKey: diaryKey) else {
+            return []
+        }
         
         do {
-            modelContainer = try ModelContainer(for: schema)
-            modelContext = ModelContext(modelContainer)
-            modelContext.autosaveEnabled = true
+            let diaries = try JSONDecoder().decode([Diary].self, from: data)
+            return diaries.sorted { $0.date > $1.date }
         } catch {
-            throw error
+            Logger.e("Failed to decode diaries: \(error)")
+            throw RepositoryError.databaseError(error)
+        }
+    }
+    
+    public func saveDiary(_ diary: Diary) async throws {
+        var diaries = try await getDiaries()
+        diaries.append(diary)
+        try saveDiaries(diaries)
+    }
+    
+    public func updateDiary(_ diary: Diary) async throws {
+        var diaries = try await getDiaries()
+        if let index = diaries.firstIndex(where: { $0.id == diary.id }) {
+            diaries[index] = diary
+            try saveDiaries(diaries)
+        }
+    }
+    
+    public func deleteDiary(_ diary: Diary) async throws {
+        var diaries = try await getDiaries()
+        diaries.removeAll { $0.id == diary.id }
+        try saveDiaries(diaries)
+    }
+    
+    private func saveDiaries(_ diaries: [Diary]) throws {
+        do {
+            let data = try JSONEncoder().encode(diaries)
+            userDefaults.set(data, forKey: diaryKey)
+        } catch {
+            Logger.e("Failed to encode diaries: \(error)")
+            throw RepositoryError.databaseError(error)
         }
     }
 }
 
-extension DiaryDataRepository: DiaryRepository {
-    public func getDiaries() async throws -> [Diary] {
-        let descriptor = FetchDescriptor<Diary>(sortBy: [SortDescriptor(\.date, order: .reverse)])
-        return try modelContext.fetch(descriptor)
-    }
-    
-    public func saveDiary(_ diary: Diary) async throws {
-        modelContext.insert(diary)
-        try modelContext.save()
-    }
-    
-    public func updateDiary(_ diary: Diary) async throws {
-        try modelContext.save()
-    }
-    
-    public func deleteDiary(_ diary: Diary) async throws {
-        modelContext.delete(diary)
-        try modelContext.save()
+extension DiaryDataRepository {
+    enum RepositoryError: Error {
+        case invalidDiary
+        case databaseError(Error)
     }
 }

@@ -1,17 +1,21 @@
 import Foundation
-import SwiftData
 
-@Model
-public class Diary {
-    public var id: UUID
-    public var date: Date
+public struct Diary: Identifiable, Codable, Sendable {
+    public var id: String
     public var content: String
     public var emotion: String
+    public var date: Date
     
-    public init(id: UUID = UUID(), date: Date = .now, content: String, emotion: String) {
+    public init(id: String = UUID().uuidString, content: String, emotion: String, date: Date = Date()) {
         self.id = id
-        self.date = date
         self.content = content
         self.emotion = emotion
+        self.date = date
+    }
+}
+
+extension Diary {
+    public var identifier: String {
+        id
     }
 }

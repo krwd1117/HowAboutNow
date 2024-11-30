@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol EmotionAnalysisService {
+public protocol EmotionAnalysisService: Actor {
     func analyzeEmotion(from content: String) async throws -> String
 }
 

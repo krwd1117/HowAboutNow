@@ -5,11 +5,13 @@ import Core
 @Observable
 public class DiaryListViewModel {
     private let repository: DiaryRepository
+    private let emotionAnalysisService: EmotionAnalysisService
     public var diaries: [Diary] = []
     public var error: Error?
     
-    public init(repository: DiaryRepository) {
+    public init(repository: DiaryRepository, emotionAnalysisService: EmotionAnalysisService) {
         self.repository = repository
+        self.emotionAnalysisService = emotionAnalysisService
         Task { @MainActor in
             await fetchDiaries()
         }
@@ -28,11 +30,18 @@ public class DiaryListViewModel {
     
     @MainActor
     public func addDiary(content: String) async {
-        let diary = Diary(content: content, emotion: "") // 감정은 나중에 GPT로 분석
         do {
+            // 1. 감정 분석
+            let emotion = try await emotionAnalysisService.analyzeEmotion(from: content)
+            print("Analyzed emotion: \(emotion)")
+            
+            // 2. 일기 저장
+            let diary = Diary(content: content, emotion: emotion)
             try await repository.saveDiary(diary)
+            print("Successfully added new diary with emotion: \(emotion)")
+            
+            // 3. 목록 갱신
             await fetchDiaries()
-            print("Successfully added new diary")
         } catch {
             self.error = error
             print("Failed to add diary: \(error)")
@@ -41,13 +50,21 @@ public class DiaryListViewModel {
     
     @MainActor
     public func updateDiary(_ diary: Diary, content: String) async {
-        diary.content = content
-        diary.date = .now // 수정 시간 업데이트
-        
         do {
+            // 1. 감정 분석
+            let emotion = try await emotionAnalysisService.analyzeEmotion(from: content)
+            print("Analyzed emotion: \(emotion)")
+            
+            // 2. 일기 업데이트
+            diary.content = content
+            diary.emotion = emotion
+            diary.date = .now
+            
             try await repository.updateDiary(diary)
-            await fetchDiaries()
             print("Successfully updated diary: \(diary.id)")
+            
+            // 3. 목록 갱신
+            await fetchDiaries()
         } catch {
             self.error = error
             print("Failed to update diary: \(error)")

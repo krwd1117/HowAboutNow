@@ -72,9 +72,6 @@ public struct DiaryListView: View {
                 )
             }
         }
-        .task {
-            await viewModel.fetchDiaries()
-        }
     }
 }
 
@@ -92,14 +89,46 @@ private struct DiaryRowView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 
+                Spacer()
+                
                 if !diary.emotion.isEmpty {
-                    Text(diary.emotion)
+                    Label(diary.emotion, systemImage: emotionIcon)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(emotionColor)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(emotionColor.opacity(0.1))
+                        .clipShape(Capsule())
                 }
             }
         }
         .padding(.vertical, 4)
+    }
+    
+    private var emotionIcon: String {
+        switch diary.emotion {
+        case "행복": return "face.smiling"
+        case "기쁨": return "star"
+        case "평온": return "sun.max"
+        case "슬픔": return "cloud.rain"
+        case "분노": return "flame"
+        case "불안": return "exclamationmark.triangle"
+        case "희망": return "sunrise"
+        default: return "questionmark"
+        }
+    }
+    
+    private var emotionColor: Color {
+        switch diary.emotion {
+        case "행복": return .blue
+        case "기쁨": return .yellow
+        case "평온": return .green
+        case "슬픔": return .gray
+        case "분노": return .red
+        case "불안": return .orange
+        case "희망": return .purple
+        default: return .secondary
+        }
     }
 }
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		002876D35CF8ED2CE0B29563 /* OpenAIEmotionAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092859D7D7D0527FD76B0390 /* OpenAIEmotionAnalysisService.swift */; };
+		003A790B251B0AA541AEE626 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC73A6A5E312125312D029C6 /* Configuration.plist */; };
 		03BD9A5DCB219815D5C82887 /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2BEFA2E507413F748053B25 /* UI.framework */; };
 		04DBF6EFB02340370C124DD0 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E642500D6CF54603F195F566 /* Logger.swift */; };
 		078A6D5969785B42A6ECEF68 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083B9BBC23F7B7BF12E5D790 /* Core.framework */; };
@@ -15,14 +17,20 @@
 		3022D9ED2C73849471A21684 /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F0C08FCB46F438E579C5B /* DiaryListViewModel.swift */; };
 		30F7A2F799D2B170EA7ADD73 /* DiaryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBD1DF5E5D961456C0A6D42 /* DiaryRepository.swift */; };
 		4BC9AF53EB84413D6980BAF5 /* HowAboutNow.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */; };
+		53946BC875507A6392D00D2B /* EmotionAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096382B7EBA7EBC1E57D4EB6 /* EmotionAnalysisService.swift */; };
+		56942D45E440352F0FFB1D6E /* Configuration.template.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */; };
 		599DD2D8B14EC550BEA51513 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083B9BBC23F7B7BF12E5D790 /* Core.framework */; };
 		5C9CA81C77F30A4338FB3B7F /* Feature.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77DB478DB54A3747A837842 /* Feature.framework */; };
+		739F6EB13E35260932463BF7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 05A2E54D5666F61D9DFDB376 /* Alamofire */; };
 		7486B63DB242CF0EA82D1C29 /* UIModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D5B82EF60369E40BE57213 /* UIModule.swift */; };
 		7FF5EDCFAAFA1AA44BD48996 /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2BEFA2E507413F748053B25 /* UI.framework */; };
+		8CF26FF7BB65F0F877D82BA7 /* TuistPlists+HowAboutNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */; };
 		A8983A59366A99C4B6D7E5CF /* Feature.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F77DB478DB54A3747A837842 /* Feature.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AA198F9190D7BB36DDDA4D31 /* DiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED1D6BB860F0C5CEA3F96B0 /* DiaryListView.swift */; };
+		AEC596BE458CD7BB56C2BB1F /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B057CC5196A9E3750546F3 /* ConfigurationManager.swift */; };
 		BDB2D28992E84257B1438E41 /* TuistBundle+HowAboutNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3947BC8C5C117E2FB9ED50 /* TuistBundle+HowAboutNow.swift */; };
 		C10CDC09A15CFB8844E473C4 /* HowAboutNowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0005D74FC91600ACEF41D551 /* HowAboutNowApp.swift */; };
+		C1933F0020197F4BDF3F0A9C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18F153020528B2D6C5E1CAA /* Config.swift */; };
 		C5A7BC79C056FD6A5022F3A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB65F8FE973BC1E4726A8E5A /* Assets.xcassets */; };
 		C9290A4F6BAA003F51EFB3E2 /* UI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F2BEFA2E507413F748053B25 /* UI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB5E6E2AB8EDA1D02305870F /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C621CED02BA10FE2967F7E94 /* Diary.swift */; };
@@ -125,6 +133,8 @@
 /* Begin PBXFileReference section */
 		0005D74FC91600ACEF41D551 /* HowAboutNowApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowAboutNowApp.swift; sourceTree = "<group>"; };
 		083B9BBC23F7B7BF12E5D790 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		092859D7D7D0527FD76B0390 /* OpenAIEmotionAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIEmotionAnalysisService.swift; sourceTree = "<group>"; };
+		096382B7EBA7EBC1E57D4EB6 /* EmotionAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionAnalysisService.swift; sourceTree = "<group>"; };
 		0E3F0C08FCB46F438E579C5B /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
 		1E276AAA47B5BE077C542826 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		29D14B44856F39843935F8DC /* TuistAssets+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+HowAboutNow.swift"; sourceTree = "<group>"; };
@@ -136,14 +146,19 @@
 		48684C5DE0BF49ACC711C4BC /* DiaryDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDataRepository.swift; sourceTree = "<group>"; };
 		52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HowAboutNow.entitlements; sourceTree = "<group>"; };
 		5D33030F15EC96D72F4E5EED /* UI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "UI-Info.plist"; sourceTree = "<group>"; };
+		743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistPlists+HowAboutNow.swift"; sourceTree = "<group>"; };
+		78B057CC5196A9E3750546F3 /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
+		AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Configuration.template.plist; sourceTree = "<group>"; };
 		BE3152EA26B750A16B8E15F7 /* Feature-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Feature-Info.plist"; sourceTree = "<group>"; };
 		C621CED02BA10FE2967F7E94 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		DD3947BC8C5C117E2FB9ED50 /* TuistBundle+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+HowAboutNow.swift"; sourceTree = "<group>"; };
 		E642500D6CF54603F195F566 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		F18F153020528B2D6C5E1CAA /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		F2BEFA2E507413F748053B25 /* UI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77DB478DB54A3747A837842 /* Feature.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Feature.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB65F8FE973BC1E4726A8E5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC1FB3BC1AB610DA3620379B /* HowAboutNow-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "HowAboutNow-Info.plist"; sourceTree = "<group>"; };
+		FC73A6A5E312125312D029C6 /* Configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Configuration.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +176,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				739F6EB13E35260932463BF7 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +229,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		1406DD00654D7C54D20EA0B9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				096382B7EBA7EBC1E57D4EB6 /* EmotionAnalysisService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		18065C406D65B5FFFD80A898 /* Derived */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,9 +281,19 @@
 		686195AE8910160C83441412 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F18F153020528B2D6C5E1CAA /* Config.swift */,
+				78B057CC5196A9E3750546F3 /* ConfigurationManager.swift */,
 				E642500D6CF54603F195F566 /* Logger.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		716B2B8B6F8D76B7DA6E5F8F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				092859D7D7D0527FD76B0390 /* OpenAIEmotionAnalysisService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		71852A7A7DDD492543080B63 /* InfoPlists */ = {
@@ -295,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				A93E69F24BE3C245B181447A /* Repositories */,
+				716B2B8B6F8D76B7DA6E5F8F /* Services */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -320,6 +355,7 @@
 			children = (
 				29D14B44856F39843935F8DC /* TuistAssets+HowAboutNow.swift */,
 				DD3947BC8C5C117E2FB9ED50 /* TuistBundle+HowAboutNow.swift */,
+				743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -337,6 +373,7 @@
 			children = (
 				53C0E34C793E8EEC90DAAAA0 /* Entities */,
 				EDEE274941EB6266925BE2AB /* Interfaces */,
+				1406DD00654D7C54D20EA0B9 /* Services */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -365,6 +402,8 @@
 			isa = PBXGroup;
 			children = (
 				FB65F8FE973BC1E4726A8E5A /* Assets.xcassets */,
+				FC73A6A5E312125312D029C6 /* Configuration.plist */,
+				AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */,
 				52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */,
 			);
 			path = Resources;
@@ -465,6 +504,7 @@
 			);
 			name = Core;
 			packageProductDependencies = (
+				05A2E54D5666F61D9DFDB376 /* Alamofire */,
 			);
 			productName = Core;
 			productReference = 083B9BBC23F7B7BF12E5D790 /* Core.framework */;
@@ -512,6 +552,9 @@
 				en,
 			);
 			mainGroup = B68710D438C1881E4DB2307D;
+			packageReferences = (
+				E03E552E7C06D5B48CD9BF19 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 138F0BBF2C72A63DB989A7D2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -537,6 +580,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5A7BC79C056FD6A5022F3A9 /* Assets.xcassets in Resources */,
+				003A790B251B0AA541AEE626 /* Configuration.plist in Resources */,
+				56942D45E440352F0FFB1D6E /* Configuration.template.plist in Resources */,
 				4BC9AF53EB84413D6980BAF5 /* HowAboutNow.entitlements in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -574,6 +619,7 @@
 				C10CDC09A15CFB8844E473C4 /* HowAboutNowApp.swift in Sources */,
 				F5E3E813327FD37CE94633CD /* TuistAssets+HowAboutNow.swift in Sources */,
 				BDB2D28992E84257B1438E41 /* TuistBundle+HowAboutNow.swift in Sources */,
+				8CF26FF7BB65F0F877D82BA7 /* TuistPlists+HowAboutNow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,10 +627,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1933F0020197F4BDF3F0A9C /* Config.swift in Sources */,
+				AEC596BE458CD7BB56C2BB1F /* ConfigurationManager.swift in Sources */,
 				04DBF6EFB02340370C124DD0 /* Logger.swift in Sources */,
 				1049B72B7F2FEF6E47040B33 /* DiaryDataRepository.swift in Sources */,
+				002876D35CF8ED2CE0B29563 /* OpenAIEmotionAnalysisService.swift in Sources */,
 				DB5E6E2AB8EDA1D02305870F /* Diary.swift in Sources */,
 				30F7A2F799D2B170EA7ADD73 /* DiaryRepository.swift in Sources */,
+				53946BC875507A6392D00D2B /* EmotionAnalysisService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1066,6 +1116,24 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E03E552E7C06D5B48CD9BF19 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		05A2E54D5666F61D9DFDB376 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A556E638B63C4160CFD291A1 /* Project object */;
 }

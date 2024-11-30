@@ -13,7 +13,9 @@ let project = Project(
             testingOptions: .parallelizable
         )
     ),
-    packages: [],
+    packages: [
+        .remote(url: "https://github.com/Alamofire/Alamofire.git", requirement: .upToNextMajor(from: "5.8.1")),
+    ],
     settings: .settings(
         base: [:],
         configurations: [
@@ -38,7 +40,7 @@ let project = Project(
                 "UIRequiresFullScreen": true
             ]),
             sources: ["App/Sources/**"],
-            resources: ["App/Resources/**"],
+            resources: ["App/Resources/**", "App/Resources/NewResource"],
             entitlements: .file(path: "App/Resources/HowAboutNow.entitlements"),
             dependencies: [
                 .target(name: "Core"),
@@ -55,7 +57,9 @@ let project = Project(
             deploymentTargets: deploymentTarget,
             infoPlist: .default,
             sources: ["Core/Sources/**"],
-            dependencies: []
+            dependencies: [
+                .package(product: "Alamofire"),
+            ]
         ),
         
         .target(

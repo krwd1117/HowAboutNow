@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 @preconcurrency import SwiftUI
 import Core
 
@@ -22,6 +23,7 @@ public final class DiaryListViewModel: ObservableObject {
         
         do {
             diaries = try await repository.getDiaries()
+                .sorted { $0.date > $1.date }
         } catch {
             self.error = error
         }
@@ -29,15 +31,15 @@ public final class DiaryListViewModel: ObservableObject {
         isLoading = false
     }
     
-    public func addDiary(content: String) async {
-        guard !content.isEmpty else { return }
+    public func addDiary(title: String, content: String, date: Date) async {
+        guard !title.isEmpty && !content.isEmpty else { return }
         
         isLoading = true
         error = nil
         
         do {
             let emotion = try await emotionAnalysisService.analyzeEmotion(from: content)
-            let diary = Diary(content: content, emotion: emotion)
+            let diary = Diary(title: title, content: content, emotion: emotion, date: date)
             try await repository.saveDiary(diary)
             await loadDiaries()
         } catch {
@@ -47,15 +49,15 @@ public final class DiaryListViewModel: ObservableObject {
         isLoading = false
     }
     
-    public func updateDiary(_ diary: Diary, content: String) async {
-        guard !content.isEmpty else { return }
+    public func updateDiary(_ diary: Diary, title: String, content: String, date: Date) async {
+        guard !title.isEmpty && !content.isEmpty else { return }
         
         isLoading = true
         error = nil
         
         do {
             let emotion = try await emotionAnalysisService.analyzeEmotion(from: content)
-            let updatedDiary = Diary(id: diary.id, content: content, emotion: emotion, date: diary.date)
+            let updatedDiary = Diary(id: diary.id, title: title, content: content, emotion: emotion, date: date)
             try await repository.updateDiary(updatedDiary)
             await loadDiaries()
         } catch {

@@ -14,9 +14,19 @@ public actor DiaryDataRepository: DiaryRepository {
         }
         
         do {
-            let diaries = try JSONDecoder().decode([Diary].self, from: data)
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            let diaries = try decoder.decode([Diary].self, from: data)
             return diaries.sorted { $0.date > $1.date }
         } catch {
+            // 이전 버전의 데이터 구조와 호환성 유지
+            if let decodingError = error as? DecodingError,
+               case .keyNotFound(let key, _) = decodingError,
+               key.stringValue == "title" {
+                // 기존 데이터 삭제
+                userDefaults.removeObject(forKey: self.diaryKey)
+                return []
+            }
             Logger.e("Failed to decode diaries: \(error)")
             throw RepositoryError.databaseError(error)
         }
@@ -43,8 +53,10 @@ public actor DiaryDataRepository: DiaryRepository {
     }
     
     private func saveDiaries(_ diaries: [Diary]) throws {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
         do {
-            let data = try JSONEncoder().encode(diaries)
+            let data = try encoder.encode(diaries)
             userDefaults.set(data, forKey: diaryKey)
         } catch {
             Logger.e("Failed to encode diaries: \(error)")

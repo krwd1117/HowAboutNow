@@ -5,37 +5,49 @@ public struct DiaryListView: View {
     @State private var viewModel: DiaryListViewModel
     @State private var isShowingNewDiary = false
     @State private var isShowingEditDiary = false
-    @State private var editingContent = ""
     @State private var selectedDiary: Diary?
+    @State private var editingContent = ""
     
     public init(viewModel: DiaryListViewModel) {
-        self.viewModel = viewModel
+        self._viewModel = State(initialValue: viewModel)
     }
     
     public var body: some View {
         List {
             ForEach(viewModel.diaries) { diary in
                 DiaryRowView(diary: diary)
-                    .contentShape(Rectangle())
+                    .swipeActions(edge: .trailing) {
+                        Button(role: .destructive) {
+                            Task {
+                                await viewModel.deleteDiary(diary)
+                            }
+                        } label: {
+                            Label("삭제", systemImage: "trash")
+                        }
+                    }
                     .onTapGesture {
                         selectedDiary = diary
                         editingContent = diary.content
                         isShowingEditDiary = true
                     }
             }
-            .onDelete { indexSet in
-                Task {
-                    await viewModel.deleteDiaries(at: indexSet)
-                }
-            }
         }
+        .navigationTitle("일기")
         .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button(action: { 
-                    editingContent = ""
-                    isShowingNewDiary = true 
-                }) {
-                    Image(systemName: "square.and.pencil")
+            ToolbarItem(placement: .topBarTrailing) {
+                HStack {
+                    NavigationLink {
+                        EmotionStatisticsView(viewModel: EmotionStatisticsViewModel(repository: viewModel.repository))
+                    } label: {
+                        Image(systemName: "chart.pie")
+                    }
+                    
+                    Button {
+                        editingContent = ""
+                        isShowingNewDiary = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
                 }
             }
         }
@@ -43,46 +55,41 @@ public struct DiaryListView: View {
             NavigationStack {
                 DiaryEditorView(
                     mode: .new,
-                    content: $editingContent,
-                    onSave: { content in
-                        Task {
-                            await viewModel.addDiary(content: content)
-                            editingContent = ""
-                            isShowingNewDiary = false
-                        }
+                    content: editingContent
+                ) { content in
+                    Task {
+                        await viewModel.addDiary(content: content)
                     }
-                )
+                }
             }
         }
         .sheet(isPresented: $isShowingEditDiary) {
-            NavigationStack {
-                DiaryEditorView(
-                    mode: .edit(content: selectedDiary?.content ?? ""),
-                    content: $editingContent,
-                    onSave: { content in
+            if let diary = selectedDiary {
+                NavigationStack {
+                    DiaryEditorView(
+                        mode: .edit(diary),
+                        content: editingContent
+                    ) { content in
                         Task {
-                            if let diary = selectedDiary {
-                                await viewModel.updateDiary(diary, content: content)
-                                editingContent = ""
-                                selectedDiary = nil
-                                isShowingEditDiary = false
-                            }
+                            await viewModel.updateDiary(diary, content: content)
                         }
                     }
-                )
+                }
             }
+        }
+        .task {
+            await viewModel.fetchDiaries()
         }
     }
 }
 
-private struct DiaryRowView: View {
+struct DiaryRowView: View {
     let diary: Diary
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(diary.content)
-                .font(.body)
-                .lineLimit(3)
+                .lineLimit(2)
             
             HStack {
                 Text(diary.date.formatted(date: .abbreviated, time: .shortened))
@@ -91,74 +98,51 @@ private struct DiaryRowView: View {
                 
                 Spacer()
                 
-                if !diary.emotion.isEmpty {
-                    Label(diary.emotion, systemImage: emotionIcon)
-                        .font(.caption)
-                        .foregroundStyle(emotionColor)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(emotionColor.opacity(0.1))
-                        .clipShape(Capsule())
-                }
+                Text(diary.emotion)
+                    .font(.caption)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.accentColor.opacity(0.1))
+                    .clipShape(Capsule())
             }
         }
         .padding(.vertical, 4)
     }
-    
-    private var emotionIcon: String {
-        switch diary.emotion {
-        case "행복": return "face.smiling"
-        case "기쁨": return "star"
-        case "평온": return "sun.max"
-        case "슬픔": return "cloud.rain"
-        case "분노": return "flame"
-        case "불안": return "exclamationmark.triangle"
-        case "희망": return "sunrise"
-        default: return "questionmark"
-        }
-    }
-    
-    private var emotionColor: Color {
-        switch diary.emotion {
-        case "행복": return .blue
-        case "기쁨": return .yellow
-        case "평온": return .green
-        case "슬픔": return .gray
-        case "분노": return .red
-        case "불안": return .orange
-        case "희망": return .purple
-        default: return .secondary
-        }
-    }
 }
 
-private struct DiaryEditorView: View {
+struct DiaryEditorView: View {
     enum Mode {
         case new
-        case edit(content: String)
+        case edit(Diary)
         
         var title: String {
             switch self {
-            case .new:
-                return "새로운 일기"
-            case .edit:
-                return "일기 수정"
+            case .new: return "새 일기"
+            case .edit: return "일기 수정"
             }
         }
     }
     
     let mode: Mode
-    @Binding var content: String
+    let content: String
     let onSave: (String) -> Void
+    
+    @State private var editedContent: String
     @Environment(\.dismiss) private var dismiss
+    
+    init(mode: Mode, content: String, onSave: @escaping (String) -> Void) {
+        self.mode = mode
+        self.content = content
+        self.onSave = onSave
+        self._editedContent = State(initialValue: content)
+    }
     
     var body: some View {
         Form {
-            TextField("오늘 하루는 어땠나요?", text: $content, axis: .vertical)
+            TextField("오늘 하루는 어땠나요?", text: $editedContent, axis: .vertical)
                 .lineLimit(5...10)
         }
         .navigationTitle(mode.title)
-        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("취소") {
@@ -167,9 +151,10 @@ private struct DiaryEditorView: View {
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button("저장") {
-                    onSave(content)
+                    onSave(editedContent)
+                    dismiss()
                 }
-                .disabled(content.isEmpty)
+                .disabled(editedContent.isEmpty)
             }
         }
     }

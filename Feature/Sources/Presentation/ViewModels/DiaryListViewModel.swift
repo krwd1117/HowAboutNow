@@ -1,13 +1,12 @@
 import Foundation
-import SwiftUI
 import Core
 
 @Observable
 public class DiaryListViewModel {
-    private let repository: DiaryRepository
+    public let repository: DiaryRepository
     private let emotionAnalysisService: EmotionAnalysisService
-    public var diaries: [Diary] = []
-    public var error: Error?
+    public private(set) var diaries: [Diary] = []
+    public private(set) var error: Error?
     
     public init(repository: DiaryRepository, emotionAnalysisService: EmotionAnalysisService) {
         self.repository = repository
@@ -21,53 +20,41 @@ public class DiaryListViewModel {
     public func fetchDiaries() async {
         do {
             diaries = try await repository.getDiaries()
-            print("Fetched \(diaries.count) diaries")
+            Logger.d("Fetched \(diaries.count) diaries")
         } catch {
+            Logger.e("Failed to fetch diaries: \(error)")
             self.error = error
-            print("Failed to fetch diaries: \(error)")
         }
     }
     
     @MainActor
     public func addDiary(content: String) async {
         do {
-            // 1. 감정 분석
             let emotion = try await emotionAnalysisService.analyzeEmotion(from: content)
-            print("Analyzed emotion: \(emotion)")
-            
-            // 2. 일기 저장
             let diary = Diary(content: content, emotion: emotion)
             try await repository.saveDiary(diary)
-            print("Successfully added new diary with emotion: \(emotion)")
-            
-            // 3. 목록 갱신
             await fetchDiaries()
+            Logger.d("Added new diary with emotion: \(emotion)")
         } catch {
+            Logger.e("Failed to add diary: \(error)")
             self.error = error
-            print("Failed to add diary: \(error)")
         }
     }
     
     @MainActor
     public func updateDiary(_ diary: Diary, content: String) async {
         do {
-            // 1. 감정 분석
             let emotion = try await emotionAnalysisService.analyzeEmotion(from: content)
-            print("Analyzed emotion: \(emotion)")
-            
-            // 2. 일기 업데이트
-            diary.content = content
-            diary.emotion = emotion
-            diary.date = .now
-            
-            try await repository.updateDiary(diary)
-            print("Successfully updated diary: \(diary.id)")
-            
-            // 3. 목록 갱신
+            var updatedDiary = diary
+            updatedDiary.content = content
+            updatedDiary.emotion = emotion
+            updatedDiary.date = .now
+            try await repository.updateDiary(updatedDiary)
             await fetchDiaries()
+            Logger.d("Updated diary with emotion: \(emotion)")
         } catch {
+            Logger.e("Failed to update diary: \(error)")
             self.error = error
-            print("Failed to update diary: \(error)")
         }
     }
     
@@ -77,12 +64,24 @@ public class DiaryListViewModel {
             let diary = diaries[index]
             do {
                 try await repository.deleteDiary(diary)
-                print("Successfully deleted diary: \(diary.id)")
+                await fetchDiaries()
+                Logger.d("Deleted diary")
             } catch {
+                Logger.e("Failed to delete diary: \(error)")
                 self.error = error
-                print("Failed to delete diary: \(diary.id)")
             }
         }
-        await fetchDiaries()
+    }
+    
+    @MainActor
+    public func deleteDiary(_ diary: Diary) async {
+        do {
+            try await repository.deleteDiary(diary)
+            await fetchDiaries()
+            Logger.d("Deleted diary")
+        } catch {
+            Logger.e("Failed to delete diary: \(error)")
+            self.error = error
+        }
     }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,7 @@
 		003A790B251B0AA541AEE626 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC73A6A5E312125312D029C6 /* Configuration.plist */; };
 		03BD9A5DCB219815D5C82887 /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2BEFA2E507413F748053B25 /* UI.framework */; };
 		04DBF6EFB02340370C124DD0 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E642500D6CF54603F195F566 /* Logger.swift */; };
+		0781C335F2C5F92B58C9C5F4 /* EmotionStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4491E713E85ED6C208298EA6 /* EmotionStatisticsView.swift */; };
 		078A6D5969785B42A6ECEF68 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083B9BBC23F7B7BF12E5D790 /* Core.framework */; };
 		1049B72B7F2FEF6E47040B33 /* DiaryDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48684C5DE0BF49ACC711C4BC /* DiaryDataRepository.swift */; };
 		1210366882A7BBE1CE6499D8 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083B9BBC23F7B7BF12E5D790 /* Core.framework */; };
@@ -21,6 +22,7 @@
 		56942D45E440352F0FFB1D6E /* Configuration.template.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */; };
 		599DD2D8B14EC550BEA51513 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083B9BBC23F7B7BF12E5D790 /* Core.framework */; };
 		5C9CA81C77F30A4338FB3B7F /* Feature.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77DB478DB54A3747A837842 /* Feature.framework */; };
+		60F2DE1CCCC66AD4435E792D /* EmotionStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D049E2532F07C2518D9519 /* EmotionStatistics.swift */; };
 		739F6EB13E35260932463BF7 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 05A2E54D5666F61D9DFDB376 /* Alamofire */; };
 		7486B63DB242CF0EA82D1C29 /* UIModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D5B82EF60369E40BE57213 /* UIModule.swift */; };
 		7FF5EDCFAAFA1AA44BD48996 /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2BEFA2E507413F748053B25 /* UI.framework */; };
@@ -35,6 +37,7 @@
 		C9290A4F6BAA003F51EFB3E2 /* UI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F2BEFA2E507413F748053B25 /* UI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB5E6E2AB8EDA1D02305870F /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C621CED02BA10FE2967F7E94 /* Diary.swift */; };
 		E1797398DED82634050DB3B4 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 083B9BBC23F7B7BF12E5D790 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E4B1BC81CBFC122FF55B2179 /* EmotionStatisticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70D945701043B28748338B5 /* EmotionStatisticsViewModel.swift */; };
 		F50C7D8B2E0E7279485A567D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E276AAA47B5BE077C542826 /* ContentView.swift */; };
 		F5E3E813327FD37CE94633CD /* TuistAssets+HowAboutNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D14B44856F39843935F8DC /* TuistAssets+HowAboutNow.swift */; };
 /* End PBXBuildFile section */
@@ -143,14 +146,17 @@
 		31934822F47659E2BB5196BA /* Core-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Core-Info.plist"; sourceTree = "<group>"; };
 		3EBD1DF5E5D961456C0A6D42 /* DiaryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRepository.swift; sourceTree = "<group>"; };
 		42D5B82EF60369E40BE57213 /* UIModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIModule.swift; sourceTree = "<group>"; };
+		4491E713E85ED6C208298EA6 /* EmotionStatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionStatisticsView.swift; sourceTree = "<group>"; };
 		48684C5DE0BF49ACC711C4BC /* DiaryDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDataRepository.swift; sourceTree = "<group>"; };
 		52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HowAboutNow.entitlements; sourceTree = "<group>"; };
 		5D33030F15EC96D72F4E5EED /* UI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "UI-Info.plist"; sourceTree = "<group>"; };
 		743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistPlists+HowAboutNow.swift"; sourceTree = "<group>"; };
 		78B057CC5196A9E3750546F3 /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Configuration.template.plist; sourceTree = "<group>"; };
+		B1D049E2532F07C2518D9519 /* EmotionStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionStatistics.swift; sourceTree = "<group>"; };
 		BE3152EA26B750A16B8E15F7 /* Feature-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Feature-Info.plist"; sourceTree = "<group>"; };
 		C621CED02BA10FE2967F7E94 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
+		C70D945701043B28748338B5 /* EmotionStatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionStatisticsViewModel.swift; sourceTree = "<group>"; };
 		DD3947BC8C5C117E2FB9ED50 /* TuistBundle+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+HowAboutNow.swift"; sourceTree = "<group>"; };
 		E642500D6CF54603F195F566 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		F18F153020528B2D6C5E1CAA /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -246,6 +252,14 @@
 			path = Derived;
 			sourceTree = "<group>";
 		};
+		1C088CC6E00C35732E768233 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B1D049E2532F07C2518D9519 /* EmotionStatistics.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		24670C09AB04B8E63FCAAF9F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				2ED1D6BB860F0C5CEA3F96B0 /* DiaryListView.swift */,
+				4491E713E85ED6C208298EA6 /* EmotionStatisticsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -373,6 +388,7 @@
 			children = (
 				53C0E34C793E8EEC90DAAAA0 /* Entities */,
 				EDEE274941EB6266925BE2AB /* Interfaces */,
+				1C088CC6E00C35732E768233 /* Models */,
 				1406DD00654D7C54D20EA0B9 /* Services */,
 			);
 			path = Domain;
@@ -421,6 +437,7 @@
 			isa = PBXGroup;
 			children = (
 				0E3F0C08FCB46F438E579C5B /* DiaryListViewModel.swift */,
+				C70D945701043B28748338B5 /* EmotionStatisticsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -540,8 +557,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				ORGANIZATIONNAME = HowAboutNow;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = C68EB2540CA791112451CAE6 /* Build configuration list for PBXProject "HowAboutNow" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -634,6 +649,7 @@
 				002876D35CF8ED2CE0B29563 /* OpenAIEmotionAnalysisService.swift in Sources */,
 				DB5E6E2AB8EDA1D02305870F /* Diary.swift in Sources */,
 				30F7A2F799D2B170EA7ADD73 /* DiaryRepository.swift in Sources */,
+				60F2DE1CCCC66AD4435E792D /* EmotionStatistics.swift in Sources */,
 				53946BC875507A6392D00D2B /* EmotionAnalysisService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -643,7 +659,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3022D9ED2C73849471A21684 /* DiaryListViewModel.swift in Sources */,
+				E4B1BC81CBFC122FF55B2179 /* EmotionStatisticsViewModel.swift in Sources */,
 				AA198F9190D7BB36DDDA4D31 /* DiaryListView.swift in Sources */,
+				0781C335F2C5F92B58C9C5F4 /* EmotionStatisticsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,10 +784,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -818,6 +833,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = App/Resources/HowAboutNow.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 5TQSUXNFZV;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/HowAboutNow-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -895,10 +911,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -947,6 +960,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = App/Resources/HowAboutNow.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 5TQSUXNFZV;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/HowAboutNow-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
@@ -960,10 +974,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -995,10 +1006,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

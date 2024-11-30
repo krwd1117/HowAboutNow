@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E883F4CDB087740782CE53A"
-               BuildableName = "HomeFeature.framework"
-               BlueprintName = "HomeFeature"
+               BlueprintIdentifier = "500BB1D47F4BD82BFDF53A55"
+               BuildableName = "UI.framework"
+               BlueprintName = "UI"
                ReferencedContainer = "container:HowAboutNow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,9 +44,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E883F4CDB087740782CE53A"
-            BuildableName = "HomeFeature.framework"
-            BlueprintName = "HomeFeature"
+            BlueprintIdentifier = "500BB1D47F4BD82BFDF53A55"
+            BuildableName = "UI.framework"
+            BlueprintName = "UI"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -60,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6E883F4CDB087740782CE53A"
-            BuildableName = "HomeFeature.framework"
-            BlueprintName = "HomeFeature"
+            BlueprintIdentifier = "500BB1D47F4BD82BFDF53A55"
+            BuildableName = "UI.framework"
+            BlueprintName = "UI"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "45D7A3A82FF13AE7FB33080D"
-               BuildableName = "CommonFeature.framework"
-               BlueprintName = "CommonFeature"
+               BlueprintIdentifier = "852FDDD54219994BF8639641"
+               BuildableName = "Feature.framework"
+               BlueprintName = "Feature"
                ReferencedContainer = "container:HowAboutNow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,9 +44,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45D7A3A82FF13AE7FB33080D"
-            BuildableName = "CommonFeature.framework"
-            BlueprintName = "CommonFeature"
+            BlueprintIdentifier = "852FDDD54219994BF8639641"
+            BuildableName = "Feature.framework"
+            BlueprintName = "Feature"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -60,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45D7A3A82FF13AE7FB33080D"
-            BuildableName = "CommonFeature.framework"
-            BlueprintName = "CommonFeature"
+            BlueprintIdentifier = "852FDDD54219994BF8639641"
+            BuildableName = "Feature.framework"
+            BlueprintName = "Feature"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

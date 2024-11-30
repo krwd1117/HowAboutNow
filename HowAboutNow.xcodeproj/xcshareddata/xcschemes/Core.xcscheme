@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "36AA12167448A104F222CF73"
-               BuildableName = "CoreStorage.framework"
-               BlueprintName = "CoreStorage"
+               BlueprintIdentifier = "7726A20426CA4658ED9EEF02"
+               BuildableName = "Core.framework"
+               BlueprintName = "Core"
                ReferencedContainer = "container:HowAboutNow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,9 +44,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "36AA12167448A104F222CF73"
-            BuildableName = "CoreStorage.framework"
-            BlueprintName = "CoreStorage"
+            BlueprintIdentifier = "7726A20426CA4658ED9EEF02"
+            BuildableName = "Core.framework"
+            BlueprintName = "Core"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -60,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "36AA12167448A104F222CF73"
-            BuildableName = "CoreStorage.framework"
-            BlueprintName = "CoreStorage"
+            BlueprintIdentifier = "7726A20426CA4658ED9EEF02"
+            BuildableName = "Core.framework"
+            BlueprintName = "Core"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

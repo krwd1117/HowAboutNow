@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "45D7A3A82FF13AE7FB33080D"
-               BuildableName = "CommonFeature.framework"
-               BlueprintName = "CommonFeature"
+               BlueprintIdentifier = "7726A20426CA4658ED9EEF02"
+               BuildableName = "Core.framework"
+               BlueprintName = "Core"
                ReferencedContainer = "container:HowAboutNow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,65 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "268DD4A1BC63ABC1FA9938F8"
-               BuildableName = "CoreDesignSystem.framework"
-               BlueprintName = "CoreDesignSystem"
-               ReferencedContainer = "container:HowAboutNow.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "36AA12167448A104F222CF73"
-               BuildableName = "CoreStorage.framework"
-               BlueprintName = "CoreStorage"
-               ReferencedContainer = "container:HowAboutNow.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7416D6775D55D94F4C5ECD2A"
-               BuildableName = "Data.framework"
-               BlueprintName = "Data"
-               ReferencedContainer = "container:HowAboutNow.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1FFA422CE0719EC6F615A393"
-               BuildableName = "Domain.framework"
-               BlueprintName = "Domain"
-               ReferencedContainer = "container:HowAboutNow.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6E883F4CDB087740782CE53A"
-               BuildableName = "HomeFeature.framework"
-               BlueprintName = "HomeFeature"
+               BlueprintIdentifier = "852FDDD54219994BF8639641"
+               BuildableName = "Feature.framework"
+               BlueprintName = "Feature"
                ReferencedContainer = "container:HowAboutNow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -112,9 +56,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "510DF2B01F5019F839DD2F71"
-               BuildableName = "ProfileFeature.framework"
-               BlueprintName = "ProfileFeature"
+               BlueprintIdentifier = "500BB1D47F4BD82BFDF53A55"
+               BuildableName = "UI.framework"
+               BlueprintName = "UI"
                ReferencedContainer = "container:HowAboutNow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -141,9 +85,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45D7A3A82FF13AE7FB33080D"
-            BuildableName = "CommonFeature.framework"
-            BlueprintName = "CommonFeature"
+            BlueprintIdentifier = "7726A20426CA4658ED9EEF02"
+            BuildableName = "Core.framework"
+            BlueprintName = "Core"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -157,9 +101,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "45D7A3A82FF13AE7FB33080D"
-            BuildableName = "CommonFeature.framework"
-            BlueprintName = "CommonFeature"
+            BlueprintIdentifier = "7726A20426CA4658ED9EEF02"
+            BuildableName = "Core.framework"
+            BlueprintName = "Core"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -16,9 +16,10 @@ struct ContentView: View {
             Text("Hello, world!")
         }
         .padding()
+        .ignoresSafeArea(.all, edges: [])
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}

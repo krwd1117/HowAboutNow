@@ -39,6 +39,8 @@ let project = Project(
                 "UIRequiresFullScreen": false,
                 "ITSAppUsesNonExemptEncryption": false,
                 "LSRequiresIPhoneOS": true,
+                "CFBundleDevelopmentRegion": "en",
+                "CFBundleLocalizations": ["en", "ko"],
                 "UIApplicationSceneManifest": [
                     "UIApplicationSupportsMultipleScenes": false,
                     "UISceneConfigurations": [:]

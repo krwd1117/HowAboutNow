@@ -23,7 +23,7 @@ public struct DiaryListView: View {
             debugCrashButton
             #endif
         }
-        .navigationTitle("오늘의 일기")
+        .navigationTitle("diary_title")
         .navigationBarTitleDisplayMode(.large)
         .sheet(isPresented: $showingDiaryEditor) {
             createDiaryEditor()
@@ -31,15 +31,15 @@ public struct DiaryListView: View {
         .sheet(item: $selectedDiary) { diary in
             editDiaryEditor(diary: diary)
         }
-        .alert("일기 삭제", isPresented: $showingDeleteAlert, presenting: diaryToDelete) { diary in
-            Button("삭제", role: .destructive) {
+        .alert("delete_diary", isPresented: $showingDeleteAlert, presenting: diaryToDelete) { diary in
+            Button("delete", role: .destructive) {
                 Task {
                     await viewModel.deleteDiary(diary)
                 }
             }
-            Button("취소", role: .cancel) {}
+            Button("cancel", role: .cancel) {}
         } message: { diary in
-            Text("이 일기를 삭제하시겠습니까?")
+            Text("delete_diary_confirm")
         }
         .task {
             await viewModel.loadDiaries()
@@ -75,7 +75,7 @@ public struct DiaryListView: View {
         VStack(spacing: 16) {
             ProgressView()
                 .scaleEffect(1.2)
-            Text("일기를 불러오는 중이에요")
+            Text("loading_diaries")
                 .font(.callout)
                 .foregroundStyle(.secondary)
         }
@@ -84,7 +84,7 @@ public struct DiaryListView: View {
     private var emptyStateView: some View {
         ContentUnavailableView {
             Label {
-                Text("아직 일기가 없어요")
+                Text("empty_diary_title")
             } icon: {
                 Image(systemName: "book.closed")
                     .symbolEffect(.bounce)
@@ -92,13 +92,13 @@ public struct DiaryListView: View {
                     .font(.largeTitle)
             }
         } description: {
-            Text("오늘의 감정을 기록해볼까요?")
+            Text("empty_diary_description")
                 .foregroundStyle(.secondary)
         } actions: {
             Button {
                 showingDiaryEditor = true
             } label: {
-                Label("새 일기 작성하기", systemImage: "plus")
+                Label("write_new_diary", systemImage: "plus")
                     .font(.body.weight(.medium))
             }
             .buttonStyle(.borderedProminent)

@@ -22,13 +22,13 @@ public struct MainTabView: View {
                     )
                 )
                 .tabItem {
-                    Label("일기", systemImage: "book.fill")
+                    Label(LocalizedStringKey("diary"), systemImage: "book.fill")
                 }
                 .tag(0)
                 
                 SettingsView()
                     .tabItem {
-                        Label("설정", systemImage: "gearshape.fill")
+                        Label(LocalizedStringKey("settings"), systemImage: "gearshape.fill")
                     }
                     .tag(1)
             }

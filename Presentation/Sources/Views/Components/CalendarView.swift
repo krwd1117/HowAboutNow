@@ -7,7 +7,7 @@ public struct CalendarView: View {
     let onDateSelected: (Date) -> Void
     
     private let calendar = Calendar.current
-    private let daysInWeek = ["일", "월", "화", "수", "목", "금", "토"]
+    private let daysInWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
     @State private var currentMonth: Date = Date()
     
@@ -50,7 +50,7 @@ public struct CalendarView: View {
     private var daysHeader: some View {
         HStack {
             ForEach(daysInWeek, id: \.self) { day in
-                Text(day)
+                Text(LocalizedStringKey(day))
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundStyle(.secondary)

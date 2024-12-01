@@ -32,22 +32,22 @@ public struct SplashView: View {
                             .symbolEffect(.bounce, options: .repeating)
                         
                         VStack(spacing: 8) {
-                            Text("How About Now")
+                            Text("app_name")
                                 .font(.title)
                                 .fontWeight(.bold)
                             
-                            Text("당신의 하루를 기록해보세요")
+                            Text("record_your_day")
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
                         
                         if showError {
                             VStack {
-                                Text("초기화 중 오류가 발생했습니다")
+                                Text("error_initialization")
                                     .font(.callout)
                                     .foregroundStyle(.red)
                                 
-                                Button("다시 시도") {
+                                Button("retry") {
                                     Task {
                                         await viewModel.initializeServices()
                                     }

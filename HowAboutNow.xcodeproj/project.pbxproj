@@ -59,6 +59,7 @@
 		DB5FCD95488153619DB8F66F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A3DA8BDE2902C07B04959B33 /* FirebaseAnalytics */; };
 		E0C7692EC898552E4FEE13E5 /* HowAboutNow.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */; };
 		E2F705E4FCDAB80AE5A7E2D9 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 02BCA2885237A21753E463B3 /* SwiftProtobuf */; };
+		EE3C65C7E59D613CE56E8875 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 6FEEB52B16D6EBD0F58FA022 /* Localizable.xcstrings */; };
 		F0560750539596263E6F56FB /* OpenAIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B52C858B1A4623A939EC16 /* OpenAIModels.swift */; };
 		FB4C894056EDFDFC829D9CB4 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC73A6A5E312125312D029C6 /* Configuration.plist */; };
 /* End PBXBuildFile section */
@@ -204,6 +205,7 @@
 		5E1102C8624634BE7BA957B3 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
 		628F23E579A68516436CB4CA /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7292C7A4332BEFC0987AE2 /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
+		6FEEB52B16D6EBD0F58FA022 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		786B1F1B070ABE5F20D2B266 /* Infrastructure-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Infrastructure-Info.plist"; sourceTree = "<group>"; };
 		7D6403820A78221371749F74 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		8D33B07C88C5B649DCC92852 /* Data-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Data-Info.plist"; sourceTree = "<group>"; };
@@ -376,10 +378,10 @@
 		5C85CEB3BCE10F05F903EFC6 /* Diary */ = {
 			isa = PBXGroup;
 			children = (
-				5E1102C8624634BE7BA957B3 /* DiaryView.swift */,
-				21ACE46A25AC51E719FA488F /* DiaryEditorView.swift */,
 				8E7F79D24594766F52E2D9D9 /* DiaryCalendarView.swift */,
+				21ACE46A25AC51E719FA488F /* DiaryEditorView.swift */,
 				1AA3AFAFB0CC5C618BEEBAA9 /* DiaryListView.swift */,
+				5E1102C8624634BE7BA957B3 /* DiaryView.swift */,
 			);
 			path = Diary;
 			sourceTree = "<group>";
@@ -504,6 +506,7 @@
 				AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */,
 				B098A9CCDC67446C3AEB5BE3 /* GoogleService-Info.plist */,
 				52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */,
+				6FEEB52B16D6EBD0F58FA022 /* Localizable.xcstrings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -762,6 +765,7 @@
 				89321A92755161A3AFE77EBF /* Configuration.template.plist in Resources */,
 				BF72CC91363F6C925E36A9B7 /* GoogleService-Info.plist in Resources */,
 				E0C7692EC898552E4FEE13E5 /* HowAboutNow.entitlements in Resources */,
+				EE3C65C7E59D613CE56E8875 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

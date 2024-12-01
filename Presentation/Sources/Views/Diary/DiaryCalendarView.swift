@@ -40,13 +40,13 @@ public struct DiaryCalendarView: View {
                                         Button {
                                             selectedDiary = diary
                                         } label: {
-                                            Label("수정하기", systemImage: "pencil")
+                                            Label("edit", systemImage: "pencil")
                                         }
                                         
                                         Button(role: .destructive) {
                                             // TODO: Delete diary
                                         } label: {
-                                            Label("삭제하기", systemImage: "trash")
+                                            Label("delete", systemImage: "trash")
                                         }
                                     } label: {
                                         Image(systemName: "ellipsis.circle.fill")
@@ -97,21 +97,21 @@ public struct DiaryCalendarView: View {
             } else {
                 ContentUnavailableView {
                     Label {
-                        Text("이 날의 일기가 없어요")
+                        Text("no_diary_for_date")
                     } icon: {
-                        Image(systemName: "calendar.badge.plus")
+                        Image(systemName: "book.closed")
                             .symbolEffect(.bounce)
                             .foregroundStyle(.pink)
                             .font(.largeTitle)
                     }
                 } description: {
-                    Text("새로운 일기를 작성해보세요")
+                    Text("write_diary_for_date")
                         .foregroundStyle(.secondary)
                 } actions: {
                     Button {
                         showingDiaryEditor = true
                     } label: {
-                        Label("일기 작성하기", systemImage: "plus")
+                        Label("write_new_diary", systemImage: "plus")
                             .font(.body.weight(.medium))
                     }
                     .buttonStyle(.borderedProminent)

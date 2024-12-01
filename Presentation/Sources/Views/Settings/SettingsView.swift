@@ -12,7 +12,7 @@ public struct SettingsView: View {
             contactSection
             aboutSection
         }
-        .navigationTitle("설정")
+        .navigationTitle("settings")
         .listStyle(.insetGrouped)
         .tint(.pink)
     }
@@ -27,10 +27,10 @@ public struct SettingsView: View {
                     .symbolEffect(.bounce)
                 
                 VStack(spacing: 4) {
-                    Text("How About Now")
+                    Text("app_name")
                         .font(.title2.weight(.semibold))
                     
-                    Text("ver \(appVersion)")
+                    Text(String(format: String(localized: "version_format"), appVersion))
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
@@ -46,7 +46,7 @@ public struct SettingsView: View {
             Link(destination: URL(string: "mailto:krwd1117@icloud.com")!) {
                 HStack {
                     Label {
-                        Text("문의하기")
+                        Text("contact_us")
                     } icon: {
                         Image(systemName: "envelope.fill")
                             .symbolRenderingMode(.hierarchical)
@@ -60,7 +60,7 @@ public struct SettingsView: View {
                 }
             }
         } header: {
-            Text("문의")
+            Text("contact")
         }
     }
     
@@ -70,11 +70,11 @@ public struct SettingsView: View {
                 List {
                     Section {
                         VStack(alignment: .leading, spacing: 16) {
-                            Text("How About Now는 당신의 일상을 기록하고 감정을 이해하는데 도움을 주는 AI 일기 앱입니다.")
+                            Text("about_app_description1")
                             
-                            Text("매일매일의 감정과 생각을 기록하면, AI가 당신의 감정 상태를 분석하고 이해하는데 도움을 줍니다.")
+                            Text("about_app_description2")
                             
-                            Text("당신의 하루하루가 더 행복하고 의미있기를 바랍니다. 💖")
+                            Text("about_app_description3")
                         }
                         .font(.body)
                         .foregroundStyle(.secondary)
@@ -83,20 +83,20 @@ public struct SettingsView: View {
                     
                     Section {
                         VStack(alignment: .leading, spacing: 12) {
-                            Label("개발", systemImage: "hammer.fill")
+                            Label("developer", systemImage: "hammer.fill")
                                 .font(.headline)
                             
-                            Text("김정완 (Jeongwan Kim)")
+                            Text("developer_name")
                                 .font(.body)
                         }
                         .padding(.vertical, 4)
                     }
                 }
-                .navigationTitle("앱 소개")
+                .navigationTitle("about_app")
                 .listStyle(.insetGrouped)
             } label: {
                 Label {
-                    Text("앱 소개")
+                    Text("about_app")
                 } icon: {
                     Image(systemName: "info.circle.fill")
                         .symbolRenderingMode(.hierarchical)
@@ -106,7 +106,7 @@ public struct SettingsView: View {
             Link(destination: URL(string: "https://www.apple.com/legal/privacy/")!) {
                 HStack {
                     Label {
-                        Text("개인정보 처리방침")
+                        Text("privacy_policy")
                     } icon: {
                         Image(systemName: "hand.raised.fill")
                             .symbolRenderingMode(.hierarchical)
@@ -120,7 +120,7 @@ public struct SettingsView: View {
                 }
             }
         } header: {
-            Text("정보")
+            Text("information")
         }
     }
 }

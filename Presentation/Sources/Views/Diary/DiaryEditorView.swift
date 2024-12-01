@@ -45,12 +45,12 @@ public struct DiaryEditorView: View {
                         HStack(spacing: 4) {
                             Image(systemName: "wand.and.stars")
                                 .symbolEffect(.bounce)
-                            Text("AI가 일기의 감정을 분석해드려요")
+                            Text("ai_analyze_emotion")
                         }
                         .font(.subheadline)
                         .foregroundStyle(.pink)
                         
-                        Text("일기를 저장하면 AI가 감정을 분석하고 요약해드려요")
+                        Text("ai_analyze_description")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -64,11 +64,11 @@ public struct DiaryEditorView: View {
                 .padding()
             }
             .background(Color(uiColor: .systemGroupedBackground))
-            .navigationTitle(viewModel.title.isEmpty ? "새로운 일기" : viewModel.title)
+            .navigationTitle(viewModel.title.isEmpty ? "new_diary" : viewModel.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("취소") {
+                    Button("cancel") {
                         dismiss()
                     }
                     .foregroundStyle(.secondary)
@@ -79,7 +79,7 @@ public struct DiaryEditorView: View {
                         viewModel.save()
                         dismiss()
                     } label: {
-                        Text("저장")
+                        Text("save")
                             .fontWeight(.medium)
                     }
                     .disabled(!viewModel.isValid)
@@ -90,7 +90,7 @@ public struct DiaryEditorView: View {
                     HStack {
                         Spacer()
                         Button(action: dismissKeyboard) {
-                            Label("키보드 닫기", systemImage: "keyboard.chevron.compact.down.fill")
+                            Label("dismiss_keyboard", systemImage: "keyboard.chevron.compact.down.fill")
                                 .symbolRenderingMode(.hierarchical)
                                 .foregroundStyle(.secondary)
                         }
@@ -106,7 +106,7 @@ public struct DiaryEditorView: View {
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
-                Text("제목")
+                Text("title")
                     .foregroundStyle(.primary)
             } icon: {
                 Image(systemName: "pencil.circle.fill")
@@ -115,7 +115,7 @@ public struct DiaryEditorView: View {
             }
             .font(.headline)
             
-            TextField("오늘의 제목을 입력해주세요", text: $viewModel.title)
+            TextField("title_placeholder", text: $viewModel.title)
                 .font(.body)
                 .padding()
                 .background(
@@ -130,7 +130,7 @@ public struct DiaryEditorView: View {
     private var dateSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
-                Text("날짜")
+                Text("date")
                     .foregroundStyle(.primary)
             } icon: {
                 Image(systemName: "calendar.circle.fill")
@@ -167,7 +167,7 @@ public struct DiaryEditorView: View {
             
             if showDatePicker {
                 DatePicker(
-                    "날짜 선택",
+                    "date",
                     selection: $viewModel.selectedDate,
                     displayedComponents: [.date]
                 )
@@ -190,7 +190,7 @@ public struct DiaryEditorView: View {
     private var contentSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
-                Text("내용")
+                Text("content")
                     .foregroundStyle(.primary)
             } icon: {
                 Image(systemName: "text.bubble.fill")
@@ -216,20 +216,20 @@ public struct DiaryEditorView: View {
         let now = Date()
         
         if calendar.isDateInToday(date) {
-            return "오늘"
+            return String(localized: "today")
         } else if calendar.isDateInYesterday(date) {
-            return "어제"
+            return String(localized: "yesterday")
         } else if calendar.isDateInTomorrow(date) {
-            return "내일"
+            return String(localized: "tomorrow")
         }
         
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.locale = Locale.current
         
         if calendar.component(.year, from: date) == calendar.component(.year, from: now) {
-            formatter.dateFormat = "M월 d일 (E)"
+            formatter.dateFormat = String(localized: "date_format_current_year")
         } else {
-            formatter.dateFormat = "yyyy년 M월 d일 (E)"
+            formatter.dateFormat = String(localized: "date_format_other_year")
         }
         
         return formatter.string(from: date)

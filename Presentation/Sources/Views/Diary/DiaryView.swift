@@ -17,7 +17,7 @@ public struct DiaryView: View {
             VStack(spacing: 0) {
                 // Custom Navigation Bar
                 HStack {
-                    Text("일기")
+                    Text(LocalizedStringKey("diary"))
                         .font(.title)
                         .fontWeight(.bold)
                     
@@ -88,15 +88,15 @@ public struct DiaryView: View {
                 )
             )
         }
-        .alert("일기 삭제", isPresented: $showingDeleteAlert, presenting: diaryToDelete) { diary in
-            Button("삭제", role: .destructive) {
+        .alert("delete_diary_action", isPresented: $showingDeleteAlert, presenting: diaryToDelete) { diary in
+            Button("delete", role: .destructive) {
                 Task {
                     await viewModel.deleteDiary(diary)
                 }
             }
-            Button("취소", role: .cancel) {}
+            Button("cancel", role: .cancel) {}
         } message: { diary in
-            Text("이 일기를 삭제하시겠습니까?")
+            Text("confirm_delete_diary")
         }
         .task {
             await viewModel.loadDiaries()

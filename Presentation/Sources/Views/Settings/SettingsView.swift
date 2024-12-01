@@ -103,7 +103,7 @@ public struct SettingsView: View {
                 }
             }
             
-            Link(destination: URL(string: "https://www.apple.com/legal/privacy/")!) {
+            Link(destination: URL(string: "https://krwd1117.tistory.com/entry/%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4-%EC%B2%98%EB%A6%AC%EB%B0%A9%EC%B9%A8")!) {
                 HStack {
                     Label {
                         Text("privacy_policy")

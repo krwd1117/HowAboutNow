@@ -29,7 +29,7 @@ let project = Project(
             name: "App",
             destinations: [.iPhone],
             product: .app,
-            bundleId: "com.howaboutnow.app",
+            bundleId: "com.krwd.howaboutnow.app",
             infoPlist: .extendingDefault(with: [
                 "UILaunchScreen": [
                     "UILaunchScreen": []
@@ -48,6 +48,14 @@ let project = Project(
             resources: [
                 "App/Resources/**"
             ],
+            scripts: [
+                .post(
+                    script: """
+                    ${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run
+                    """,
+                    name: "Firebase Crashlytics"
+                )
+            ],
             dependencies: [
                 .target(name: "Domain"),
                 .target(name: "Data"),
@@ -59,6 +67,7 @@ let project = Project(
                 .package(product: "FirebaseFirestoreCombine-Community"),
                 .package(product: "FirebaseStorage"),
                 .package(product: "FirebaseMessaging"),
+                .package(product: "FirebaseCrashlytics"),
                 .package(product: "SwiftProtobuf")
             ]
         ),
@@ -73,7 +82,7 @@ let project = Project(
             name: "Domain",
             destinations: [.iPhone],
             product: .framework,
-            bundleId: "com.howaboutnow.domain",
+            bundleId: "com.krwd.howaboutnow.domain",
             infoPlist: .default,
             sources: ["Domain/Sources/**"]
         ),
@@ -89,7 +98,7 @@ let project = Project(
             name: "Data",
             destinations: [.iPhone],
             product: .framework,
-            bundleId: "com.howaboutnow.data",
+            bundleId: "com.krwd.howaboutnow.data",
             infoPlist: .default,
             sources: ["Data/Sources/**"],
             dependencies: [
@@ -109,7 +118,7 @@ let project = Project(
             name: "Presentation",
             destinations: [.iPhone],
             product: .framework,
-            bundleId: "com.howaboutnow.presentation",
+            bundleId: "com.krwd.howaboutnow.presentation",
             infoPlist: .default,
             sources: ["Presentation/Sources/**"],
             dependencies: [
@@ -130,7 +139,7 @@ let project = Project(
             name: "Infrastructure",
             destinations: [.iPhone],
             product: .framework,
-            bundleId: "com.howaboutnow.infrastructure",
+            bundleId: "com.krwd.howaboutnow.infrastructure",
             infoPlist: .default,
             sources: ["Infrastructure/Sources/**"],
             dependencies: [

@@ -36,7 +36,7 @@
 		7E115D71FCF250363A939A59 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31A66267A925F6CEEBFBFB5 /* CalendarView.swift */; };
 		89321A92755161A3AFE77EBF /* Configuration.template.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */; };
 		8977D65C6DC9344C7ABDE81F /* DiaryEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F3F4ACE46AEA0E85B6EA6 /* DiaryEditorViewModel.swift */; };
-		915DC9B4FC5B6DDC4B9564E5 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 02BCA2885237A21753E463B3 /* SwiftProtobuf */; };
+		915DC9B4FC5B6DDC4B9564E5 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 05A74BA12B6AD6737C2C26FF /* FirebaseCrashlytics */; };
 		95FBC03431A3AD9DCE139C72 /* EmotionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E99F2FD37329CB5D09C840 /* EmotionIcon.swift */; };
 		99B36500EB469A81EF66EC58 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9719C91D86B478CF55892A01 /* NetworkClient.swift */; };
 		9A2B1EF063E7C97B68095C7B /* Infrastructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; };
@@ -58,7 +58,7 @@
 		D7BFCFDD2358BE5328B39899 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC337D9A0621F3F94994B683 /* Diary.swift */; };
 		DB5FCD95488153619DB8F66F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A3DA8BDE2902C07B04959B33 /* FirebaseAnalytics */; };
 		E0C7692EC898552E4FEE13E5 /* HowAboutNow.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */; };
-		ECC477F3DB6AC2ECBF0E457E /* EmotionBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AC79CBED6401970CED5D0E /* EmotionBadge.swift */; };
+		E2F705E4FCDAB80AE5A7E2D9 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 02BCA2885237A21753E463B3 /* SwiftProtobuf */; };
 		F0560750539596263E6F56FB /* OpenAIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B52C858B1A4623A939EC16 /* OpenAIModels.swift */; };
 		FB4C894056EDFDFC829D9CB4 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC73A6A5E312125312D029C6 /* Configuration.plist */; };
 /* End PBXBuildFile section */
@@ -217,7 +217,6 @@
 		B31A66267A925F6CEEBFBFB5 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		CA176C7AE85C215325D7A091 /* OpenAIDiaryAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIDiaryAnalysisService.swift; sourceTree = "<group>"; };
 		D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Infrastructure.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6AC79CBED6401970CED5D0E /* EmotionBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionBadge.swift; sourceTree = "<group>"; };
 		DC337D9A0621F3F94994B683 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		EB849A33BEC43312B560D725 /* DiaryAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAnalysisService.swift; sourceTree = "<group>"; };
 		F779CA9CBB8DAB8DEB738FE1 /* Presentation-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Presentation-Info.plist"; sourceTree = "<group>"; };
@@ -266,7 +265,8 @@
 				1A9DC2BD34CD66BAADEEAF79 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				36DF2268BEC87493047E6C2F /* FirebaseStorage in Frameworks */,
 				157FF9010B132595ACC90451 /* FirebaseMessaging in Frameworks */,
-				915DC9B4FC5B6DDC4B9564E5 /* SwiftProtobuf in Frameworks */,
+				915DC9B4FC5B6DDC4B9564E5 /* FirebaseCrashlytics in Frameworks */,
+				E2F705E4FCDAB80AE5A7E2D9 /* SwiftProtobuf in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,10 +376,10 @@
 		5C85CEB3BCE10F05F903EFC6 /* Diary */ = {
 			isa = PBXGroup;
 			children = (
-				8E7F79D24594766F52E2D9D9 /* DiaryCalendarView.swift */,
-				21ACE46A25AC51E719FA488F /* DiaryEditorView.swift */,
-				1AA3AFAFB0CC5C618BEEBAA9 /* DiaryListView.swift */,
 				5E1102C8624634BE7BA957B3 /* DiaryView.swift */,
+				21ACE46A25AC51E719FA488F /* DiaryEditorView.swift */,
+				8E7F79D24594766F52E2D9D9 /* DiaryCalendarView.swift */,
+				1AA3AFAFB0CC5C618BEEBAA9 /* DiaryListView.swift */,
 			);
 			path = Diary;
 			sourceTree = "<group>";
@@ -396,7 +396,6 @@
 			isa = PBXGroup;
 			children = (
 				B31A66267A925F6CEEBFBFB5 /* CalendarView.swift */,
-				D6AC79CBED6401970CED5D0E /* EmotionBadge.swift */,
 				28E99F2FD37329CB5D09C840 /* EmotionIcon.swift */,
 			);
 			path = Components;
@@ -669,6 +668,7 @@
 				18E758B80152A37DEF824CEC /* Resources */,
 				7B6B04B2AB10B5710BA3A67D /* Frameworks */,
 				8768D78C74F9046F65711295 /* Embed Frameworks */,
+				A524300AAB1C7BE3160D9033 /* Firebase Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -686,6 +686,7 @@
 				5BF45FCC62AEA6EC60A62A74 /* FirebaseFirestoreCombine-Community */,
 				1D4EC3901F715DF894CA55D1 /* FirebaseStorage */,
 				433A9B1D82DAB655E1AC08AF /* FirebaseMessaging */,
+				05A74BA12B6AD6737C2C26FF /* FirebaseCrashlytics */,
 				02BCA2885237A21753E463B3 /* SwiftProtobuf */,
 			);
 			productName = App;
@@ -794,6 +795,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A524300AAB1C7BE3160D9033 /* Firebase Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Firebase Crashlytics";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		14ACD18226C364178F26CEE4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -803,7 +825,6 @@
 				A72009072CD90136D93D3107 /* DiaryListViewModel.swift in Sources */,
 				B2B220DBBA6771A885D22AE9 /* SplashViewModel.swift in Sources */,
 				7E115D71FCF250363A939A59 /* CalendarView.swift in Sources */,
-				ECC477F3DB6AC2ECBF0E457E /* EmotionBadge.swift in Sources */,
 				95FBC03431A3AD9DCE139C72 /* EmotionIcon.swift in Sources */,
 				AF68B38E917A44EF184D0C24 /* DiaryCalendarView.swift in Sources */,
 				591F20EEF8A25B9872C531C3 /* DiaryEditorView.swift in Sources */,
@@ -929,7 +950,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.howaboutnow.domain;
+				PRODUCT_BUNDLE_IDENTIFIER = com.krwd.howaboutnow.domain;
 				PRODUCT_NAME = Domain;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1015,7 +1036,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.howaboutnow.data;
+				PRODUCT_BUNDLE_IDENTIFIER = com.krwd.howaboutnow.data;
 				PRODUCT_NAME = Data;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1048,7 +1069,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.howaboutnow.infrastructure;
+				PRODUCT_BUNDLE_IDENTIFIER = com.krwd.howaboutnow.infrastructure;
 				PRODUCT_NAME = Infrastructure;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1076,7 +1097,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.howaboutnow.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.krwd.howaboutnow.app;
 				PRODUCT_NAME = App;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
@@ -1102,7 +1123,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.howaboutnow.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.krwd.howaboutnow.app;
 				PRODUCT_NAME = App;
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
@@ -1131,7 +1152,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.howaboutnow.presentation;
+				PRODUCT_BUNDLE_IDENTIFIER = com.krwd.howaboutnow.presentation;
 				PRODUCT_NAME = Presentation;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1163,7 +1184,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.howaboutnow.domain;
+				PRODUCT_BUNDLE_IDENTIFIER = com.krwd.howaboutnow.domain;
 				PRODUCT_NAME = Domain;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1256,7 +1277,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.howaboutnow.data;
+				PRODUCT_BUNDLE_IDENTIFIER = com.krwd.howaboutnow.data;
 				PRODUCT_NAME = Data;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1288,7 +1309,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.howaboutnow.infrastructure;
+				PRODUCT_BUNDLE_IDENTIFIER = com.krwd.howaboutnow.infrastructure;
 				PRODUCT_NAME = Infrastructure;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1321,7 +1342,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.howaboutnow.presentation;
+				PRODUCT_BUNDLE_IDENTIFIER = com.krwd.howaboutnow.presentation;
 				PRODUCT_NAME = Presentation;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1436,6 +1457,10 @@
 		02BCA2885237A21753E463B3 /* SwiftProtobuf */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftProtobuf;
+		};
+		05A74BA12B6AD6737C2C26FF /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseCrashlytics;
 		};
 		1D4EC3901F715DF894CA55D1 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;

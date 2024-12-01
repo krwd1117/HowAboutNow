@@ -13,25 +13,27 @@ public struct MainTabView: View {
     }
     
     public var body: some View {
-        TabView(selection: $selectedTab) {
-            DiaryView(
-                viewModel: DiaryListViewModel(
-                    repository: repository,
-                    diaryAnalysisService: diaryAnalysisService
+        ZStack {
+            TabView(selection: $selectedTab) {
+                DiaryView(
+                    viewModel: DiaryListViewModel(
+                        repository: repository,
+                        diaryAnalysisService: diaryAnalysisService
+                    )
                 )
-            )
-            .tabItem {
-                Label("일기", systemImage: "book.fill")
-            }
-            .tag(0)
-            
-            SettingsView()
                 .tabItem {
-                    Label("설정", systemImage: "gearshape.fill")
+                    Label("일기", systemImage: "book.fill")
                 }
-                .tag(1)
+                .tag(0)
+                
+                SettingsView()
+                    .tabItem {
+                        Label("설정", systemImage: "gearshape.fill")
+                    }
+                    .tag(1)
+            }
+            .ignoresSafeArea(.keyboard)
+            .tint(.pink)
         }
-        .ignoresSafeArea(.keyboard)
-        .tint(.pink)
     }
 }

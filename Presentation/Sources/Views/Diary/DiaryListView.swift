@@ -14,30 +14,28 @@ public struct DiaryListView: View {
     }
     
     public var body: some View {
-        ZStack {
-            mainContent
-        }
-        .navigationTitle("일기")
-        .navigationBarTitleDisplayMode(.large)
-        .sheet(isPresented: $showingDiaryEditor) {
-            createDiaryEditor()
-        }
-        .sheet(item: $selectedDiary) { diary in
-            editDiaryEditor(diary: diary)
-        }
-        .alert("일기 삭제", isPresented: $showingDeleteAlert, presenting: diaryToDelete) { diary in
-            Button("삭제", role: .destructive) {
-                Task {
-                    await viewModel.deleteDiary(diary)
-                }
+        mainContent
+            .navigationTitle("일기")
+            .navigationBarTitleDisplayMode(.large)
+            .sheet(isPresented: $showingDiaryEditor) {
+                createDiaryEditor()
             }
-            Button("취소", role: .cancel) {}
-        } message: { diary in
-            Text("이 일기를 삭제하시겠습니까?")
-        }
-        .task {
-            await viewModel.loadDiaries()
-        }
+            .sheet(item: $selectedDiary) { diary in
+                editDiaryEditor(diary: diary)
+            }
+            .alert("일기 삭제", isPresented: $showingDeleteAlert, presenting: diaryToDelete) { diary in
+                Button("삭제", role: .destructive) {
+                    Task {
+                        await viewModel.deleteDiary(diary)
+                    }
+                }
+                Button("취소", role: .cancel) {}
+            } message: { diary in
+                Text("이 일기를 삭제하시겠습니까?")
+            }
+            .task {
+                await viewModel.loadDiaries()
+            }
     }
     
     private var mainContent: some View {
@@ -62,10 +60,9 @@ public struct DiaryListView: View {
             Button {
                 showingDiaryEditor = true
             } label: {
-                Image(systemName: "plus.circle.fill")
-                    .font(.title)
-                    .foregroundStyle(.pink)
+                Text("일기 작성하기")
             }
+            .buttonStyle(.bordered)
         }
     }
     
@@ -105,6 +102,14 @@ public struct DiaryListView: View {
                 )
             )
         }
+    }
+}
+
+struct ScaleButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.88 : 1)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: configuration.isPressed)
     }
 }
 
@@ -207,5 +212,5 @@ private actor MockDiaryAnalysisService: DiaryAnalysisService {
     func analyzeDiary(content: String) async throws -> DiaryAnalysis {
         DiaryAnalysis(emotion: "", summary: "")
     }
-
+    
 }

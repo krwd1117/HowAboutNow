@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7726A20426CA4658ED9EEF02"
-               BuildableName = "Core.framework"
-               BlueprintName = "Core"
+               BlueprintIdentifier = "9BF93B778AAD99EBB21C453E"
+               BuildableName = "App.app"
+               BlueprintName = "App"
                ReferencedContainer = "container:HowAboutNow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "852FDDD54219994BF8639641"
-               BuildableName = "Feature.framework"
-               BlueprintName = "Feature"
+               BlueprintIdentifier = "7416D6775D55D94F4C5ECD2A"
+               BuildableName = "Data.framework"
+               BlueprintName = "Data"
                ReferencedContainer = "container:HowAboutNow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,9 +42,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "20AEE7CDA4F164B6A04ED344"
-               BuildableName = "HowAboutNow.app"
-               BlueprintName = "HowAboutNow"
+               BlueprintIdentifier = "1FFA422CE0719EC6F615A393"
+               BuildableName = "Domain.framework"
+               BlueprintName = "Domain"
                ReferencedContainer = "container:HowAboutNow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -56,9 +56,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "500BB1D47F4BD82BFDF53A55"
-               BuildableName = "UI.framework"
-               BlueprintName = "UI"
+               BlueprintIdentifier = "1BF406ACDDD31E05958C11CB"
+               BuildableName = "Infrastructure.framework"
+               BlueprintName = "Infrastructure"
+               ReferencedContainer = "container:HowAboutNow.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9C4F9C4F75CF46C60B87A052"
+               BuildableName = "Presentation.framework"
+               BlueprintName = "Presentation"
                ReferencedContainer = "container:HowAboutNow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -82,15 +96,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7726A20426CA4658ED9EEF02"
-            BuildableName = "Core.framework"
-            BlueprintName = "Core"
+            BlueprintIdentifier = "9BF93B778AAD99EBB21C453E"
+            BuildableName = "App.app"
+            BlueprintName = "App"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -98,15 +113,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7726A20426CA4658ED9EEF02"
-            BuildableName = "Core.framework"
-            BlueprintName = "Core"
+            BlueprintIdentifier = "9BF93B778AAD99EBB21C453E"
+            BuildableName = "App.app"
+            BlueprintName = "App"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

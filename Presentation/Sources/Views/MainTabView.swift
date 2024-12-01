@@ -1,18 +1,21 @@
 import SwiftUI
-import Core
+import Infrastructure
+import Domain
 
 public struct MainTabView: View {
     @State private var selectedTab = 0
     private let repository: DiaryRepository
+    private let emotionAnalysisService: EmotionAnalysisService
     
-    public init(repository: DiaryRepository) {
+    public init(repository: DiaryRepository, emotionAnalysisService: EmotionAnalysisService) {
         self.repository = repository
+        self.emotionAnalysisService = emotionAnalysisService
     }
     
     public var body: some View {
         TabView(selection: $selectedTab) {
             NavigationStack {
-                DiaryListView(viewModel: DiaryListViewModel(repository: repository))
+                DiaryListView(viewModel: DiaryListViewModel(repository: repository, emotionAnalysisService: emotionAnalysisService))
             }
             .tag(0)
             .tabItem {
@@ -29,8 +32,4 @@ public struct MainTabView: View {
         }
         .tint(.pink)
     }
-}
-
-#Preview {
-    MainTabView(repository: MockDiaryRepository())
 }

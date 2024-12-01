@@ -1,5 +1,6 @@
 import SwiftUI
-import Core
+import Domain
+import Infrastructure
 import Charts
 
 public struct EmotionStatisticsView: View {

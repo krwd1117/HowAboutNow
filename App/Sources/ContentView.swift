@@ -1,44 +1,39 @@
 import SwiftUI
-import Feature
-import Core
+import Presentation
+import Data
+import Domain
+import Infrastructure
+
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication,
+                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        return true
+    }
+}
 
 struct ContentView: View {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     private let repository: DiaryRepository
     private let emotionAnalysisService: EmotionAnalysisService
     
     init() {
         do {
-            let apiKey = try ConfigurationManager.shared.string(for: ConfigurationManager.Keys.openAIAPIKey)
+            let OPEN_AI_API_KEY = try ConfigurationManager.shared.string(for: ConfigurationManager.Keys.openAIAPIKey)
+            
             repository = try DiaryDataRepository()
-            emotionAnalysisService = OpenAIEmotionAnalysisService(apiKey: apiKey)
+            emotionAnalysisService = OpenAIEmotionAnalysisService(apiKey: OPEN_AI_API_KEY)
         } catch {
             fatalError("Failed to initialize: \(error)")
         }
     }
     
     var body: some View {
-        TabView {
-            NavigationStack {
-                DiaryListView(viewModel: DiaryListViewModel(
-                    repository: repository,
-                    emotionAnalysisService: emotionAnalysisService
-                ))
-            }
-            .tabItem {
-                Label("일기", systemImage: "book.fill")
-            }
-            
-            NavigationStack {
-                EmotionStatisticsView(viewModel: EmotionStatisticsViewModel(repository: repository))
-            }
-            .tabItem {
-                Label("통계", systemImage: "chart.pie.fill")
-            }
-        }
-        .tint(.pink)
+        MainTabView(repository: repository, emotionAnalysisService: emotionAnalysisService)
     }
-}
-
-#Preview {
-    ContentView()
 }

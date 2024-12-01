@@ -1,120 +1,127 @@
 import ProjectDescription
 
-let destinations: Destinations = .iOS
-let deploymentTargets: DeploymentTargets = .iOS("17.0")
-
-let baseSettings: SettingsDictionary = [
-    "ENABLE_BITCODE": "NO",
-    "SWIFT_EMIT_MODULE_INTERFACE": "NO",
-    "IPHONEOS_DEPLOYMENT_TARGET": "17.0",
-    "TARGETED_DEVICE_FAMILY": "1",  // iPhone only
-    "SWIFT_VERSION": "5.0",
-    "DEVELOPMENT_TEAM": "",  // Add your team ID here if needed
-    "CODE_SIGN_STYLE": "Automatic",
-    "SWIFT_STRICT_CONCURRENCY": "complete",
-    "ENABLE_USER_SCRIPT_SANDBOXING": "YES",
-    "GCC_TREAT_WARNINGS_AS_ERRORS": "YES"
-]
-
 let project = Project(
     name: "HowAboutNow",
     organizationName: "HowAboutNow",
-    options: .options(
-        automaticSchemesOptions: .enabled(
-            targetSchemesGrouping: .byNameSuffix(build: ["HowAboutNow"], test: [], run: ["HowAboutNow"]),
-            codeCoverageEnabled: true,
-            testingOptions: .parallelizable
-        ),
-        disableBundleAccessors: false,
-        disableShowEnvironmentVarsInScriptPhases: true,
-        disableSynthesizedResourceAccessors: false
-    ),
     packages: [
-        .remote(url: "https://github.com/Alamofire/Alamofire.git", requirement: .upToNextMajor(from: "5.8.1")),
+        .remote(url: "https://github.com/firebase/firebase-ios-sdk.git", requirement: .upToNextMajor(from: "10.19.1")),
+        .remote(url: "https://github.com/google/abseil-cpp-binary.git", requirement: .upToNextMajor(from: "1.2024011601.0")),
+        .remote(url: "https://github.com/apple/swift-protobuf.git", requirement: .upToNextMajor(from: "1.25.2")),
+        .remote(url: "https://github.com/Alamofire/Alamofire.git", requirement: .upToNextMajor(from: "5.8.1"))
     ],
     settings: .settings(
-        base: baseSettings,
-        configurations: [
-            .debug(name: "Debug", settings: [
-                "SWIFT_OPTIMIZATION_LEVEL": "-Onone",
-                "DEBUG_INFORMATION_FORMAT": "dwarf",
-                "ENABLE_TESTABILITY": "YES",
-                "GCC_OPTIMIZATION_LEVEL": "0",
-                "ONLY_ACTIVE_ARCH": "YES"
-            ]),
-            .release(name: "Release", settings: [
-                "SWIFT_OPTIMIZATION_LEVEL": "-O",
-                "DEBUG_INFORMATION_FORMAT": "dwarf-with-dsym",
-                "ENABLE_NS_ASSERTIONS": "NO",
-                "SWIFT_COMPILATION_MODE": "wholemodule"
-            ])
+        base: [
+            "IPHONEOS_DEPLOYMENT_TARGET": "17.0"
         ],
-        defaultSettings: .recommended
+        configurations: [
+            .debug(name: "Debug"),
+            .release(name: "Release")
+        ]
     ),
     targets: [
+        // MARK: - App Module
+        /// 앱의 진입점 모듈
+        /// - 앱의 생명주기 관리
+        /// - 의존성 주입 설정
+        /// - 메인 네비게이션 흐름
+        /// - 리소스 파일 관리 (Assets, Plist 등)
         .target(
-            name: "HowAboutNow",
-            destinations: destinations,
+            name: "App",
+            destinations: [.iPhone],
             product: .app,
-            bundleId: "com.krwd.howaboutnow.app",
-            deploymentTargets: deploymentTargets,
-            infoPlist: .extendingDefault(with: [
-                "UILaunchScreen": [
-                    "UILaunchScreen": []
-                ],
-                "UIViewControllerBasedStatusBarAppearance": false,
-                "UIStatusBarHidden": false,
-                "UIRequiresFullScreen": true,
-                "ITSAppUsesNonExemptEncryption": false,
-                "LSRequiresIPhoneOS": true,
-                "UIApplicationSceneManifest": [
-                    "UIApplicationSupportsMultipleScenes": false,
-                    "UISceneConfigurations": [:]
-                ]
-            ]),
+            bundleId: "com.howaboutnow.app",
+            infoPlist: .default,
             sources: ["App/Sources/**"],
             resources: [
-                .glob(pattern: "App/Resources/*", excluding: ["App/Resources/HowAboutNow.entitlements"])
+                "App/Resources/**"
             ],
-            entitlements: .file(path: "App/Resources/HowAboutNow.entitlements"),
             dependencies: [
-                .target(name: "Core"),
-                .target(name: "Feature"),
-                .target(name: "UI")
+                .target(name: "Domain"),
+                .target(name: "Data"),
+                .target(name: "Presentation"),
+                .target(name: "Infrastructure"),
+                .package(product: "FirebaseAnalytics"),
+                .package(product: "FirebaseAuthCombine-Community"),
+                .package(product: "FirebaseFirestore"),
+                .package(product: "FirebaseFirestoreCombine-Community"),
+                .package(product: "FirebaseStorage"),
+                .package(product: "FirebaseMessaging"),
+                .package(product: "SwiftProtobuf")
             ]
         ),
+        
+        // MARK: - Domain Module
+        /// 비즈니스 로직의 핵심 모듈 (가장 안쪽 레이어)
+        /// - Entities (비즈니스 모델)
+        /// - Use Cases (비즈니스 로직)
+        /// - Repository Interfaces
+        /// - 외부 의존성이 전혀 없는 순수한 Swift 코드
         .target(
-            name: "Core",
-            destinations: destinations,
+            name: "Domain",
+            destinations: [.iPhone],
             product: .framework,
-            bundleId: "com.krwd.howaboutnow.core",
-            deploymentTargets: deploymentTargets,
-            sources: ["Core/Sources/**"],
+            bundleId: "com.howaboutnow.domain",
+            infoPlist: .default,
+            sources: ["Domain/Sources/**"]
+        ),
+        
+        // MARK: - Data Module
+        /// 데이터 계층 모듈
+        /// - Repository Implementations
+        /// - API/Network Services
+        /// - Local Storage
+        /// - DTO (Data Transfer Objects)
+        /// - Domain 레이어의 인터페이스를 구현
+        .target(
+            name: "Data",
+            destinations: [.iPhone],
+            product: .framework,
+            bundleId: "com.howaboutnow.data",
+            infoPlist: .default,
+            sources: ["Data/Sources/**"],
+            dependencies: [
+                .target(name: "Domain"),
+                .target(name: "Infrastructure")
+            ]
+        ),
+        
+        // MARK: - Presentation Module
+        /// UI 표현 계층 모듈
+        /// - ViewModels/Presenters
+        /// - Views/UI Components
+        /// - State Management
+        /// - Navigation Logic
+        /// - Domain 레이어의 Use Cases를 사용
+        .target(
+            name: "Presentation",
+            destinations: [.iPhone],
+            product: .framework,
+            bundleId: "com.howaboutnow.presentation",
+            infoPlist: .default,
+            sources: ["Presentation/Sources/**"],
+            dependencies: [
+                .target(name: "Domain"),
+                .target(name: "Infrastructure")
+            ]
+        ),
+        
+        // MARK: - Infrastructure Module
+        /// 인프라스트럭처 계층 모듈 (가장 바깥쪽 레이어)
+        /// - DI Container
+        /// - System Services
+        /// - Third-party Integrations
+        /// - Configuration
+        /// - Logging
+        /// - Common Utilities
+        .target(
+            name: "Infrastructure",
+            destinations: [.iPhone],
+            product: .framework,
+            bundleId: "com.howaboutnow.infrastructure",
+            infoPlist: .default,
+            sources: ["Infrastructure/Sources/**"],
             dependencies: [
                 .package(product: "Alamofire")
-            ]
-        ),
-        .target(
-            name: "Feature",
-            destinations: destinations,
-            product: .framework,
-            bundleId: "com.krwd.howaboutnow.feature",
-            deploymentTargets: deploymentTargets,
-            sources: ["Feature/Sources/**"],
-            dependencies: [
-                .target(name: "Core"),
-                .target(name: "UI")
-            ]
-        ),
-        .target(
-            name: "UI",
-            destinations: destinations,
-            product: .framework,
-            bundleId: "com.krwd.howaboutnow.ui",
-            deploymentTargets: deploymentTargets,
-            sources: ["UI/Sources/**"],
-            dependencies: [
-                .target(name: "Core")
             ]
         )
     ]

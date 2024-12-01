@@ -1,5 +1,7 @@
 import Foundation
 import Alamofire
+import Domain
+import Infrastructure
 
 public actor OpenAIEmotionAnalysisService: EmotionAnalysisService {
     private let apiKey: String

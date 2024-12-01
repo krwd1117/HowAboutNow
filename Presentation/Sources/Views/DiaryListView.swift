@@ -1,5 +1,6 @@
 import SwiftUI
-import Core
+import Infrastructure
+import Domain
 
 public struct DiaryListView: View {
     @StateObject private var viewModel: DiaryListViewModel

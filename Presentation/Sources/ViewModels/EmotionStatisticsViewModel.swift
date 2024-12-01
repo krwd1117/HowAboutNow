@@ -1,6 +1,6 @@
 import Foundation
-import Core
-//import SwiftUI
+import Infrastructure
+import Domain
 
 @MainActor
 public final class EmotionStatisticsViewModel: ObservableObject {

@@ -1,4 +1,6 @@
 import Foundation
+import Domain
+import Infrastructure
 
 public actor DiaryDataRepository: DiaryRepository {
     private let userDefaults: UserDefaults

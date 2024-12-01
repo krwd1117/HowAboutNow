@@ -35,6 +35,7 @@ let project = Project(
             bundleId: "com.krwd.howaboutnow.app",
             infoPlist: .extendingDefault(with: [
                 "CFBundleDisplayName": "나의 매일",
+                "CFBundleIconName": "AppIcon",
                 "UILaunchScreen": [
                     "UILaunchScreen": []
                 ],

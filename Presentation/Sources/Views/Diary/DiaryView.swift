@@ -64,9 +64,13 @@ public struct DiaryView: View {
         .sheet(isPresented: $showingDiaryEditor) {
             DiaryEditorView(
                 viewModel: DiaryEditorViewModel(
-                    onSave: { title, content, date in
+                    onSave: { title, content, date, emotion in
                         Task {
-                            await viewModel.saveDiary(title: title, content: content, date: date)
+                            await viewModel.saveDiary(
+                                title: title,
+                                content: content,
+                                date: date
+                            )
                         }
                     },
                     onDatePickerToggle: { _ in }
@@ -79,9 +83,17 @@ public struct DiaryView: View {
                     title: diary.title,
                     content: diary.content,
                     date: diary.date,
-                    onSave: { title, content, date in
+                    emotion: diary.emotion,
+                    isEditing: true,
+                    onSave: { title, content, date, emotion in
                         Task {
-                            await viewModel.updateDiary(diary, title: title, content: content, date: date)
+                            await viewModel.updateDiary(
+                                diary,
+                                title: title,
+                                content: content,
+                                date: date,
+                                emotion: emotion
+                            )
                         }
                     },
                     onDatePickerToggle: { _ in }

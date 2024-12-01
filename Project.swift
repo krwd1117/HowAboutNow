@@ -26,7 +26,7 @@ let project = Project(
         /// - 메인 네비게이션 흐름
         /// - 리소스 파일 관리 (Assets, Plist 등)
         .target(
-            name: "App",
+            name: "HowAboutNow",
             destinations: [.iPhone],
             product: .app,
             bundleId: "com.krwd.howaboutnow.app",

@@ -7,7 +7,7 @@ public struct CalendarView: View {
     let onDateSelected: (Date) -> Void
     
     private let calendar = Calendar.current
-    private let daysInWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    private let daysInWeek = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
     
     @State private var currentMonth: Date = Date()
     

@@ -14,10 +14,12 @@ public final class DiaryEditorViewModel: ObservableObject {
     @Published public var title: String
     @Published public var content: String
     @Published public var selectedDate: Date
+    @Published public var emotion: String
     @Published public var showDatePicker = false
     @Published public private(set) var isValid = false
     
-    let onSave: (String, String, Date) -> Void
+    public let isEditing: Bool
+    let onSave: (String, String, Date, String) -> Void
     private let onDatePickerToggle: (Bool) -> Void
     private var cancellables = Set<AnyCancellable>()
     
@@ -25,12 +27,16 @@ public final class DiaryEditorViewModel: ObservableObject {
         title: String = "",
         content: String = "",
         date: Date = .now,
-        onSave: @escaping (String, String, Date) -> Void,
+        emotion: String = "",
+        isEditing: Bool = false,
+        onSave: @escaping (String, String, Date, String) -> Void,
         onDatePickerToggle: @escaping (Bool) -> Void
     ) {
         self.title = title
         self.content = content
         self.selectedDate = date
+        self.emotion = emotion
+        self.isEditing = isEditing
         self.onSave = onSave
         self.onDatePickerToggle = onDatePickerToggle
         
@@ -55,6 +61,6 @@ public final class DiaryEditorViewModel: ObservableObject {
     }
     
     public func save() {
-        onSave(title, content, selectedDate)
+        onSave(title, content, selectedDate, emotion)
     }
 }

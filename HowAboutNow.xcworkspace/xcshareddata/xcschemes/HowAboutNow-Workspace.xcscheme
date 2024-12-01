@@ -14,20 +14,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9BF93B778AAD99EBB21C453E"
-               BuildableName = "App.app"
-               BlueprintName = "App"
-               ReferencedContainer = "container:HowAboutNow.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "7416D6775D55D94F4C5ECD2A"
                BuildableName = "Data.framework"
                BlueprintName = "Data"
@@ -45,6 +31,20 @@
                BlueprintIdentifier = "1FFA422CE0719EC6F615A393"
                BuildableName = "Domain.framework"
                BlueprintName = "Domain"
+               ReferencedContainer = "container:HowAboutNow.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "20AEE7CDA4F164B6A04ED344"
+               BuildableName = "HowAboutNow.app"
+               BlueprintName = "HowAboutNow"
                ReferencedContainer = "container:HowAboutNow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -96,16 +96,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9BF93B778AAD99EBB21C453E"
-            BuildableName = "App.app"
-            BlueprintName = "App"
+            BlueprintIdentifier = "7416D6775D55D94F4C5ECD2A"
+            BuildableName = "Data.framework"
+            BlueprintName = "Data"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -113,16 +112,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9BF93B778AAD99EBB21C453E"
-            BuildableName = "App.app"
-            BlueprintName = "App"
+            BlueprintIdentifier = "7416D6775D55D94F4C5ECD2A"
+            BuildableName = "Data.framework"
+            BlueprintName = "Data"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

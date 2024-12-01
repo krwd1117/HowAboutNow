@@ -64,7 +64,7 @@ public final class DiaryListViewModel: ObservableObject {
         isLoading = false
     }
     
-    public func updateDiary(_ diary: Diary, title: String, content: String, date: Date) async {
+    public func updateDiary(_ diary: Diary, title: String, content: String, date: Date, emotion: String) async {
         guard !title.isEmpty && !content.isEmpty else { return }
         
         isLoading = true
@@ -76,7 +76,7 @@ public final class DiaryListViewModel: ObservableObject {
                 id: diary.id,
                 title: title,
                 content: content,
-                emotion: analysis.emotion,
+                emotion: emotion.isEmpty ? analysis.emotion : emotion,
                 summary: analysis.summary,
                 date: date
             )

@@ -177,7 +177,7 @@ public struct DiaryListView: View {
         NavigationStack {
             DiaryEditorView(
                 viewModel: DiaryEditorViewModel(
-                    onSave: { title, content, date in
+                    onSave: { title, content, date, emotion in
                         Task {
                             await viewModel.saveDiary(title: title, content: content, date: date)
                         }
@@ -195,9 +195,17 @@ public struct DiaryListView: View {
                     title: diary.title,
                     content: diary.content,
                     date: diary.date,
-                    onSave: { title, content, date in
+                    emotion: diary.emotion,
+                    isEditing: true,
+                    onSave: { title, content, date, emotion in
                         Task {
-                            await viewModel.updateDiary(diary, title: title, content: content, date: date)
+                            await viewModel.updateDiary(
+                                diary,
+                                title: title,
+                                content: content,
+                                date: date,
+                                emotion: emotion
+                            )
                         }
                     },
                     onDatePickerToggle: { _ in }

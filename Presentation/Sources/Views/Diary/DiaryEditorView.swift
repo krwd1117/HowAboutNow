@@ -7,6 +7,7 @@ public struct DiaryEditorView: View {
     @ObservedObject private var viewModel: DiaryEditorViewModel
     @FocusState private var focusField: Field?
     @State private var showDatePicker = false
+    @State private var showEmotionPicker = false
     
     private enum Field {
         case title
@@ -14,23 +15,7 @@ public struct DiaryEditorView: View {
     }
     
     public init(viewModel: DiaryEditorViewModel) {
-        let onSave = viewModel.onSave
-        self._viewModel = ObservedObject(wrappedValue: DiaryEditorViewModel(
-            title: viewModel.title,
-            content: viewModel.content,
-            date: viewModel.selectedDate,
-            onSave: { title, content, date in
-                onSave(title, content, date)
-            },
-            onDatePickerToggle: { isShowing in
-                if isShowing {
-                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), 
-                                                 to: nil, 
-                                                 from: nil, 
-                                                 for: nil)
-                }
-            }
-        ))
+        self._viewModel = ObservedObject(wrappedValue: viewModel)
     }
     
     public var body: some View {
@@ -39,27 +24,32 @@ public struct DiaryEditorView: View {
                 VStack(spacing: 24) {
                     titleSection
                     dateSection
+                    if viewModel.isEditing {
+                        emotionSection
+                    }
                     contentSection
                     
-                    VStack(spacing: 8) {
-                        HStack(spacing: 4) {
-                            Image(systemName: "wand.and.stars")
-                                .symbolEffect(.bounce)
-                            Text("ai_analyze_emotion")
+                    if !viewModel.isEditing {
+                        VStack(spacing: 8) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "wand.and.stars")
+                                    .symbolEffect(.bounce)
+                                Text(LocalizedStringKey("ai_analyze_emotion"))
+                            }
+                            .font(.subheadline)
+                            .foregroundStyle(.pink)
+                            
+                            Text(LocalizedStringKey("ai_analyze_description"))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
                         }
-                        .font(.subheadline)
-                        .foregroundStyle(.pink)
-                        
-                        Text("ai_analyze_description")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .fill(Color.pink.opacity(0.1))
+                        )
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .fill(Color.pink.opacity(0.1))
-                    )
                 }
                 .padding()
             }
@@ -68,7 +58,7 @@ public struct DiaryEditorView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("cancel") {
+                    Button(LocalizedStringKey("cancel")) {
                         dismiss()
                     }
                     .foregroundStyle(.secondary)
@@ -79,7 +69,7 @@ public struct DiaryEditorView: View {
                         viewModel.save()
                         dismiss()
                     } label: {
-                        Text("save")
+                        Text(LocalizedStringKey("save"))
                             .fontWeight(.medium)
                     }
                     .disabled(!viewModel.isValid)
@@ -90,7 +80,7 @@ public struct DiaryEditorView: View {
                     HStack {
                         Spacer()
                         Button(action: dismissKeyboard) {
-                            Label("dismiss_keyboard", systemImage: "keyboard.chevron.compact.down.fill")
+                            Label(LocalizedStringKey("dismiss_keyboard"), systemImage: "keyboard.chevron.compact.down.fill")
                                 .symbolRenderingMode(.hierarchical)
                                 .foregroundStyle(.secondary)
                         }
@@ -106,70 +96,62 @@ public struct DiaryEditorView: View {
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
-                Text("title")
+                Text(LocalizedStringKey("title"))
                     .foregroundStyle(.primary)
             } icon: {
-                Image(systemName: "pencil.circle.fill")
-                    .symbolRenderingMode(.hierarchical)
+                Image(systemName: "pencil")
                     .foregroundStyle(.pink)
             }
-            .font(.headline)
             
             TextField("title_placeholder", text: $viewModel.title)
-                .font(.body)
+                .focused($focusField, equals: .title)
+                .font(.headline)
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(Color(uiColor: .secondarySystemGroupedBackground))
                 )
-                .focused($focusField, equals: .title)
-                .textInputAutocapitalization(.never)
         }
     }
     
     private var dateSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
-                Text("date")
+                Text(LocalizedStringKey("date"))
                     .foregroundStyle(.primary)
             } icon: {
-                Image(systemName: "calendar.circle.fill")
-                    .symbolRenderingMode(.hierarchical)
+                Image(systemName: "calendar")
                     .foregroundStyle(.pink)
             }
-            .font(.headline)
             
-            HStack {
-                Text(formatDate(viewModel.selectedDate))
-                    .font(.body)
-                
-                Spacer()
-                
-                Button {
-                    withAnimation(.spring(response: 0.3)) {
-                        showDatePicker.toggle()
-                        if showDatePicker {
-                            focusField = nil
-                        }
-                    }
-                } label: {
-                    Image(systemName: "calendar")
-                        .symbolRenderingMode(.hierarchical)
-                        .foregroundStyle(.pink)
-                        .font(.body.weight(.medium))
+            Button {
+                dismissKeyboard()
+                withAnimation(.spring(response: 0.3)) {
+                    showDatePicker.toggle()
                 }
+            } label: {
+                HStack {
+                    Text(viewModel.selectedDate.formatted(date: .abbreviated, time: .omitted))
+                        .foregroundStyle(.primary)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .rotationEffect(.degrees(showDatePicker ? 90 : 0))
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(Color(uiColor: .secondarySystemGroupedBackground))
+                )
             }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(Color(uiColor: .secondarySystemGroupedBackground))
-            )
+            .buttonStyle(.plain)
             
             if showDatePicker {
                 DatePicker(
-                    "date",
+                    "",
                     selection: $viewModel.selectedDate,
-                    displayedComponents: [.date]
+                    displayedComponents: .date
                 )
                 .datePickerStyle(.graphical)
                 .padding()
@@ -177,12 +159,81 @@ public struct DiaryEditorView: View {
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(Color(uiColor: .secondarySystemGroupedBackground))
                 )
-                .transition(.opacity.combined(with: .scale(scale: 0.95, anchor: .top)))
-                .onChange(of: viewModel.selectedDate) { _ in
-                    withAnimation(.spring(response: 0.3)) {
-                        showDatePicker = false
+            }
+        }
+    }
+    
+    private var emotionSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Label {
+                Text(LocalizedStringKey("emotion"))
+                    .font(.headline)
+            } icon: {
+                Image(systemName: "heart.fill")
+                    .foregroundStyle(.pink)
+                    .symbolEffect(.bounce)
+            }
+            
+            if showEmotionPicker {
+                VStack(spacing: 12) {
+                    Text(LocalizedStringKey("select_emotion"))
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    
+                    LazyVGrid(columns: [
+                        GridItem(.flexible()),
+                        GridItem(.flexible()),
+                        GridItem(.flexible()),
+                        GridItem(.flexible())
+                    ], spacing: 12) {
+                        EmotionButton(emotion: "happy", selectedEmotion: $viewModel.emotion)
+                        EmotionButton(emotion: "joy", selectedEmotion: $viewModel.emotion)
+                        EmotionButton(emotion: "peaceful", selectedEmotion: $viewModel.emotion)
+                        EmotionButton(emotion: "hopeful", selectedEmotion: $viewModel.emotion)
+                        EmotionButton(emotion: "sad", selectedEmotion: $viewModel.emotion)
+                        EmotionButton(emotion: "angry", selectedEmotion: $viewModel.emotion)
+                        EmotionButton(emotion: "anxious", selectedEmotion: $viewModel.emotion)
                     }
                 }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .fill(Color(uiColor: .secondarySystemGroupedBackground))
+                )
+            } else {
+                Button {
+                    dismissKeyboard()
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                        showEmotionPicker.toggle()
+                    }
+                } label: {
+                    HStack {
+                        EmotionIcon(emotion: viewModel.emotion)
+                            .font(.title)
+                            .symbolEffect(.bounce)
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(LocalizedStringKey(viewModel.emotion))
+                                .font(.headline)
+                            Text(LocalizedStringKey("tap_to_change"))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .rotationEffect(.degrees(showEmotionPicker ? 90 : 0))
+                    }
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .fill(Color(uiColor: .secondarySystemGroupedBackground))
+                    )
+                }
+                .buttonStyle(.plain)
             }
         }
     }
@@ -190,53 +241,68 @@ public struct DiaryEditorView: View {
     private var contentSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
-                Text("content")
+                Text(LocalizedStringKey("content"))
                     .foregroundStyle(.primary)
             } icon: {
-                Image(systemName: "text.bubble.fill")
-                    .symbolRenderingMode(.hierarchical)
+                Image(systemName: "text.alignleft")
                     .foregroundStyle(.pink)
             }
-            .font(.headline)
             
             TextEditor(text: $viewModel.content)
-                .font(.body)
-                .frame(minHeight: 200)
+                .focused($focusField, equals: .content)
+                .frame(minHeight: 240)
                 .padding()
+                .scrollContentBackground(.hidden)
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(Color(uiColor: .secondarySystemGroupedBackground))
                 )
-                .focused($focusField, equals: .content)
         }
     }
     
-    private func formatDate(_ date: Date) -> String {
-        let calendar = Calendar.current
-        let now = Date()
+    private struct EmotionButton: View {
+        let emotion: String
+        @Binding var selectedEmotion: String
         
-        if calendar.isDateInToday(date) {
-            return String(localized: "today")
-        } else if calendar.isDateInYesterday(date) {
-            return String(localized: "yesterday")
-        } else if calendar.isDateInTomorrow(date) {
-            return String(localized: "tomorrow")
+        var body: some View {
+            Button {
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                    selectedEmotion = emotion
+                }
+            } label: {
+                VStack(spacing: 8) {
+                    EmotionIcon(emotion: emotion)
+                        .font(.title2)
+                    
+                    Text(LocalizedStringKey(emotion))
+                        .font(.caption)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+                .background(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(selectedEmotion == emotion ? 
+                            Color.pink.opacity(0.15) : 
+                            Color(uiColor: .tertiarySystemGroupedBackground))
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .strokeBorder(selectedEmotion == emotion ? 
+                            Color.pink.opacity(0.3) : Color.clear,
+                            lineWidth: 1.5)
+                )
+            }
+            .foregroundStyle(selectedEmotion == emotion ? .pink : .primary)
         }
-        
-        let formatter = DateFormatter()
-        formatter.locale = Locale.current
-        
-        if calendar.component(.year, from: date) == calendar.component(.year, from: now) {
-            formatter.dateFormat = String(localized: "date_format_current_year")
-        } else {
-            formatter.dateFormat = String(localized: "date_format_other_year")
-        }
-        
-        return formatter.string(from: date)
     }
     
     private func dismissKeyboard() {
-        focusField = nil
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), 
+                                     to: nil, 
+                                     from: nil, 
+                                     for: nil)
     }
 }
 
@@ -244,8 +310,8 @@ public struct DiaryEditorView: View {
     DiaryEditorView(viewModel: DiaryEditorViewModel(
         title: "",
         content: "",
-        date: Date(),
-        onSave: { _, _, _ in },
+        date: .now,
+        onSave: { _, _, _, _ in },
         onDatePickerToggle: { _ in }
     ))
 }

@@ -17,7 +17,7 @@ public final class DiaryEditorViewModel: ObservableObject {
     @Published public var showDatePicker = false
     @Published public private(set) var isValid = false
     
-    private let onSave: (String, String, Date) -> Void
+    let onSave: (String, String, Date) -> Void
     private let onDatePickerToggle: (Bool) -> Void
     private var cancellables = Set<AnyCancellable>()
     

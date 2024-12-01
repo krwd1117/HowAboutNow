@@ -15,7 +15,11 @@ public struct DiaryCalendarView: View {
     
     public var body: some View {
         ZStack {
-            mainContent
+            if viewModel.isCalendarView {
+                calendarContent
+            } else {
+                listContent
+            }
             floatingActionButton
         }
         .navigationTitle("일기")
@@ -39,54 +43,43 @@ public struct DiaryCalendarView: View {
         .task {
             await viewModel.loadDiaries()
         }
-    }
-    
-    private var mainContent: some View {
-        Group {
-            if viewModel.isLoading {
-                ProgressView()
-            } else if viewModel.diaries.isEmpty {
-                emptyStateView
-            } else {
-                calendarView
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    withAnimation {
+                        viewModel.toggleViewMode()
+                    }
+                } label: {
+                    Image(systemName: viewModel.isCalendarView ? "list.bullet" : "calendar")
+                }
+                .foregroundStyle(.pink)
             }
         }
     }
     
-    private var emptyStateView: some View {
-        ContentUnavailableView {
-            Label("아직 일기가 없어요", systemImage: "book.closed")
-        } description: {
-            Text("오늘의 감정을 기록해볼까요?")
-                .foregroundStyle(.secondary)
-        } actions: {
-            Button {
-                showingDiaryEditor = true
-            } label: {
-                Image(systemName: "plus.circle.fill")
-                    .font(.title)
-                    .foregroundStyle(.pink)
-            }
-        }
-    }
-    
-    private var calendarView: some View {
+    private var calendarContent: some View {
         ScrollView {
             VStack(spacing: 20) {
-                DatePicker(
-                    "날짜 선택",
-                    selection: $selectedDate,
-                    displayedComponents: [.date]
-                )
-                .datePickerStyle(.graphical)
-                .tint(.pink)
+                CalendarView(
+                    selectedDate: $selectedDate,
+                    diaries: viewModel.diaries
+                ) { date in
+                    selectedDate = date
+                }
+                .padding(.horizontal)
                 
-                if let diary = viewModel.diaries.first(where: { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }) {
-                    DiaryCell(diary: diary)
-                        .transition(.move(edge: .bottom))
-                        .onTapGesture {
-                            selectedDiary = diary
+                let selectedDiaries = viewModel.diaries.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }
+                
+                if !selectedDiaries.isEmpty {
+                    LazyVStack(spacing: 16) {
+                        ForEach(selectedDiaries) { diary in
+                            DiaryCell(diary: diary)
+                                .transition(.opacity.combined(with: .move(edge: .bottom)))
+                                .onTapGesture {
+                                    selectedDiary = diary
+                                }
                         }
+                    }
                 } else {
                     ContentUnavailableView {
                         Label("일기 없음", systemImage: "square.dashed")
@@ -94,11 +87,29 @@ public struct DiaryCalendarView: View {
                         Text("이 날의 일기가 없어요")
                             .foregroundStyle(.secondary)
                     }
-                    .transition(.move(edge: .bottom))
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
                 }
             }
             .padding()
-            .animation(.spring, value: selectedDate)
+            .animation(.snappy(duration: 0.25), value: selectedDate)
+        }
+        .scrollIndicators(.hidden)
+        .refreshable {
+            await viewModel.loadDiaries()
+        }
+    }
+    
+    private var listContent: some View {
+        ScrollView {
+            LazyVStack(spacing: 16) {
+                ForEach(viewModel.diaries) { diary in
+                    DiaryCell(diary: diary)
+                        .onTapGesture {
+                            selectedDiary = diary
+                        }
+                }
+            }
+            .padding()
         }
         .scrollIndicators(.hidden)
         .refreshable {

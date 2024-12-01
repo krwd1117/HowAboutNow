@@ -12,13 +12,13 @@ public struct DiaryEditorView: View {
     }
     
     public init(viewModel: DiaryEditorViewModel) {
-        let onSave = viewModel.save
+        let onSave = viewModel.onSave
         self._viewModel = ObservedObject(wrappedValue: DiaryEditorViewModel(
             title: viewModel.title,
             content: viewModel.content,
             date: viewModel.selectedDate,
             onSave: { title, content, date in
-                onSave()
+                onSave(title, content, date)
             },
             onDatePickerToggle: { isShowing in
                 if isShowing {

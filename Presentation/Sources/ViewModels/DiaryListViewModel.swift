@@ -7,10 +7,13 @@ public final class DiaryListViewModel: ObservableObject {
     @Published private(set) var diaries: [Diary] = []
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error?
+    @Published public var isCalendarView: Bool
     
     internal let repository: DiaryRepository
     private let emotionAnalysisService: EmotionAnalysisService
     private let contentSummaryService: ContentSummaryService
+    private let defaults = UserDefaults.standard
+    private let viewModeKey = "DiaryViewMode"
     
     public init(repository: DiaryRepository, 
                emotionAnalysisService: EmotionAnalysisService,
@@ -18,6 +21,12 @@ public final class DiaryListViewModel: ObservableObject {
         self.repository = repository
         self.emotionAnalysisService = emotionAnalysisService
         self.contentSummaryService = contentSummaryService
+        self.isCalendarView = UserDefaults.standard.bool(forKey: "DiaryViewMode")
+    }
+    
+    public func toggleViewMode() {
+        isCalendarView.toggle()
+        defaults.set(isCalendarView, forKey: viewModeKey)
     }
     
     public func loadDiaries() async {

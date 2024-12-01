@@ -40,7 +40,7 @@ let project = Project(
                 "ITSAppUsesNonExemptEncryption": false,
                 "LSRequiresIPhoneOS": true,
                 "CFBundleDevelopmentRegion": "en",
-                "CFBundleLocalizations": ["en", "ko"],
+                "CFBundleLocalizations": ["en", "ko", "ja", "zh"],
                 "UIApplicationSceneManifest": [
                     "UIApplicationSupportsMultipleScenes": false,
                     "UISceneConfigurations": [:]

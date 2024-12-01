@@ -64,7 +64,7 @@ public struct DiaryEditorView: View {
                 .padding()
             }
             .background(Color(uiColor: .systemGroupedBackground))
-            .navigationTitle(viewModel.title.isEmpty ? "new_diary" : viewModel.title)
+            .navigationTitle(viewModel.title.isEmpty ? LocalizedStringKey("new_diary") : viewModel.title
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

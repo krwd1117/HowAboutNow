@@ -19,7 +19,7 @@ public struct MainTabView: View {
     public var body: some View {
         TabView(selection: $selectedTab) {
             NavigationStack {
-                DiaryListView(viewModel: DiaryListViewModel(
+                DiaryCalendarView(viewModel: DiaryListViewModel(
                     repository: repository, 
                     emotionAnalysisService: emotionAnalysisService,
                     contentSummaryService: contentSummaryService

@@ -1,11 +1,11 @@
 import SwiftUI
-import Infrastructure
 import Domain
 
-public struct DiaryListView: View {
+public struct DiaryCalendarView: View {
     @StateObject private var viewModel: DiaryListViewModel
     @State private var showingDiaryEditor = false
     @State private var selectedDiary: Diary?
+    @State private var selectedDate = Date()
     @State private var showingDeleteAlert = false
     @State private var diaryToDelete: Diary?
     
@@ -48,7 +48,7 @@ public struct DiaryListView: View {
             } else if viewModel.diaries.isEmpty {
                 emptyStateView
             } else {
-                diaryListView
+                calendarView
             }
         }
     }
@@ -70,20 +70,35 @@ public struct DiaryListView: View {
         }
     }
     
-    private var diaryListView: some View {
+    private var calendarView: some View {
         ScrollView {
-            LazyVStack(spacing: 16) {
-                ForEach(viewModel.diaries) { diary in
+            VStack(spacing: 20) {
+                DatePicker(
+                    "날짜 선택",
+                    selection: $selectedDate,
+                    displayedComponents: [.date]
+                )
+                .datePickerStyle(.graphical)
+                .tint(.pink)
+                
+                if let diary = viewModel.diaries.first(where: { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }) {
                     DiaryCell(diary: diary)
-                        .contentShape(Rectangle())
+                        .transition(.move(edge: .bottom))
                         .onTapGesture {
                             selectedDiary = diary
                         }
+                } else {
+                    ContentUnavailableView {
+                        Label("일기 없음", systemImage: "square.dashed")
+                    } description: {
+                        Text("이 날의 일기가 없어요")
+                            .foregroundStyle(.secondary)
+                    }
+                    .transition(.move(edge: .bottom))
                 }
             }
-            .padding(.horizontal)
-            .padding(.top)
-            .padding(.bottom, 100)
+            .padding()
+            .animation(.spring, value: selectedDate)
         }
         .scrollIndicators(.hidden)
         .refreshable {
@@ -114,6 +129,7 @@ public struct DiaryListView: View {
         NavigationStack {
             DiaryEditorView(
                 viewModel: DiaryEditorViewModel(
+                    date: selectedDate,
                     onSave: { title, content, date in
                         Task {
                             await viewModel.addDiary(title: title, content: content, date: date)
@@ -199,45 +215,5 @@ private struct DiaryCell: View {
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .strokeBorder(.quaternary, lineWidth: 0.5)
         }
-    }
-}
-
-struct DiaryListView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            DiaryListView(
-                viewModel: DiaryListViewModel(
-                    repository: MockDiaryRepository(),
-                    emotionAnalysisService: MockEmotionAnalysisService(),
-                    contentSummaryService: MockContentSummaryService()
-                )
-            )
-        }
-    }
-}
-
-private actor MockDiaryRepository: DiaryRepository {
-    func getDiaries() async throws -> [Diary] {
-        return [
-            Diary(title: "행복한 점심", content: "오늘은 정말 행복한 하루였다. 친구들과 맛있는 점심을 먹고 즐거운 시간을 보냈다.", emotion: "행복"),
-            Diary(title: "우울한 날씨", content: "조금 우울한 기분이다. 날씨도 흐리고 피곤하다.", emotion: "슬픔"),
-            Diary(title: "프로젝트 완성!", content: "매우 신나는 일이 있었다! 드디어 프로젝트가 완성되었다!", emotion: "기쁨")
-        ]
-    }
-    
-    func saveDiary(_ diary: Diary) async throws {}
-    func updateDiary(_ diary: Diary) async throws {}
-    func deleteDiary(_ diary: Diary) async throws {}
-}
-
-private actor MockEmotionAnalysisService: EmotionAnalysisService {
-    func analyzeEmotion(from text: String) async throws -> String {
-        return "행복"
-    }
-}
-
-private actor MockContentSummaryService: ContentSummaryService {
-    func summarize(_ content: String) async throws -> String {
-        return "요약"
     }
 }

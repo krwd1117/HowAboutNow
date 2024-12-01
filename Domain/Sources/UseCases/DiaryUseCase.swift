@@ -5,7 +5,6 @@ public protocol DiaryUseCase {
     func updateDiary(_ diary: Diary) async throws
     func deleteDiary(_ diary: Diary) async throws
     func getDiaries() async throws -> [Diary]
-    func analyzeDiaryEmotion(_ diary: Diary) async throws -> EmotionStatistics
 }
 
 public final class DefaultDiaryUseCase: DiaryUseCase {
@@ -51,15 +50,5 @@ public final class DefaultDiaryUseCase: DiaryUseCase {
     
     public func getDiaries() async throws -> [Diary] {
         try await diaryRepository.getDiaries()
-    }
-    
-    public func analyzeDiaryEmotion(_ diary: Diary) async throws -> EmotionStatistics {
-        let emotionResult = try await emotionAnalysisService.analyzeEmotion(from: diary.content)
-        let emotion = EmotionStatistics.Emotion(name: emotionResult, count: 1)
-        return EmotionStatistics(
-            emotions: [emotion],
-            startDate: diary.date,
-            endDate: diary.date
-        )
     }
 }

@@ -19,7 +19,6 @@
 		2A8BC8B6B6FE88F13F6BE796 /* TuistBundle+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2099824A73B45D182CA01E /* TuistBundle+App.swift */; };
 		2D42CB6C7CF934C726354B61 /* Infrastructure.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		36DF2268BEC87493047E6C2F /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 1D4EC3901F715DF894CA55D1 /* FirebaseStorage */; };
-		389CB03D6B77F733CAD07E19 /* EmotionStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B0432589351D36D7A3EAE3 /* EmotionStatistics.swift */; };
 		4990F0441C513133B63555E3 /* DiaryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CE53AD25B3CB56D572A8EE /* DiaryRepository.swift */; };
 		51D324497127967A5B0ABB96 /* DiaryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77F9EF4FB006A5ED820697C /* DiaryEditorView.swift */; };
 		5579F7D39D0A0404D9EC45A0 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234AF22656C0A5C7F3B1E2B7 /* ConfigurationManager.swift */; };
@@ -56,9 +55,11 @@
 		D7BFCFDD2358BE5328B39899 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC337D9A0621F3F94994B683 /* Diary.swift */; };
 		DB5FCD95488153619DB8F66F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A3DA8BDE2902C07B04959B33 /* FirebaseAnalytics */; };
 		E0C7692EC898552E4FEE13E5 /* HowAboutNow.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */; };
+		ECC477F3DB6AC2ECBF0E457E /* EmotionBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AC79CBED6401970CED5D0E /* EmotionBadge.swift */; };
 		F0560750539596263E6F56FB /* OpenAIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B52C858B1A4623A939EC16 /* OpenAIModels.swift */; };
 		FB4C894056EDFDFC829D9CB4 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC73A6A5E312125312D029C6 /* Configuration.plist */; };
 		FEA36E0D1753CF4BE20D1D9E /* EmotionAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A72185150008070CE2E702E /* EmotionAnalysisService.swift */; };
+		FEFB7B7AC735B689067F75E5 /* DiaryCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F7FB0E160FC23200D0042C /* DiaryCalendarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,9 +202,9 @@
 		5A72185150008070CE2E702E /* EmotionAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionAnalysisService.swift; sourceTree = "<group>"; };
 		628F23E579A68516436CB4CA /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7292C7A4332BEFC0987AE2 /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
-		75B0432589351D36D7A3EAE3 /* EmotionStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionStatistics.swift; sourceTree = "<group>"; };
 		786B1F1B070ABE5F20D2B266 /* Infrastructure-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Infrastructure-Info.plist"; sourceTree = "<group>"; };
 		8D33B07C88C5B649DCC92852 /* Data-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Data-Info.plist"; sourceTree = "<group>"; };
+		94F7FB0E160FC23200D0042C /* DiaryCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCalendarView.swift; sourceTree = "<group>"; };
 		950120CAA8D2D43E5CBD0987 /* Domain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Domain-Info.plist"; sourceTree = "<group>"; };
 		9719C91D86B478CF55892A01 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		A612A7C42D6C20E9A40DC10A /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,6 +214,7 @@
 		B4DE6BB54560B7CDD1C1E81C /* ContentSummaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSummaryService.swift; sourceTree = "<group>"; };
 		CF1547646A6CEE4E832CDCC2 /* OpenAIEmotionAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIEmotionAnalysisService.swift; sourceTree = "<group>"; };
 		D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Infrastructure.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6AC79CBED6401970CED5D0E /* EmotionBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionBadge.swift; sourceTree = "<group>"; };
 		DC337D9A0621F3F94994B683 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		F779CA9CBB8DAB8DEB738FE1 /* Presentation-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Presentation-Info.plist"; sourceTree = "<group>"; };
 		F77F9EF4FB006A5ED820697C /* DiaryEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditorView.swift; sourceTree = "<group>"; };
@@ -296,14 +298,6 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		0CF0C991BCA75B300313C7D1 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				75B0432589351D36D7A3EAE3 /* EmotionStatistics.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		138F0BBF2C72A63DB989A7D2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,6 +347,8 @@
 		4327A2728F777653AEC286B8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6BF317D24E4319998EF03AF1 /* Components */,
+				94F7FB0E160FC23200D0042C /* DiaryCalendarView.swift */,
 				F77F9EF4FB006A5ED820697C /* DiaryEditorView.swift */,
 				2BA8124174185368EF867978 /* DiaryListView.swift */,
 				1F9EDE562902B7E6DDDCB15F /* MainTabView.swift */,
@@ -376,6 +372,14 @@
 				ABCE8960E460A0AB11638F12 /* Sources */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		6BF317D24E4319998EF03AF1 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D6AC79CBED6401970CED5D0E /* EmotionBadge.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		71852A7A7DDD492543080B63 /* InfoPlists */ = {
@@ -498,7 +502,6 @@
 			children = (
 				8464C0F9CEBF4A86CD3CD652 /* Entities */,
 				CD52D16F7BC42577729EABA0 /* Interfaces */,
-				0CF0C991BCA75B300313C7D1 /* Models */,
 				40936B29DF75B5FAE9037C32 /* UseCases */,
 			);
 			path = Sources;
@@ -772,6 +775,8 @@
 				8977D65C6DC9344C7ABDE81F /* DiaryEditorViewModel.swift in Sources */,
 				A72009072CD90136D93D3107 /* DiaryListViewModel.swift in Sources */,
 				B2B220DBBA6771A885D22AE9 /* SplashViewModel.swift in Sources */,
+				ECC477F3DB6AC2ECBF0E457E /* EmotionBadge.swift in Sources */,
+				FEFB7B7AC735B689067F75E5 /* DiaryCalendarView.swift in Sources */,
 				51D324497127967A5B0ABB96 /* DiaryEditorView.swift in Sources */,
 				C5955BC90B4DF9010FE8E97B /* DiaryListView.swift in Sources */,
 				5E54C15C9ADC054C98001849 /* MainTabView.swift in Sources */,
@@ -822,7 +827,6 @@
 				4990F0441C513133B63555E3 /* DiaryRepository.swift in Sources */,
 				5982C6B648546CCA4E6F5571 /* ContentSummaryService.swift in Sources */,
 				FEA36E0D1753CF4BE20D1D9E /* EmotionAnalysisService.swift in Sources */,
-				389CB03D6B77F733CAD07E19 /* EmotionStatistics.swift in Sources */,
 				9ED1B0B721B8D386707C5F33 /* DiaryUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

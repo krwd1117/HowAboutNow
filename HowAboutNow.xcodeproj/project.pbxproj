@@ -25,6 +25,7 @@
 		51D324497127967A5B0ABB96 /* DiaryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77F9EF4FB006A5ED820697C /* DiaryEditorView.swift */; };
 		5579F7D39D0A0404D9EC45A0 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234AF22656C0A5C7F3B1E2B7 /* ConfigurationManager.swift */; };
 		57222A0A83D9A8504E3C8552 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0314B61D9C0E9B752695B0ED /* Data.framework */; };
+		5982C6B648546CCA4E6F5571 /* ContentSummaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DE6BB54560B7CDD1C1E81C /* ContentSummaryService.swift */; };
 		5C4A84644E6AFBFCBE1569CA /* Infrastructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; };
 		5E54C15C9ADC054C98001849 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9EDE562902B7E6DDDCB15F /* MainTabView.swift */; };
 		6AB1CD2D804B8C605E30662C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2D80A70DD7FC1D1741949412 /* FirebaseFirestore */; };
@@ -40,11 +41,13 @@
 		99B36500EB469A81EF66EC58 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9719C91D86B478CF55892A01 /* NetworkClient.swift */; };
 		9A2B1EF063E7C97B68095C7B /* Infrastructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; };
 		9A6EC82CDDF474FE48B99816 /* Infrastructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; };
+		9DF59431DBF7F0616AEE6A6F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448249CE5BE583B5D7E6E77B /* SettingsView.swift */; };
 		9ED1B0B721B8D386707C5F33 /* DiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24754B40682FC140C16CA1A6 /* DiaryUseCase.swift */; };
 		A72009072CD90136D93D3107 /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7292C7A4332BEFC0987AE2 /* DiaryListViewModel.swift */; };
 		AABCD64CEBE1941192FA38B7 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269ADD8D568DA74DEA267D3C /* Logger.swift */; };
 		AB12228761BF522ECB16400F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB65F8FE973BC1E4726A8E5A /* Assets.xcassets */; };
 		BAC75AEB3A48F944C2BCB9A6 /* Presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487FE65FF11700AD91952518 /* Presentation.framework */; };
+		BB12514B0B042993F24C618E /* OpenAIContentSummaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D17BCBF33A22377D4638BF /* OpenAIContentSummaryService.swift */; };
 		BF72CC91363F6C925E36A9B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B098A9CCDC67446C3AEB5BE3 /* GoogleService-Info.plist */; };
 		BF7B42C2960A99189F173B98 /* DiaryDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5120185550E93D3CDAE01346 /* DiaryDataRepository.swift */; };
 		C3FA69445A06F6832ADC13AD /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -53,6 +56,7 @@
 		D7BFCFDD2358BE5328B39899 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC337D9A0621F3F94994B683 /* Diary.swift */; };
 		DB5FCD95488153619DB8F66F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A3DA8BDE2902C07B04959B33 /* FirebaseAnalytics */; };
 		E0C7692EC898552E4FEE13E5 /* HowAboutNow.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */; };
+		F0560750539596263E6F56FB /* OpenAIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B52C858B1A4623A939EC16 /* OpenAIModels.swift */; };
 		FB4C894056EDFDFC829D9CB4 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC73A6A5E312125312D029C6 /* Configuration.plist */; };
 		FEA36E0D1753CF4BE20D1D9E /* EmotionAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A72185150008070CE2E702E /* EmotionAnalysisService.swift */; };
 /* End PBXBuildFile section */
@@ -184,10 +188,13 @@
 		234AF22656C0A5C7F3B1E2B7 /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		24754B40682FC140C16CA1A6 /* DiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryUseCase.swift; sourceTree = "<group>"; };
 		269ADD8D568DA74DEA267D3C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		26B52C858B1A4623A939EC16 /* OpenAIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIModels.swift; sourceTree = "<group>"; };
 		2BA8124174185368EF867978 /* DiaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListView.swift; sourceTree = "<group>"; };
 		2CC25815E48A314197EE617E /* EmotionStatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionStatisticsView.swift; sourceTree = "<group>"; };
 		312331FA314C9A296DA878D1 /* TuistAssets+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+App.swift"; sourceTree = "<group>"; };
+		33D17BCBF33A22377D4638BF /* OpenAIContentSummaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIContentSummaryService.swift; sourceTree = "<group>"; };
 		34CE53AD25B3CB56D572A8EE /* DiaryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRepository.swift; sourceTree = "<group>"; };
+		448249CE5BE583B5D7E6E77B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		487FE65FF11700AD91952518 /* Presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5120185550E93D3CDAE01346 /* DiaryDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDataRepository.swift; sourceTree = "<group>"; };
 		52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HowAboutNow.entitlements; sourceTree = "<group>"; };
@@ -203,6 +210,7 @@
 		AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Configuration.template.plist; sourceTree = "<group>"; };
 		B098A9CCDC67446C3AEB5BE3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B0C379EDEEE6F5D3E3069132 /* App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "App-Info.plist"; sourceTree = "<group>"; };
+		B4DE6BB54560B7CDD1C1E81C /* ContentSummaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSummaryService.swift; sourceTree = "<group>"; };
 		CF1547646A6CEE4E832CDCC2 /* OpenAIEmotionAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIEmotionAnalysisService.swift; sourceTree = "<group>"; };
 		D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Infrastructure.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAFEC20043878EE01401F228 /* EmotionStatisticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionStatisticsViewModel.swift; sourceTree = "<group>"; };
@@ -349,6 +357,7 @@
 				2BA8124174185368EF867978 /* DiaryListView.swift */,
 				2CC25815E48A314197EE617E /* EmotionStatisticsView.swift */,
 				1F9EDE562902B7E6DDDCB15F /* MainTabView.swift */,
+				448249CE5BE583B5D7E6E77B /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -379,6 +388,14 @@
 				F779CA9CBB8DAB8DEB738FE1 /* Presentation-Info.plist */,
 			);
 			path = InfoPlists;
+			sourceTree = "<group>";
+		};
+		80ACCCE340D74EB0B56C34C0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				26B52C858B1A4623A939EC16 /* OpenAIModels.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		8464C0F9CEBF4A86CD3CD652 /* Entities */ = {
@@ -523,6 +540,7 @@
 		FA0CC14296B1E8D09F8A73D3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				33D17BCBF33A22377D4638BF /* OpenAIContentSummaryService.swift */,
 				CF1547646A6CEE4E832CDCC2 /* OpenAIEmotionAnalysisService.swift */,
 			);
 			path = Services;
@@ -531,6 +549,7 @@
 		FB29C35E58BA0D18A0D2D874 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B4DE6BB54560B7CDD1C1E81C /* ContentSummaryService.swift */,
 				5A72185150008070CE2E702E /* EmotionAnalysisService.swift */,
 			);
 			path = Services;
@@ -539,6 +558,7 @@
 		FD1A0C9424C764EBD0DC7306 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				80ACCCE340D74EB0B56C34C0 /* Models */,
 				8ABCF8615D8FAFE1DE8B9F7C /* Repositories */,
 				FA0CC14296B1E8D09F8A73D3 /* Services */,
 			);
@@ -756,6 +776,7 @@
 				C5955BC90B4DF9010FE8E97B /* DiaryListView.swift in Sources */,
 				4D7123CF5D0A647DFA39C687 /* EmotionStatisticsView.swift in Sources */,
 				5E54C15C9ADC054C98001849 /* MainTabView.swift in Sources */,
+				9DF59431DBF7F0616AEE6A6F /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,7 +807,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0560750539596263E6F56FB /* OpenAIModels.swift in Sources */,
 				BF7B42C2960A99189F173B98 /* DiaryDataRepository.swift in Sources */,
+				BB12514B0B042993F24C618E /* OpenAIContentSummaryService.swift in Sources */,
 				73E1813850115CF50B77F307 /* OpenAIEmotionAnalysisService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -797,6 +820,7 @@
 			files = (
 				D7BFCFDD2358BE5328B39899 /* Diary.swift in Sources */,
 				4990F0441C513133B63555E3 /* DiaryRepository.swift in Sources */,
+				5982C6B648546CCA4E6F5571 /* ContentSummaryService.swift in Sources */,
 				FEA36E0D1753CF4BE20D1D9E /* EmotionAnalysisService.swift in Sources */,
 				389CB03D6B77F733CAD07E19 /* EmotionStatistics.swift in Sources */,
 				9ED1B0B721B8D386707C5F33 /* DiaryUseCase.swift in Sources */,

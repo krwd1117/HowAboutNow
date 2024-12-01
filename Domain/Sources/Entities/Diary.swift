@@ -5,6 +5,7 @@ public struct Diary: Identifiable, Codable, Hashable, Sendable {
     public var title: String
     public var content: String
     public var emotion: String
+    public var summary: String
     public var date: Date
     
     public init(
@@ -12,12 +13,14 @@ public struct Diary: Identifiable, Codable, Hashable, Sendable {
         title: String,
         content: String,
         emotion: String = "",
+        summary: String = "",
         date: Date = Date()
     ) {
         self.id = id
         self.title = title
         self.content = content
         self.emotion = emotion
+        self.summary = summary
         self.date = date
     }
 }

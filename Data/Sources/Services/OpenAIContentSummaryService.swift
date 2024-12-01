@@ -3,7 +3,7 @@ import Alamofire
 import Domain
 import Infrastructure
 
-public actor OpenAIEmotionAnalysisService: EmotionAnalysisService {
+public actor OpenAIContentSummaryService: ContentSummaryService {
     private let apiKey: String
     private let baseURL: String
     
@@ -17,16 +17,14 @@ public actor OpenAIEmotionAnalysisService: EmotionAnalysisService {
         Logger.d("OpenAI Service initialized with API key: \(String(apiKey.prefix(10)))...")
     }
     
-    public func analyzeEmotion(from content: String) async throws -> String {
+    public func summarize(_ content: String) async throws -> String {
         let headers: HTTPHeaders = [
             "Authorization": "Bearer \(apiKey)",
             "Content-Type": "application/json"
         ]
         
         let prompt = """
-        다음 일기 내용에서 감정을 분석해주세요. 
-        감정은 다음 중 하나를 선택해주세요: 행복, 기쁨, 평온, 슬픔, 분노, 불안, 희망
-        일기 내용만 분석하고 선택한 감정 하나만 답변해주세요.
+        다음 일기 내용을 한 문장으로 요약해주세요. 요약할 때는 가장 중요한 감정이나 사건을 중심으로 해주세요:
         
         일기 내용: "\(content)"
         """
@@ -34,11 +32,11 @@ public actor OpenAIEmotionAnalysisService: EmotionAnalysisService {
         let parameters: Parameters = [
             "model": "gpt-3.5-turbo",
             "messages": [
-                ["role": "system", "content": "당신은 감정 분석 전문가입니다. 주어진 텍스트에서 가장 두드러진 감정을 파악하고 한 단어로 답변해주세요."],
+                ["role": "system", "content": "당신은 일기를 요약하는 전문가입니다. 일기의 핵심 내용을 한 문장으로 요약해주세요."],
                 ["role": "user", "content": prompt]
             ],
             "temperature": 0.7,
-            "max_tokens": 10
+            "max_tokens": 100
         ]
         
         Logger.d("Making OpenAI request to: \(baseURL)")
@@ -62,12 +60,12 @@ public actor OpenAIEmotionAnalysisService: EmotionAnalysisService {
                 
                 switch response.result {
                 case .success(let result):
-                    if let emotion = result.choices.first?.message.content.trimmingCharacters(in: .whitespacesAndNewlines) {
-                        Logger.d("Successfully analyzed emotion: \(emotion)")
-                        continuation.resume(returning: emotion)
+                    if let summary = result.choices.first?.message.content.trimmingCharacters(in: .whitespacesAndNewlines) {
+                        Logger.d("Successfully summarized content: \(summary)")
+                        continuation.resume(returning: summary)
                     } else {
-                        Logger.e("Failed to extract emotion from response")
-                        continuation.resume(throwing: EmotionAnalysisError.invalidResponse)
+                        Logger.e("Failed to extract summary from response")
+                        continuation.resume(throwing: ContentSummaryError.invalidResponse)
                     }
                 case .failure(let error):
                     Logger.e("Request failed: \(error)")
@@ -75,13 +73,13 @@ public actor OpenAIEmotionAnalysisService: EmotionAnalysisService {
                         switch statusCode {
                         case 401, 403:
                             Logger.e("Authentication error: Invalid API key")
-                            continuation.resume(throwing: EmotionAnalysisError.invalidAPIKey)
+                            continuation.resume(throwing: ContentSummaryError.invalidAPIKey)
                         default:
                             Logger.e("Network error with status code: \(statusCode)")
-                            continuation.resume(throwing: EmotionAnalysisError.networkError(error))
+                            continuation.resume(throwing: ContentSummaryError.networkError(error))
                         }
                     } else {
-                        continuation.resume(throwing: EmotionAnalysisError.networkError(error))
+                        continuation.resume(throwing: ContentSummaryError.networkError(error))
                     }
                 }
             }

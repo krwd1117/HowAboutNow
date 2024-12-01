@@ -31,6 +31,15 @@ public struct MainTabView: View {
             .tabItem {
                 Label("통계", systemImage: selectedTab == 1 ? "chart.pie.fill" : "chart.pie")
             }
+            
+            NavigationStack {
+                SettingsView()
+                    .navigationBarTitleDisplayMode(.large)
+            }
+            .tag(2)
+            .tabItem {
+                Label("설정", systemImage: selectedTab == 2 ? "gearshape.fill" : "gearshape")
+            }
         }
         .ignoresSafeArea(.keyboard)
         .tint(.pink)

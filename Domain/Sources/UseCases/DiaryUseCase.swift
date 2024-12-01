@@ -11,21 +11,38 @@ public protocol DiaryUseCase {
 public final class DefaultDiaryUseCase: DiaryUseCase {
     private let diaryRepository: DiaryRepository
     private let emotionAnalysisService: EmotionAnalysisService
+    private let contentSummaryService: ContentSummaryService
     
     public init(
         diaryRepository: DiaryRepository,
-        emotionAnalysisService: EmotionAnalysisService
+        emotionAnalysisService: EmotionAnalysisService,
+        contentSummaryService: ContentSummaryService
     ) {
         self.diaryRepository = diaryRepository
         self.emotionAnalysisService = emotionAnalysisService
+        self.contentSummaryService = contentSummaryService
     }
     
     public func createDiary(_ diary: Diary) async throws {
-        try await diaryRepository.saveDiary(diary)
+        let emotion = try await emotionAnalysisService.analyzeEmotion(from: diary.content)
+        let summary = try await contentSummaryService.summarize(diary.content)
+        
+        var updatedDiary = diary
+        updatedDiary.emotion = emotion
+        updatedDiary.summary = summary
+        
+        try await diaryRepository.saveDiary(updatedDiary)
     }
     
     public func updateDiary(_ diary: Diary) async throws {
-        try await diaryRepository.updateDiary(diary)
+        let emotion = try await emotionAnalysisService.analyzeEmotion(from: diary.content)
+        let summary = try await contentSummaryService.summarize(diary.content)
+        
+        var updatedDiary = diary
+        updatedDiary.emotion = emotion
+        updatedDiary.summary = summary
+        
+        try await diaryRepository.updateDiary(updatedDiary)
     }
     
     public func deleteDiary(_ diary: Diary) async throws {

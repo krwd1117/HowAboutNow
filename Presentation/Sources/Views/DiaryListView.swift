@@ -166,10 +166,17 @@ private struct DiaryCell: View {
                     .foregroundStyle(.secondary)
             }
             
-            Text(diary.content)
-                .font(.body)
-                .lineLimit(3)
-                .foregroundStyle(.secondary)
+            if !diary.summary.isEmpty {
+                Text(diary.summary)
+                    .font(.body)
+                    .lineLimit(2)
+                    .foregroundStyle(.secondary)
+            } else {
+                Text(diary.content)
+                    .font(.body)
+                    .lineLimit(2)
+                    .foregroundStyle(.secondary)
+            }
             
             HStack {
                 EmotionBadge(emotion: diary.emotion)

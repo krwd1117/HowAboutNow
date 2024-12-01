@@ -24,7 +24,7 @@ public actor DiaryDataRepository: DiaryRepository {
             // 이전 버전의 데이터 구조와 호환성 유지
             if let decodingError = error as? DecodingError,
                case .keyNotFound(let key, _) = decodingError,
-               key.stringValue == "title" {
+               key.stringValue == "title" || key.stringValue == "summary" {
                 // 기존 데이터 삭제
                 userDefaults.removeObject(forKey: self.diaryKey)
                 return []

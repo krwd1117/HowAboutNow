@@ -16,6 +16,7 @@ public struct MainTabView: View {
         TabView(selection: $selectedTab) {
             NavigationStack {
                 DiaryListView(viewModel: DiaryListViewModel(repository: repository, emotionAnalysisService: emotionAnalysisService))
+                    .navigationBarTitleDisplayMode(.large)
             }
             .tag(0)
             .tabItem {
@@ -24,12 +25,14 @@ public struct MainTabView: View {
             
             NavigationStack {
                 EmotionStatisticsView(viewModel: EmotionStatisticsViewModel(repository: repository))
+                    .navigationBarTitleDisplayMode(.large)
             }
             .tag(1)
             .tabItem {
                 Label("통계", systemImage: selectedTab == 1 ? "chart.pie.fill" : "chart.pie")
             }
         }
+        .ignoresSafeArea(.keyboard)
         .tint(.pink)
     }
 }

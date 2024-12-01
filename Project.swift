@@ -30,7 +30,20 @@ let project = Project(
             destinations: [.iPhone],
             product: .app,
             bundleId: "com.howaboutnow.app",
-            infoPlist: .default,
+            infoPlist: .extendingDefault(with: [
+                "UILaunchScreen": [
+                    "UILaunchScreen": []
+                ],
+                "UIViewControllerBasedStatusBarAppearance": true,
+                "UIStatusBarHidden": false,
+                "UIRequiresFullScreen": false,
+                "ITSAppUsesNonExemptEncryption": false,
+                "LSRequiresIPhoneOS": true,
+                "UIApplicationSceneManifest": [
+                    "UIApplicationSupportsMultipleScenes": false,
+                    "UISceneConfigurations": [:]
+                ]
+            ]),
             sources: ["App/Sources/**"],
             resources: [
                 "App/Resources/**"

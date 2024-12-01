@@ -35,5 +35,7 @@ struct ContentView: View {
     
     var body: some View {
         MainTabView(repository: repository, emotionAnalysisService: emotionAnalysisService)
+            .preferredColorScheme(.light)
+            .tint(.pink)
     }
 }

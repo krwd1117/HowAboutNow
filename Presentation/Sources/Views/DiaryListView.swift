@@ -15,218 +15,236 @@ public struct DiaryListView: View {
     
     public var body: some View {
         ZStack {
-            Group {
-                if viewModel.isLoading {
-                    ProgressView()
-                } else if viewModel.diaries.isEmpty {
-                    ContentUnavailableView {
-                        Label("아직 일기가 없어요", systemImage: "book.closed")
-                    } description: {
-                        Text("오늘의 감정을 기록해볼까요?")
-                            .foregroundStyle(.secondary)
-                    } actions: {
-                        Button {
-                            showingDiaryEditor = true
-                        } label: {
-                            Image(systemName: "plus.circle.fill")
-                                .resizable()
-                                .frame(width: 60, height: 60)
-                                .foregroundStyle(.pink)
-                                .shadow(color: .black.opacity(0.2), radius: 8, y: 4)
-                        }
-                        .hoverEffect(.lift)
-                    }
-                } else {
-                    diaryList
-                }
-            }
-            
-            // Floating Action Button
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    Button {
-                        showingDiaryEditor = true
-                    } label: {
-                        Image(systemName: "plus.circle.fill")
-                            .resizable()
-                            .frame(width: 60, height: 60)
-                            .foregroundStyle(.pink)
-                            .shadow(color: .black.opacity(0.2), radius: 8, y: 4)
-                    }
-                    .hoverEffect(.lift)
-                }
-                .padding([.trailing, .bottom], 20)
-            }
+            mainContent
+            floatingActionButton
         }
-        .navigationTitle("감정 일기")
+        .navigationTitle("일기")
+        .navigationBarTitleDisplayMode(.large)
         .sheet(isPresented: $showingDiaryEditor) {
-            DiaryEditorView(viewModel: DiaryEditorViewModel(onSave: { title, content, date in
-                Task {
-                    await viewModel.addDiary(title: title, content: content, date: date)
-                }
-            }))
+            createDiaryEditor()
         }
         .sheet(item: $selectedDiary) { diary in
-            DiaryEditorView(viewModel: DiaryEditorViewModel(
-                title: diary.title,
-                content: diary.content,
-                date: diary.date,
-                onSave: { title, content, date in
-                    Task {
-                        await viewModel.updateDiary(
-                            diary,
-                            title: title,
-                            content: content,
-                            date: date
-                        )
-                    }
-                }
-            ))
+            editDiaryEditor(diary: diary)
         }
-        .alert("일기 삭제", isPresented: $showingDeleteAlert) {
-            Button("취소", role: .cancel) { }
+        .alert("일기 삭제", isPresented: $showingDeleteAlert, presenting: diaryToDelete) { diary in
             Button("삭제", role: .destructive) {
-                if let diary = diaryToDelete {
-                    Task {
-                        await viewModel.deleteDiary(diary)
-                    }
+                Task {
+                    await viewModel.deleteDiary(diary)
                 }
             }
-        } message: {
-            Text("정말 삭제하시겠습니까?")
+            Button("취소", role: .cancel) {}
+        } message: { diary in
+            Text("이 일기를 삭제하시겠습니까?")
+        }
+        .task {
+            await viewModel.loadDiaries()
         }
     }
     
-    private var diaryList: some View {
+    private var mainContent: some View {
+        Group {
+            if viewModel.isLoading {
+                ProgressView()
+            } else if viewModel.diaries.isEmpty {
+                emptyStateView
+            } else {
+                diaryListView
+            }
+        }
+    }
+    
+    private var emptyStateView: some View {
+        ContentUnavailableView {
+            Label("아직 일기가 없어요", systemImage: "book.closed")
+        } description: {
+            Text("오늘의 감정을 기록해볼까요?")
+                .foregroundStyle(.secondary)
+        } actions: {
+            Button {
+                showingDiaryEditor = true
+            } label: {
+                Image(systemName: "plus.circle.fill")
+                    .font(.title)
+                    .foregroundStyle(.pink)
+            }
+        }
+    }
+    
+    private var diaryListView: some View {
         ScrollView {
             LazyVStack(spacing: 16) {
                 ForEach(viewModel.diaries) { diary in
                     DiaryCell(diary: diary)
-                        .padding(.horizontal)
                         .contentShape(Rectangle())
                         .onTapGesture {
                             selectedDiary = diary
                         }
-                        .contextMenu {
-                            Button(role: .destructive) {
-                                diaryToDelete = diary
-                                showingDeleteAlert = true
-                            } label: {
-                                Label("삭제", systemImage: "trash")
-                            }
-                        }
                 }
             }
-            .padding(.vertical)
+            .padding(.horizontal)
+            .padding(.top)
+            .padding(.bottom, 100)
         }
         .scrollIndicators(.hidden)
         .refreshable {
             await viewModel.loadDiaries()
         }
     }
-
-    private struct DiaryCell: View {
-        let diary: Diary
-        
-        var body: some View {
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    Label {
-                        Text(diary.title)
-                            .font(.headline)
-                    } icon: {
-                        Image(systemName: "pencil.line")
-                            .foregroundStyle(.pink)
+    
+    private var floatingActionButton: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button {
+                    showingDiaryEditor = true
+                } label: {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 56))
+                        .foregroundStyle(.pink)
+                        .background(Color.white.clipShape(Circle()))
+                        .shadow(radius: 4)
+                }
+                .padding([.trailing, .bottom], 24)
+            }
+        }
+    }
+    
+    private func createDiaryEditor() -> some View {
+        NavigationStack {
+            DiaryEditorView(
+                viewModel: DiaryEditorViewModel(
+                    onSave: { title, content, date in
+                        Task {
+                            await viewModel.addDiary(title: title, content: content, date: date)
+                        }
                     }
-                    Spacer()
-                    Text(diary.date.formatted(date: .abbreviated, time: .omitted))
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                )
+            )
+        }
+    }
+    
+    private func editDiaryEditor(diary: Diary) -> some View {
+        NavigationStack {
+            DiaryEditorView(
+                viewModel: DiaryEditorViewModel(
+                    title: diary.title,
+                    content: diary.content,
+                    date: diary.date,
+                    onSave: { title, content, date in
+                        Task {
+                            await viewModel.updateDiary(
+                                diary,
+                                title: title,
+                                content: content,
+                                date: date
+                            )
+                        }
+                    }
+                )
+            )
+        }
+    }
+}
+
+private struct DiaryCell: View {
+    let diary: Diary
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Label {
+                    Text(diary.title)
+                        .font(.headline)
+                } icon: {
+                    Image(systemName: "pencil.line")
+                        .foregroundStyle(.pink)
                 }
-                
-                Text(diary.content)
-                    .font(.body)
-                    .lineLimit(3)
+                Spacer()
+                Text(diary.date.formatted(date: .abbreviated, time: .omitted))
+                    .font(.subheadline)
                     .foregroundStyle(.secondary)
-                
-                HStack {
-                    EmotionBadge(emotion: diary.emotion)
-                        .scaleEffect(0.9)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .font(.caption)
-                        .foregroundStyle(.tertiary)
-                }
             }
-            .padding()
-            .background {
-                RoundedRectangle(cornerRadius: 20, style: .continuous)
-                    .fill(.background)
-                    .shadow(color: .black.opacity(0.03), radius: 8, y: 4)
+            
+            Text(diary.content)
+                .font(.body)
+                .lineLimit(3)
+                .foregroundStyle(.secondary)
+            
+            HStack {
+                EmotionBadge(emotion: diary.emotion)
+                    .scaleEffect(0.9)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
             }
-            .overlay {
-                RoundedRectangle(cornerRadius: 20, style: .continuous)
-                    .strokeBorder(.quaternary, lineWidth: 0.5)
-            }
+        }
+        .padding()
+        .background {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(.background)
+                .shadow(color: .black.opacity(0.03), radius: 8, y: 4)
+        }
+        .overlay {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .strokeBorder(.quaternary, lineWidth: 0.5)
+        }
+    }
+}
+
+private struct EmotionBadge: View {
+    let emotion: String
+    
+    var emoji: String {
+        switch emotion {
+        case "행복": return "😊"
+        case "기쁨": return "😄"
+        case "평온": return "😌"
+        case "슬픔": return "😢"
+        case "분노": return "😠"
+        case "불안": return "😰"
+        case "희망": return "🥰"
+        default: return "🤔"
         }
     }
     
-    private struct EmotionBadge: View {
-        let emotion: String
-        
-        var emoji: String {
-            switch emotion {
-            case "행복": return "😊"
-            case "기쁨": return "😄"
-            case "평온": return "😌"
-            case "슬픔": return "😢"
-            case "분노": return "😠"
-            case "불안": return "😰"
-            case "희망": return "🥰"
-            default: return "🤔"
-            }
-        }
-        
-        var color: Color {
-            switch emotion {
-            case "행복", "기쁨": return .yellow
-            case "평온": return .mint
-            case "슬픔": return .blue
-            case "분노": return .red
-            case "불안": return .purple
-            case "희망": return .pink
-            default: return .gray
-            }
-        }
-        
-        var body: some View {
-            HStack(spacing: 4) {
-                Text(emoji)
-                Text(emotion)
-                    .font(.caption.bold())
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
-            .background(color.opacity(0.1))
-            .foregroundStyle(color)
-            .clipShape(Capsule())
+    var color: Color {
+        switch emotion {
+        case "행복", "기쁨": return .yellow
+        case "평온": return .mint
+        case "슬픔": return .blue
+        case "분노": return .red
+        case "불안": return .purple
+        case "희망": return .pink
+        default: return .gray
         }
     }
     
-    private func hapticFeedback() {
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
+    var body: some View {
+        HStack(spacing: 4) {
+            Text(emoji)
+            Text(emotion)
+                .font(.caption.bold())
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+        .background(color.opacity(0.1))
+        .foregroundStyle(color)
+        .clipShape(Capsule())
     }
 }
 
 struct DiaryListView_Previews: PreviewProvider {
     static var previews: some View {
-        DiaryListView(viewModel: DiaryListViewModel(
-            repository: MockDiaryRepository(),
-            emotionAnalysisService: MockEmotionAnalysisService()
-        ))
+        NavigationStack {
+            DiaryListView(
+                viewModel: DiaryListViewModel(
+                    repository: MockDiaryRepository(),
+                    emotionAnalysisService: MockEmotionAnalysisService()
+                )
+            )
+        }
     }
 }
 

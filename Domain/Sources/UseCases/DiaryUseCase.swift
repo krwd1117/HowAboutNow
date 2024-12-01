@@ -1,54 +1,46 @@
 import Foundation
 
-public protocol DiaryUseCase {
-    func createDiary(_ diary: Diary) async throws
-    func updateDiary(_ diary: Diary) async throws
-    func deleteDiary(_ diary: Diary) async throws
-    func getDiaries() async throws -> [Diary]
-}
-
-public final class DefaultDiaryUseCase: DiaryUseCase {
-    private let diaryRepository: DiaryRepository
-    private let emotionAnalysisService: EmotionAnalysisService
-    private let contentSummaryService: ContentSummaryService
+public actor DiaryUseCase {
+    private let repository: DiaryRepository
+    private let diaryAnalysisService: DiaryAnalysisService
     
-    public init(
-        diaryRepository: DiaryRepository,
-        emotionAnalysisService: EmotionAnalysisService,
-        contentSummaryService: ContentSummaryService
-    ) {
-        self.diaryRepository = diaryRepository
-        self.emotionAnalysisService = emotionAnalysisService
-        self.contentSummaryService = contentSummaryService
-    }
-    
-    public func createDiary(_ diary: Diary) async throws {
-        let emotion = try await emotionAnalysisService.analyzeEmotion(from: diary.content)
-        let summary = try await contentSummaryService.summarize(diary.content)
-        
-        var updatedDiary = diary
-        updatedDiary.emotion = emotion
-        updatedDiary.summary = summary
-        
-        try await diaryRepository.saveDiary(updatedDiary)
-    }
-    
-    public func updateDiary(_ diary: Diary) async throws {
-        let emotion = try await emotionAnalysisService.analyzeEmotion(from: diary.content)
-        let summary = try await contentSummaryService.summarize(diary.content)
-        
-        var updatedDiary = diary
-        updatedDiary.emotion = emotion
-        updatedDiary.summary = summary
-        
-        try await diaryRepository.updateDiary(updatedDiary)
-    }
-    
-    public func deleteDiary(_ diary: Diary) async throws {
-        try await diaryRepository.deleteDiary(diary)
+    public init(repository: DiaryRepository,
+               diaryAnalysisService: DiaryAnalysisService) {
+        self.repository = repository
+        self.diaryAnalysisService = diaryAnalysisService
     }
     
     public func getDiaries() async throws -> [Diary] {
-        try await diaryRepository.getDiaries()
+        try await repository.getDiaries()
+    }
+    
+    public func saveDiary(_ diary: Diary) async throws {
+        let analysis = try await diaryAnalysisService.analyzeDiary(content: diary.content)
+        let analyzedDiary = Diary(
+            id: diary.id,
+            title: diary.title,
+            content: diary.content,
+            emotion: analysis.emotion,
+            summary: analysis.summary,
+            date: diary.date
+        )
+        try await repository.saveDiary(analyzedDiary)
+    }
+    
+    public func updateDiary(_ diary: Diary) async throws {
+        let analysis = try await diaryAnalysisService.analyzeDiary(content: diary.content)
+        let analyzedDiary = Diary(
+            id: diary.id,
+            title: diary.title,
+            content: diary.content,
+            emotion: analysis.emotion,
+            summary: analysis.summary,
+            date: diary.date
+        )
+        try await repository.updateDiary(analyzedDiary)
+    }
+    
+    public func deleteDiary(_ diary: Diary) async throws {
+        try await repository.deleteDiary(diary)
     }
 }

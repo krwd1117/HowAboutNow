@@ -1,5 +1,4 @@
 import Foundation
-import Infrastructure
 import Domain
 
 @MainActor
@@ -9,18 +8,15 @@ public final class DiaryListViewModel: ObservableObject {
     @Published private(set) var error: Error?
     @Published public var isCalendarView: Bool
     
-    internal let repository: DiaryRepository
-    private let emotionAnalysisService: EmotionAnalysisService
-    private let contentSummaryService: ContentSummaryService
+    private let repository: DiaryRepository
+    private let diaryAnalysisService: DiaryAnalysisService
     private let defaults = UserDefaults.standard
     private let viewModeKey = "DiaryViewMode"
     
-    public init(repository: DiaryRepository, 
-               emotionAnalysisService: EmotionAnalysisService,
-               contentSummaryService: ContentSummaryService) {
+    public init(repository: DiaryRepository,
+               diaryAnalysisService: DiaryAnalysisService) {
         self.repository = repository
-        self.emotionAnalysisService = emotionAnalysisService
-        self.contentSummaryService = contentSummaryService
+        self.diaryAnalysisService = diaryAnalysisService
         self.isCalendarView = UserDefaults.standard.bool(forKey: "DiaryViewMode")
     }
     
@@ -43,15 +39,22 @@ public final class DiaryListViewModel: ObservableObject {
         isLoading = false
     }
     
-    public func addDiary(title: String, content: String, date: Date) async {
+    public func saveDiary(title: String, content: String, date: Date) async {
         guard !title.isEmpty && !content.isEmpty else { return }
         
         isLoading = true
         error = nil
         
         do {
-            let emotion = try await emotionAnalysisService.analyzeEmotion(from: content)
-            let diary = Diary(title: title, content: content, emotion: emotion, date: date)
+            let analysis = try await diaryAnalysisService.analyzeDiary(content: content)
+            let diary = Diary(
+                title: title,
+                content: content,
+                emotion: analysis.emotion,
+                summary: analysis.summary,
+                date: date
+            )
+            
             try await repository.saveDiary(diary)
             await loadDiaries()
         } catch {
@@ -68,8 +71,16 @@ public final class DiaryListViewModel: ObservableObject {
         error = nil
         
         do {
-            let emotion = try await emotionAnalysisService.analyzeEmotion(from: content)
-            let updatedDiary = Diary(id: diary.id, title: title, content: content, emotion: emotion, date: date)
+            let analysis = try await diaryAnalysisService.analyzeDiary(content: content)
+            let updatedDiary = Diary(
+                id: diary.id,
+                title: title,
+                content: content,
+                emotion: analysis.emotion,
+                summary: analysis.summary,
+                date: date
+            )
+            
             try await repository.updateDiary(updatedDiary)
             await loadDiaries()
         } catch {

@@ -14,12 +14,10 @@ public struct SplashView: View {
         Group {
             if viewModel.isInitialized {
                 if let repository = viewModel.repository,
-                   let emotionService = viewModel.emotionAnalysisService,
-                   let summaryService = viewModel.contentSummaryService {
+                   let diaryAnalysisService = viewModel.diaryAnalysisService {
                     MainTabView(
                         repository: repository,
-                        emotionAnalysisService: emotionService,
-                        contentSummaryService: summaryService
+                        diaryAnalysisService: diaryAnalysisService
                     )
                 }
             } else {

@@ -9,19 +9,15 @@ public final class SplashViewModel: ObservableObject {
     @Published private(set) var error: Error?
     
     private(set) var repository: DiaryRepository?
-    private(set) var emotionAnalysisService: EmotionAnalysisService?
-    private(set) var contentSummaryService: ContentSummaryService?
+    private(set) var diaryAnalysisService: DiaryAnalysisService?
     
     public init() {}
     
     public func initializeServices() async {
         do {
-            let apiKey = try ConfigurationManager.shared.string(for: ConfigurationManager.Keys.openAIAPIKey)
-            
             // Initialize services
             let repository = DiaryDataRepository()
-            let emotionService = OpenAIEmotionAnalysisService(apiKey: apiKey)
-            let summaryService = OpenAIContentSummaryService(apiKey: apiKey)
+            let analysisService = try OpenAIDiaryAnalysisService()
             
             // Pre-fetch data
             Logger.d("Pre-fetching diaries...")
@@ -29,8 +25,7 @@ public final class SplashViewModel: ObservableObject {
             
             // Store services
             self.repository = repository
-            self.emotionAnalysisService = emotionService
-            self.contentSummaryService = summaryService
+            self.diaryAnalysisService = analysisService
             
             self.isInitialized = true
             self.error = nil

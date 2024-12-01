@@ -9,25 +9,25 @@ public struct EmotionBadge: View {
     
     var emoji: String {
         switch emotion {
-        case "행복": return "😊"
-        case "기쁨": return "😄"
-        case "평온": return "😌"
-        case "슬픔": return "😢"
-        case "분노": return "😠"
-        case "불안": return "😰"
-        case "희망": return "🥰"
+        case "happy": return "😊"
+        case "joy": return "😄"
+        case "peaceful": return "😌"
+        case "sad": return "😢"
+        case "angry": return "😠"
+        case "anxious": return "😰"
+        case "hopeful": return "🥰"
         default: return "🤔"
         }
     }
     
     var color: Color {
         switch emotion {
-        case "행복", "기쁨": return .yellow
-        case "평온": return .mint
-        case "슬픔": return .blue
-        case "분노": return .red
-        case "불안": return .purple
-        case "희망": return .pink
+        case "happy", "joy": return .yellow
+        case "peaceful": return .mint
+        case "sad": return .blue
+        case "angry": return .red
+        case "anxious": return .purple
+        case "hopeful": return .pink
         default: return .gray
         }
     }
@@ -44,4 +44,18 @@ public struct EmotionBadge: View {
         .foregroundStyle(color)
         .clipShape(Capsule())
     }
+}
+
+#Preview {
+    VStack(spacing: 8) {
+        EmotionBadge(emotion: "happy")
+        EmotionBadge(emotion: "joy")
+        EmotionBadge(emotion: "peaceful")
+        EmotionBadge(emotion: "sad")
+        EmotionBadge(emotion: "angry")
+        EmotionBadge(emotion: "anxious")
+        EmotionBadge(emotion: "hopeful")
+        EmotionBadge(emotion: "unknown")
+    }
+    .padding()
 }

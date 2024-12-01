@@ -16,7 +16,6 @@ public struct DiaryListView: View {
     public var body: some View {
         ZStack {
             mainContent
-            floatingActionButton
         }
         .navigationTitle("일기")
         .navigationBarTitleDisplayMode(.large)
@@ -48,7 +47,7 @@ public struct DiaryListView: View {
             } else if viewModel.diaries.isEmpty {
                 emptyStateView
             } else {
-                diaryListView
+                DiaryListViewComponent(viewModel: viewModel, selectedDiary: $selectedDiary, diaryToDelete: $diaryToDelete, showingDeleteAlert: $showingDeleteAlert)
             }
         }
     }
@@ -70,53 +69,13 @@ public struct DiaryListView: View {
         }
     }
     
-    private var diaryListView: some View {
-        ScrollView {
-            LazyVStack(spacing: 16) {
-                ForEach(viewModel.diaries) { diary in
-                    DiaryCell(diary: diary)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            selectedDiary = diary
-                        }
-                }
-            }
-            .padding(.horizontal)
-            .padding(.top)
-            .padding(.bottom, 100)
-        }
-        .scrollIndicators(.hidden)
-        .refreshable {
-            await viewModel.loadDiaries()
-        }
-    }
-    
-    private var floatingActionButton: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                Button {
-                    showingDiaryEditor = true
-                } label: {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 56))
-                        .foregroundStyle(.pink)
-                        .background(Color.white.clipShape(Circle()))
-                        .shadow(radius: 4)
-                }
-                .padding([.trailing, .bottom], 24)
-            }
-        }
-    }
-    
     private func createDiaryEditor() -> some View {
         NavigationStack {
             DiaryEditorView(
                 viewModel: DiaryEditorViewModel(
                     onSave: { title, content, date in
                         Task {
-                            await viewModel.addDiary(title: title, content: content, date: date)
+                            await viewModel.saveDiary(title: title, content: content, date: date)
                         }
                     },
                     onDatePickerToggle: { _ in }
@@ -149,56 +108,71 @@ public struct DiaryListView: View {
     }
 }
 
+struct DiaryListViewComponent: View {
+    @ObservedObject var viewModel: DiaryListViewModel
+    @Binding var selectedDiary: Diary?
+    @Binding var diaryToDelete: Diary?
+    @Binding var showingDeleteAlert: Bool
+    
+    var body: some View {
+        List {
+            ForEach(viewModel.diaries) { diary in
+                DiaryCell(diary: diary)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        selectedDiary = diary
+                    }
+                    .swipeActions(edge: .trailing) {
+                        Button(role: .destructive) {
+                            diaryToDelete = diary
+                            showingDeleteAlert = true
+                        } label: {
+                            Label("삭제", systemImage: "trash")
+                        }
+                    }
+            }
+        }
+        .listStyle(.plain)
+        .refreshable {
+            await viewModel.loadDiaries()
+        }
+    }
+}
+
 private struct DiaryCell: View {
     let diary: Diary
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Label {
-                    Text(diary.title)
-                        .font(.headline)
-                } icon: {
-                    Image(systemName: "pencil.line")
-                        .foregroundStyle(.pink)
-                }
+                Text(diary.title)
+                    .font(.headline)
+                
                 Spacer()
+                
                 Text(diary.date.formatted(date: .abbreviated, time: .omitted))
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
             
-            if !diary.summary.isEmpty {
-                Text(diary.summary)
-                    .font(.body)
-                    .lineLimit(2)
-                    .foregroundStyle(.secondary)
-            } else {
-                Text(diary.content)
-                    .font(.body)
-                    .lineLimit(2)
-                    .foregroundStyle(.secondary)
-            }
+            Text(diary.content)
+                .font(.subheadline)
+                .lineLimit(2)
+                .foregroundStyle(.secondary)
             
             HStack {
-                EmotionBadge(emotion: diary.emotion)
-                    .scaleEffect(0.9)
-                Spacer()
-                Image(systemName: "chevron.right")
+                EmotionIcon(emotion: diary.emotion)
                     .font(.caption)
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(.pink)
+                
+                Spacer()
+                
+                Text(diary.summary)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
         }
-        .padding()
-        .background {
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(.background)
-                .shadow(color: .black.opacity(0.03), radius: 8, y: 4)
-        }
-        .overlay {
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .strokeBorder(.quaternary, lineWidth: 0.5)
-        }
+        .padding(.vertical, 4)
     }
 }
 
@@ -208,8 +182,7 @@ struct DiaryListView_Previews: PreviewProvider {
             DiaryListView(
                 viewModel: DiaryListViewModel(
                     repository: MockDiaryRepository(),
-                    emotionAnalysisService: MockEmotionAnalysisService(),
-                    contentSummaryService: MockContentSummaryService()
+                    diaryAnalysisService: MockDiaryAnalysisService()
                 )
             )
         }
@@ -230,14 +203,9 @@ private actor MockDiaryRepository: DiaryRepository {
     func deleteDiary(_ diary: Diary) async throws {}
 }
 
-private actor MockEmotionAnalysisService: EmotionAnalysisService {
-    func analyzeEmotion(from text: String) async throws -> String {
-        return "행복"
+private actor MockDiaryAnalysisService: DiaryAnalysisService {
+    func analyzeDiary(content: String) async throws -> DiaryAnalysis {
+        DiaryAnalysis(emotion: "", summary: "")
     }
-}
 
-private actor MockContentSummaryService: ContentSummaryService {
-    func summarize(_ content: String) async throws -> String {
-        return "요약"
-    }
 }

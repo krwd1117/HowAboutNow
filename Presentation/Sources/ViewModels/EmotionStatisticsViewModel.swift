@@ -7,6 +7,7 @@ public final class EmotionStatisticsViewModel: ObservableObject {
     @Published private(set) var statistics: EmotionStatistics?
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error?
+    @Published var selectedPeriod: StatisticsPeriod = .week
     
     private let repository: DiaryRepository
     
@@ -23,11 +24,13 @@ public final class EmotionStatisticsViewModel: ObservableObject {
         
         do {
             let diaries = try await repository.getDiaries()
-            let interval = selectedPeriod.dateInterval
-            let filteredDiaries = diaries.filter { interval.contains($0.date) }
+            let interval: Foundation.DateInterval = selectedPeriod.dateInterval
+            let filteredDiaries: [Diary] = diaries.filter { interval.contains($0.date) }
             
-            let emotions = filteredDiaries.reduce(into: [:]) { counts, diary in
-                counts[diary.emotion, default: 0] += 1
+            let emotions: [String: Int] = filteredDiaries.reduce(into: [:]) { counts, diary in
+                if !diary.emotion.isEmpty {
+                    counts[diary.emotion, default: 0] += 1
+                }
             }
             
             let emotionStats = emotions.map { emotion, count in
@@ -42,7 +45,7 @@ public final class EmotionStatisticsViewModel: ObservableObject {
             
             Logger.d("Fetched statistics for period: \(selectedPeriod.rawValue)")
             Logger.d("Total diaries: \(statistics?.totalCount ?? 0)")
-            Logger.d("Most frequent emotion: \(statistics?.mostFrequentEmotion ?? "none")")
+            Logger.d("Most frequent emotion: \(statistics?.mostFrequentEmotion?.description ?? "none")")
         } catch {
             Logger.e("Failed to fetch statistics: \(error)")
             self.error = error
@@ -50,31 +53,31 @@ public final class EmotionStatisticsViewModel: ObservableObject {
         
         isLoading = false
     }
-    
+}
+
+extension EmotionStatisticsViewModel {
     public enum StatisticsPeriod: String, CaseIterable {
         case week = "일주일"
-        case month = "한달"
-        case year = "일년"
+        case month = "한 달"
+        case year = "일 년"
         
-        var dateInterval: DateInterval {
+        var dateInterval: Foundation.DateInterval {
             let now = Date()
             let calendar = Calendar.current
             
             switch self {
             case .week:
-                let startDate = calendar.date(byAdding: .day, value: -7, to: now)!
-                return DateInterval(start: startDate, end: now)
+                let startDate = calendar.date(byAdding: .day, value: -7, to: now) ?? now
+                return Foundation.DateInterval(start: startDate, end: now)
             case .month:
-                let startDate = calendar.date(byAdding: .month, value: -1, to: now)!
-                return DateInterval(start: startDate, end: now)
+                let startDate = calendar.date(byAdding: .month, value: -1, to: now) ?? now
+                return Foundation.DateInterval(start: startDate, end: now)
             case .year:
-                let startDate = calendar.date(byAdding: .year, value: -1, to: now)!
-                return DateInterval(start: startDate, end: now)
+                let startDate = calendar.date(byAdding: .year, value: -1, to: now) ?? now
+                return Foundation.DateInterval(start: startDate, end: now)
             }
         }
     }
-    
-    public var selectedPeriod: StatisticsPeriod = .week
 }
 
 private actor PreviewDiaryRepository: DiaryRepository {

@@ -118,7 +118,8 @@ public struct DiaryListView: View {
                         Task {
                             await viewModel.addDiary(title: title, content: content, date: date)
                         }
-                    }
+                    },
+                    onDatePickerToggle: { _ in }
                 )
             )
         }
@@ -140,7 +141,8 @@ public struct DiaryListView: View {
                                 date: date
                             )
                         }
-                    }
+                    },
+                    onDatePickerToggle: { _ in }
                 )
             )
         }

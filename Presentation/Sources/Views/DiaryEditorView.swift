@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 public struct DiaryEditorView: View {
     @Environment(\.dismiss) private var dismiss
@@ -11,7 +12,23 @@ public struct DiaryEditorView: View {
     }
     
     public init(viewModel: DiaryEditorViewModel) {
-        _viewModel = ObservedObject(wrappedValue: viewModel)
+        let onSave = viewModel.save
+        self._viewModel = ObservedObject(wrappedValue: DiaryEditorViewModel(
+            title: viewModel.title,
+            content: viewModel.content,
+            date: viewModel.selectedDate,
+            onSave: { title, content, date in
+                onSave()
+            },
+            onDatePickerToggle: { isShowing in
+                if isShowing {
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), 
+                                                 to: nil, 
+                                                 from: nil, 
+                                                 for: nil)
+                }
+            }
+        ))
     }
     
     public var body: some View {
@@ -95,6 +112,9 @@ public struct DiaryEditorView: View {
                 Button {
                     withAnimation(.spring(duration: 0.3)) {
                         viewModel.toggleDatePicker()
+                        if viewModel.showDatePicker {
+                            focusField = nil
+                        }
                     }
                 } label: {
                     Image(systemName: "calendar")
@@ -156,9 +176,11 @@ public struct DiaryEditorView: View {
 }
 
 #Preview {
-    DiaryEditorView(viewModel: DiaryEditorViewModel(title: "", content: "", date: .now, onSave: { title, content, date in
-        print("Title:", title)
-        print("Content:", content)
-        print("Date:", date)
-    }))
+    DiaryEditorView(viewModel: DiaryEditorViewModel(
+        title: "",
+        content: "",
+        date: .now,
+        onSave: { _, _, _ in },
+        onDatePickerToggle: { _ in }
+    ))
 }

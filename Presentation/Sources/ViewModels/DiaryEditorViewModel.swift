@@ -18,18 +18,21 @@ public final class DiaryEditorViewModel: ObservableObject {
     @Published public private(set) var isValid = false
     
     private let onSave: (String, String, Date) -> Void
+    private let onDatePickerToggle: (Bool) -> Void
     private var cancellables = Set<AnyCancellable>()
     
     public init(
         title: String = "",
         content: String = "",
         date: Date = .now,
-        onSave: @escaping (String, String, Date) -> Void
+        onSave: @escaping (String, String, Date) -> Void,
+        onDatePickerToggle: @escaping (Bool) -> Void
     ) {
         self.title = title
         self.content = content
         self.selectedDate = date
         self.onSave = onSave
+        self.onDatePickerToggle = onDatePickerToggle
         
         // 입력값 유효성 검사
         Publishers.CombineLatest($title, $content)
@@ -48,6 +51,7 @@ public final class DiaryEditorViewModel: ObservableObject {
     
     public func toggleDatePicker() {
         showDatePicker.toggle()
+        onDatePickerToggle(showDatePicker)
     }
     
     public func save() {

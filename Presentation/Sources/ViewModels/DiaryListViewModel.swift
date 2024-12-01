@@ -10,10 +10,14 @@ public final class DiaryListViewModel: ObservableObject {
     
     internal let repository: DiaryRepository
     private let emotionAnalysisService: EmotionAnalysisService
+    private let contentSummaryService: ContentSummaryService
     
-    public init(repository: DiaryRepository, emotionAnalysisService: EmotionAnalysisService) {
+    public init(repository: DiaryRepository, 
+               emotionAnalysisService: EmotionAnalysisService,
+               contentSummaryService: ContentSummaryService) {
         self.repository = repository
         self.emotionAnalysisService = emotionAnalysisService
+        self.contentSummaryService = contentSummaryService
     }
     
     public func loadDiaries() async {

@@ -248,7 +248,8 @@ struct DiaryListView_Previews: PreviewProvider {
             DiaryListView(
                 viewModel: DiaryListViewModel(
                     repository: MockDiaryRepository(),
-                    emotionAnalysisService: MockEmotionAnalysisService()
+                    emotionAnalysisService: MockEmotionAnalysisService(),
+                    contentSummaryService: MockContentSummaryService()
                 )
             )
         }
@@ -272,5 +273,11 @@ private actor MockDiaryRepository: DiaryRepository {
 private actor MockEmotionAnalysisService: EmotionAnalysisService {
     func analyzeEmotion(from text: String) async throws -> String {
         return "행복"
+    }
+}
+
+private actor MockContentSummaryService: ContentSummaryService {
+    func summarize(_ content: String) async throws -> String {
+        return "요약"
     }
 }

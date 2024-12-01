@@ -8,40 +8,61 @@ public struct DiaryListView: View {
     @State private var selectedDiary: Diary?
     @State private var showingDeleteAlert = false
     @State private var diaryToDelete: Diary?
+    @Environment(\.colorScheme) private var colorScheme
     
     public init(viewModel: DiaryListViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
     public var body: some View {
-        mainContent
-            .navigationTitle("일기")
-            .navigationBarTitleDisplayMode(.large)
-            .sheet(isPresented: $showingDiaryEditor) {
-                createDiaryEditor()
-            }
-            .sheet(item: $selectedDiary) { diary in
-                editDiaryEditor(diary: diary)
-            }
-            .alert("일기 삭제", isPresented: $showingDeleteAlert, presenting: diaryToDelete) { diary in
-                Button("삭제", role: .destructive) {
-                    Task {
-                        await viewModel.deleteDiary(diary)
-                    }
+        ZStack {
+            backgroundGradient
+            mainContent
+            floatingActionButton
+            #if DEBUG
+            debugCrashButton
+            #endif
+        }
+        .navigationTitle("오늘의 일기")
+        .navigationBarTitleDisplayMode(.large)
+        .sheet(isPresented: $showingDiaryEditor) {
+            createDiaryEditor()
+        }
+        .sheet(item: $selectedDiary) { diary in
+            editDiaryEditor(diary: diary)
+        }
+        .alert("일기 삭제", isPresented: $showingDeleteAlert, presenting: diaryToDelete) { diary in
+            Button("삭제", role: .destructive) {
+                Task {
+                    await viewModel.deleteDiary(diary)
                 }
-                Button("취소", role: .cancel) {}
-            } message: { diary in
-                Text("이 일기를 삭제하시겠습니까?")
             }
-            .task {
-                await viewModel.loadDiaries()
-            }
+            Button("취소", role: .cancel) {}
+        } message: { diary in
+            Text("이 일기를 삭제하시겠습니까?")
+        }
+        .task {
+            await viewModel.loadDiaries()
+        }
+    }
+    
+    private var backgroundGradient: some View {
+        LinearGradient(
+            colors: [
+                Color(uiColor: .systemBackground),
+                Color(uiColor: .systemBackground).opacity(0.95),
+                Color.pink.opacity(0.1)
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        .ignoresSafeArea()
     }
     
     private var mainContent: some View {
         Group {
             if viewModel.isLoading {
-                ProgressView()
+                loadingView
             } else if viewModel.diaries.isEmpty {
                 emptyStateView
             } else {
@@ -50,9 +71,26 @@ public struct DiaryListView: View {
         }
     }
     
+    private var loadingView: some View {
+        VStack(spacing: 16) {
+            ProgressView()
+                .scaleEffect(1.2)
+            Text("일기를 불러오는 중이에요")
+                .font(.callout)
+                .foregroundStyle(.secondary)
+        }
+    }
+    
     private var emptyStateView: some View {
         ContentUnavailableView {
-            Label("아직 일기가 없어요", systemImage: "book.closed")
+            Label {
+                Text("아직 일기가 없어요")
+            } icon: {
+                Image(systemName: "book.closed")
+                    .symbolEffect(.bounce)
+                    .foregroundStyle(.pink)
+                    .font(.largeTitle)
+            }
         } description: {
             Text("오늘의 감정을 기록해볼까요?")
                 .foregroundStyle(.secondary)
@@ -60,11 +98,80 @@ public struct DiaryListView: View {
             Button {
                 showingDiaryEditor = true
             } label: {
-                Text("일기 작성하기")
+                Label("새 일기 작성하기", systemImage: "plus")
+                    .font(.body.weight(.medium))
             }
-            .buttonStyle(.bordered)
+            .buttonStyle(.borderedProminent)
+            .tint(.pink)
         }
     }
+    
+    private var floatingActionButton: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button {
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                        showingDiaryEditor = true
+                    }
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.title3.weight(.semibold))
+                        .foregroundStyle(.white)
+                        .frame(width: 56, height: 56)
+                        .background(
+                            Circle()
+                                .fill(
+                                    LinearGradient(
+                                        colors: [.pink, .pink.opacity(0.8)],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                )
+                                .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
+                        )
+                        .overlay(
+                            Circle()
+                                .stroke(.white.opacity(0.2), lineWidth: 1)
+                        )
+                }
+                .padding([.trailing, .bottom], 20)
+                .buttonStyle(BounceButtonStyle())
+            }
+        }
+    }
+    
+    #if DEBUG
+    private var debugCrashButton: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button {
+                    fatalError("Crash was triggered")
+                } label: {
+                    Image(systemName: "ladybug.fill")
+                        .font(.title3)
+                        .foregroundStyle(.white)
+                        .frame(width: 40, height: 40)
+                        .background(
+                            Circle()
+                                .fill(
+                                    LinearGradient(
+                                        colors: [.red, .red.opacity(0.8)],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                )
+                        )
+                }
+                .padding([.trailing, .bottom], 20)
+            }
+            .padding(.bottom, 70)
+        }
+    }
+    #endif
     
     private func createDiaryEditor() -> some View {
         NavigationStack {
@@ -90,12 +197,7 @@ public struct DiaryListView: View {
                     date: diary.date,
                     onSave: { title, content, date in
                         Task {
-                            await viewModel.updateDiary(
-                                diary,
-                                title: title,
-                                content: content,
-                                date: date
-                            )
+                            await viewModel.updateDiary(diary, title: title, content: content, date: date)
                         }
                     },
                     onDatePickerToggle: { _ in }
@@ -105,7 +207,7 @@ public struct DiaryListView: View {
     }
 }
 
-struct ScaleButtonStyle: ButtonStyle {
+struct BounceButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .scaleEffect(configuration.isPressed ? 0.88 : 1)
@@ -120,64 +222,95 @@ struct DiaryListViewComponent: View {
     @Binding var showingDeleteAlert: Bool
     
     var body: some View {
-        List {
-            ForEach(viewModel.diaries) { diary in
-                DiaryCell(diary: diary)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        selectedDiary = diary
-                    }
-                    .swipeActions(edge: .trailing) {
-                        Button(role: .destructive) {
-                            diaryToDelete = diary
-                            showingDeleteAlert = true
-                        } label: {
-                            Label("삭제", systemImage: "trash")
+        ScrollView {
+            LazyVStack(spacing: 16) {
+                ForEach(viewModel.diaries) { diary in
+                    DiaryCell(diary: diary)
+                        .onTapGesture {
+                            selectedDiary = diary
                         }
-                    }
+                        .contextMenu {
+                            Button {
+                                selectedDiary = diary
+                            } label: {
+                                Label("수정하기", systemImage: "pencil")
+                            }
+                            
+                            Button(role: .destructive) {
+                                diaryToDelete = diary
+                                showingDeleteAlert = true
+                            } label: {
+                                Label("삭제하기", systemImage: "trash")
+                            }
+                        }
+                }
             }
+            .padding(.horizontal)
+            .padding(.top, 8)
         }
-        .listStyle(.plain)
+        .scrollIndicators(.hidden)
         .refreshable {
             await viewModel.loadDiaries()
         }
     }
 }
 
-private struct DiaryCell: View {
+struct DiaryCell: View {
     let diary: Diary
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .center, spacing: 8) {
+                EmotionIcon(emotion: diary.emotion)
+                    .font(.title2)
+                    .symbolEffect(.bounce)
+                
                 Text(diary.title)
                     .font(.headline)
+                    .foregroundStyle(Color.primary)
                 
                 Spacer()
                 
                 Text(diary.date.formatted(date: .abbreviated, time: .omitted))
-                    .font(.subheadline)
+                    .font(.caption)
                     .foregroundStyle(.secondary)
             }
             
             Text(diary.content)
-                .font(.subheadline)
-                .lineLimit(2)
-                .foregroundStyle(.secondary)
+                .font(.body)
+                .lineLimit(3)
+                .multilineTextAlignment(.leading)
             
-            HStack {
-                EmotionIcon(emotion: diary.emotion)
-                    .font(.caption)
-                    .foregroundStyle(.pink)
-                
-                Spacer()
-                
-                Text(diary.summary)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+            if !diary.summary.isEmpty {
+                HStack(spacing: 4) {
+                    Image(systemName: "quote.opening")
+                        .font(.caption2)
+                        .foregroundStyle(.pink)
+                    
+                    Text(diary.summary)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                    
+                    Image(systemName: "quote.closing")
+                        .font(.caption2)
+                        .foregroundStyle(.pink)
+                }
+                .padding(.top, 4)
             }
         }
-        .padding(.vertical, 4)
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(colorScheme == .dark ? Color(uiColor: .secondarySystemBackground) : .white)
+                .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color.pink.opacity(0.1), lineWidth: 1)
+        )
     }
 }
 
@@ -212,5 +345,4 @@ private actor MockDiaryAnalysisService: DiaryAnalysisService {
     func analyzeDiary(content: String) async throws -> DiaryAnalysis {
         DiaryAnalysis(emotion: "", summary: "")
     }
-    
 }

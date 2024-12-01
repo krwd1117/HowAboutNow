@@ -3,8 +3,10 @@ import UIKit
 
 public struct DiaryEditorView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.colorScheme) private var colorScheme
     @ObservedObject private var viewModel: DiaryEditorViewModel
     @FocusState private var focusField: Field?
+    @State private var showDatePicker = false
     
     private enum Field {
         case title
@@ -34,17 +36,34 @@ public struct DiaryEditorView: View {
     public var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 20) {
+                VStack(spacing: 24) {
                     titleSection
                     dateSection
                     contentSection
                     
-                    Text("AI가 일기의 감정을 분석해드려요 ✨")
+                    VStack(spacing: 8) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "wand.and.stars")
+                                .symbolEffect(.bounce)
+                            Text("AI가 일기의 감정을 분석해드려요")
+                        }
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.pink)
+                        
+                        Text("일기를 저장하면 AI가 감정을 분석하고 요약해드려요")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12, style: .continuous)
+                            .fill(Color.pink.opacity(0.1))
+                    )
                 }
                 .padding()
             }
+            .background(Color(uiColor: .systemGroupedBackground))
             .navigationTitle(viewModel.title.isEmpty ? "새로운 일기" : viewModel.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -61,6 +80,7 @@ public struct DiaryEditorView: View {
                         dismiss()
                     } label: {
                         Text("저장")
+                            .fontWeight(.medium)
                     }
                     .disabled(!viewModel.isValid)
                     .tint(.pink)
@@ -85,13 +105,23 @@ public struct DiaryEditorView: View {
     
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Label("제목", systemImage: "pencil.circle.fill")
-                .font(.headline)
-                .foregroundStyle(.pink)
+            Label {
+                Text("제목")
+                    .foregroundStyle(.primary)
+            } icon: {
+                Image(systemName: "pencil.circle.fill")
+                    .symbolRenderingMode(.hierarchical)
+                    .foregroundStyle(.pink)
+            }
+            .font(.headline)
             
             TextField("오늘의 제목을 입력해주세요", text: $viewModel.title)
                 .font(.body)
-                .textFieldStyle(.roundedBorder)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(Color(uiColor: .secondarySystemGroupedBackground))
+                )
                 .focused($focusField, equals: .title)
                 .textInputAutocapitalization(.never)
         }
@@ -99,20 +129,26 @@ public struct DiaryEditorView: View {
     
     private var dateSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Label("날짜", systemImage: "calendar.circle.fill")
-                .font(.headline)
-                .foregroundStyle(.pink)
+            Label {
+                Text("날짜")
+                    .foregroundStyle(.primary)
+            } icon: {
+                Image(systemName: "calendar.circle.fill")
+                    .symbolRenderingMode(.hierarchical)
+                    .foregroundStyle(.pink)
+            }
+            .font(.headline)
             
             HStack {
-                Text(viewModel.selectedDate.formatted(date: .abbreviated, time: .omitted))
+                Text(formatDate(viewModel.selectedDate))
                     .font(.body)
                 
                 Spacer()
                 
                 Button {
-                    withAnimation(.spring(duration: 0.3)) {
-                        viewModel.toggleDatePicker()
-                        if viewModel.showDatePicker {
+                    withAnimation(.spring(response: 0.3)) {
+                        showDatePicker.toggle()
+                        if showDatePicker {
                             focusField = nil
                         }
                     }
@@ -120,54 +156,83 @@ public struct DiaryEditorView: View {
                     Image(systemName: "calendar")
                         .symbolRenderingMode(.hierarchical)
                         .foregroundStyle(.pink)
+                        .font(.body.weight(.medium))
                 }
             }
             .padding()
-            .background {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(.background)
-                    .shadow(color: .black.opacity(0.03), radius: 8, y: 4)
-            }
-            .overlay {
-                RoundedRectangle(cornerRadius: 8)
-                    .strokeBorder(.quaternary, lineWidth: 0.5)
-            }
+            .background(
+                RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    .fill(Color(uiColor: .secondarySystemGroupedBackground))
+            )
             
-            if viewModel.showDatePicker {
+            if showDatePicker {
                 DatePicker(
                     "날짜 선택",
                     selection: $viewModel.selectedDate,
                     displayedComponents: [.date]
                 )
                 .datePickerStyle(.graphical)
-                .tint(.pink)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(Color(uiColor: .secondarySystemGroupedBackground))
+                )
                 .transition(.opacity.combined(with: .scale(scale: 0.95, anchor: .top)))
+                .onChange(of: viewModel.selectedDate) { _ in
+                    withAnimation(.spring(response: 0.3)) {
+                        showDatePicker = false
+                    }
+                }
             }
         }
     }
     
     private var contentSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Label("내용", systemImage: "text.bubble.fill")
-                .font(.headline)
-                .foregroundStyle(.pink)
+            Label {
+                Text("내용")
+                    .foregroundStyle(.primary)
+            } icon: {
+                Image(systemName: "text.bubble.fill")
+                    .symbolRenderingMode(.hierarchical)
+                    .foregroundStyle(.pink)
+            }
+            .font(.headline)
             
             TextEditor(text: $viewModel.content)
                 .font(.body)
-                .focused($focusField, equals: .content)
                 .frame(minHeight: 200)
-                .scrollContentBackground(.hidden)
-                .padding(12)
-                .background {
+                .padding()
+                .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .fill(.background)
-                        .shadow(color: .black.opacity(0.03), radius: 8, y: 4)
-                }
-                .overlay {
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .strokeBorder(.quaternary, lineWidth: 0.5)
-                }
+                        .fill(Color(uiColor: .secondarySystemGroupedBackground))
+                )
+                .focused($focusField, equals: .content)
         }
+    }
+    
+    private func formatDate(_ date: Date) -> String {
+        let calendar = Calendar.current
+        let now = Date()
+        
+        if calendar.isDateInToday(date) {
+            return "오늘"
+        } else if calendar.isDateInYesterday(date) {
+            return "어제"
+        } else if calendar.isDateInTomorrow(date) {
+            return "내일"
+        }
+        
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        
+        if calendar.component(.year, from: date) == calendar.component(.year, from: now) {
+            formatter.dateFormat = "M월 d일 (E)"
+        } else {
+            formatter.dateFormat = "yyyy년 M월 d일 (E)"
+        }
+        
+        return formatter.string(from: date)
     }
     
     private func dismissKeyboard() {
@@ -179,7 +244,7 @@ public struct DiaryEditorView: View {
     DiaryEditorView(viewModel: DiaryEditorViewModel(
         title: "",
         content: "",
-        date: .now,
+        date: Date(),
         onSave: { _, _, _ in },
         onDatePickerToggle: { _ in }
     ))

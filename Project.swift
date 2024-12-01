@@ -11,11 +11,14 @@ let project = Project(
     ],
     settings: .settings(
         base: [
-            "IPHONEOS_DEPLOYMENT_TARGET": "17.0"
+            "IPHONEOS_DEPLOYMENT_TARGET": "17.0",
+            "SWIFT_INSTALL_OBJC_HEADER": "YES",
+            "SWIFT_OBJC_INTERFACE_HEADER_NAME": "$(PRODUCT_NAME)-Swift.h",
+            "DEFINES_MODULE": "YES"
         ],
         configurations: [
-            .debug(name: "Debug"),
-            .release(name: "Release")
+            .debug(name: "Debug", settings: [:], xcconfig: nil),
+            .release(name: "Release", settings: [:], xcconfig: nil)
         ]
     ),
     targets: [
@@ -31,6 +34,7 @@ let project = Project(
             product: .app,
             bundleId: "com.krwd.howaboutnow.app",
             infoPlist: .extendingDefault(with: [
+                "CFBundleDisplayName": "나의 매일",
                 "UILaunchScreen": [
                     "UILaunchScreen": []
                 ],
@@ -63,11 +67,6 @@ let project = Project(
                 .target(name: "Data"),
                 .target(name: "Presentation"),
                 .target(name: "Infrastructure"),
-                .package(product: "FirebaseAnalytics"),
-                .package(product: "FirebaseAuthCombine-Community"),
-                .package(product: "FirebaseFirestore"),
-                .package(product: "FirebaseFirestoreCombine-Community"),
-                .package(product: "FirebaseStorage"),
                 .package(product: "FirebaseMessaging"),
                 .package(product: "FirebaseCrashlytics"),
                 .package(product: "SwiftProtobuf")
@@ -86,7 +85,15 @@ let project = Project(
             product: .framework,
             bundleId: "com.krwd.howaboutnow.domain",
             infoPlist: .default,
-            sources: ["Domain/Sources/**"]
+            sources: [
+                "Domain/Sources/**"
+            ],
+            dependencies: [],
+            settings: .settings(
+                base: [
+                    "DEFINES_MODULE": "YES"
+                ]
+            )
         ),
         
         // MARK: - Data Module
@@ -102,11 +109,18 @@ let project = Project(
             product: .framework,
             bundleId: "com.krwd.howaboutnow.data",
             infoPlist: .default,
-            sources: ["Data/Sources/**"],
+            sources: [
+                "Data/Sources/**"
+            ],
             dependencies: [
                 .target(name: "Domain"),
                 .target(name: "Infrastructure")
-            ]
+            ],
+            settings: .settings(
+                base: [
+                    "DEFINES_MODULE": "YES"
+                ]
+            )
         ),
         
         // MARK: - Presentation Module
@@ -122,11 +136,17 @@ let project = Project(
             product: .framework,
             bundleId: "com.krwd.howaboutnow.presentation",
             infoPlist: .default,
-            sources: ["Presentation/Sources/**"],
+            sources: [
+                "Presentation/Sources/**"
+            ],
             dependencies: [
-                .target(name: "Domain"),
-                .target(name: "Infrastructure")
-            ]
+                .target(name: "Domain")
+            ],
+            settings: .settings(
+                base: [
+                    "DEFINES_MODULE": "YES"
+                ]
+            )
         ),
         
         // MARK: - Infrastructure Module
@@ -143,10 +163,20 @@ let project = Project(
             product: .framework,
             bundleId: "com.krwd.howaboutnow.infrastructure",
             infoPlist: .default,
-            sources: ["Infrastructure/Sources/**"],
+            sources: [
+                "Infrastructure/Sources/**"
+            ],
             dependencies: [
+                .package(product: "FirebaseAnalytics"),
+                .package(product: "FirebaseAuth"),
+                .package(product: "FirebaseFirestore"),
                 .package(product: "Alamofire")
-            ]
+            ],
+            settings: .settings(
+                base: [
+                    "DEFINES_MODULE": "YES"
+                ]
+            )
         )
     ]
 )

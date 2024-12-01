@@ -1,5 +1,4 @@
 import SwiftUI
-import Infrastructure
 import Domain
 
 public struct DiaryListView: View {

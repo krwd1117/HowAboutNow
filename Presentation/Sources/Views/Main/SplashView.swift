@@ -1,14 +1,21 @@
 import SwiftUI
 import Domain
-import Infrastructure
 
 public struct SplashView: View {
-    @StateObject private var viewModel = SplashViewModel()
+    @StateObject private var viewModel: SplashViewModel
     @State private var size = 0.7
     @State private var opacity = 0.3
     @State private var showError = false
     
-    public init() {}
+    public init(
+        repositoryProvider: @escaping () -> DiaryRepository,
+        serviceProvider: @escaping () throws -> DiaryAnalysisService
+    ) {
+        _viewModel = StateObject(wrappedValue: SplashViewModel(
+            repositoryProvider: repositoryProvider,
+            serviceProvider: serviceProvider
+        ))
+    }
     
     public var body: some View {
         Group {
@@ -19,6 +26,8 @@ public struct SplashView: View {
                         repository: repository,
                         diaryAnalysisService: diaryAnalysisService
                     )
+                } else {
+                    ErrorView(message: "Failed to initialize services")
                 }
             } else {
                 ZStack {
@@ -29,48 +38,33 @@ public struct SplashView: View {
                         Image(systemName: "book.fill")
                             .font(.system(size: 80))
                             .foregroundStyle(.tint)
-                            .symbolEffect(.bounce, options: .repeating)
-                        
-                        VStack(spacing: 8) {
-                            Text("app_name")
-                                .font(.title)
-                                .fontWeight(.bold)
-                            
-                            Text("record_your_day")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-                        }
-                        
-                        if showError {
-                            VStack {
-                                Text("error_initialization")
-                                    .font(.callout)
-                                    .foregroundStyle(.red)
-                                
-                                Button("retry") {
-                                    Task {
-                                        await viewModel.initializeServices()
-                                    }
+                            .scaleEffect(size)
+                            .opacity(opacity)
+                            .onAppear {
+                                withAnimation(.easeIn(duration: 1.2)) {
+                                    self.size = 0.9
+                                    self.opacity = 1.0
                                 }
-                                .buttonStyle(.bordered)
                             }
-                            .padding(.top, 8)
-                        }
-                    }
-                    .opacity(opacity)
-                    .scaleEffect(size)
-                    .onAppear {
-                        withAnimation(.easeInOut(duration: 1.2)) {
-                            self.size = 1.0
-                            self.opacity = 1.0
-                        }
                         
-                        Task {
-                            Logger.d("Initializing services...")
-                            await viewModel.initializeServices()
-                        }
+                        Text("How About Now")
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .opacity(opacity)
                     }
                 }
+                .task {
+                    await viewModel.initializeServices()
+                }
+            }
+        }
+        .alert("Error", isPresented: $showError) {
+            Button("OK") {
+                showError = false
+            }
+        } message: {
+            if let error = viewModel.error {
+                Text(error.localizedDescription)
             }
         }
     }

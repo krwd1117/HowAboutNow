@@ -1,26 +1,32 @@
 import Foundation
 import Domain
-import Data
-import Infrastructure
 
 @MainActor
 public final class SplashViewModel: ObservableObject {
-    @Published private(set) var isInitialized = false
-    @Published private(set) var error: Error?
+    @Published public private(set) var isInitialized = false
+    @Published public private(set) var error: Error?
     
-    private(set) var repository: DiaryRepository?
-    private(set) var diaryAnalysisService: DiaryAnalysisService?
+    public private(set) var repository: DiaryRepository?
+    public private(set) var diaryAnalysisService: DiaryAnalysisService?
     
-    public init() {}
+    private let repositoryProvider: () -> DiaryRepository
+    private let serviceProvider: () throws -> DiaryAnalysisService
+    
+    public init(
+        repositoryProvider: @escaping () -> DiaryRepository,
+        serviceProvider: @escaping () throws -> DiaryAnalysisService
+    ) {
+        self.repositoryProvider = repositoryProvider
+        self.serviceProvider = serviceProvider
+    }
     
     public func initializeServices() async {
         do {
             // Initialize services
-            let repository = DiaryDataRepository()
-            let analysisService = try OpenAIDiaryAnalysisService()
+            let repository = repositoryProvider()
+            let analysisService = try serviceProvider()
             
             // Pre-fetch data
-            Logger.d("Pre-fetching diaries...")
             _ = try await repository.getDiaries()
             
             // Store services
@@ -30,7 +36,6 @@ public final class SplashViewModel: ObservableObject {
             self.isInitialized = true
             self.error = nil
         } catch {
-            Logger.e("Failed to initialize services: \(error)")
             self.error = error
             self.isInitialized = false
         }

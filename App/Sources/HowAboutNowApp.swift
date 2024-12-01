@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
+import Domain
+import Data
+import Infrastructure
 import Presentation
-
 import FirebaseCore
-import FirebaseFirestore
-import FirebaseAuth
+import FirebaseMessaging
 import FirebaseCrashlytics
-
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -35,7 +35,16 @@ struct HowAboutNowApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashView(
+                repositoryProvider: {
+                    DiaryDataRepository()
+                },
+                serviceProvider: {
+                    try OpenAIDiaryAnalysisService()
+                }
+            )
+            .preferredColorScheme(.light)
+            .tint(.purple)
         }
     }
 }

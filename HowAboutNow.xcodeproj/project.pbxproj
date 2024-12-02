@@ -786,7 +786,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    exit 0\nfi\n\nCRASHLYTICS_PATH=\"${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols\"\n\nif [ ! -f \"${CRASHLYTICS_PATH}\" ]; then\n    echo \"warning: Crashlytics upload-symbols not found at ${CRASHLYTICS_PATH}\"\n    exit 0\nfi\n\n\"${CRASHLYTICS_PATH}\" -gsp \"${SRCROOT}/App/Resources/GoogleService-Info.plist\" -p ios \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    exit 0\nfi\n\n# dSYM 파일 찾기\nDSYM_PATH=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"\nif [ ! -d \"$DSYM_PATH\" ]; then\n    echo \"warning: dSYM not found at ${DSYM_PATH}\"\n    exit 0\nfi\n\n# Crashlytics 업로드 도구 경로 설정\nDERIVED_DATA_PATHS=(\n    \"/Volumes/SSD/Library/Developer/Xcode/DerivedData\"\n    \"${HOME}/Library/Developer/Xcode/DerivedData\"\n)\n\nfor DERIVED_DATA_PATH in \"${DERIVED_DATA_PATHS[@]}\"; do\n    if [ -d \"${DERIVED_DATA_PATH}\" ]; then\n        CRASHLYTICS_PATH=$(find \"${DERIVED_DATA_PATH}\" -path \"*/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols\" -type f | head -n 1)\n        if [ -f \"${CRASHLYTICS_PATH}\" ]; then\n            break\n        fi\n    fi\ndone\n\nif [ ! -f \"${CRASHLYTICS_PATH}\" ]; then\n    echo \"warning: Crashlytics upload-symbols not found in any DerivedData directory\"\n    exit 0\nfi\n\n# Upload dSYM\n\"${CRASHLYTICS_PATH}\" -gsp \"${SRCROOT}/App/Resources/GoogleService-Info.plist\" -p ios \"${DSYM_PATH}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

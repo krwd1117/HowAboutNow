@@ -55,15 +55,36 @@ let project = Project(
                         exit 0
                     fi
                     
-                    CRASHLYTICS_PATH="${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols"
-                    
-                    if [ ! -f "${CRASHLYTICS_PATH}" ]; then
-                        echo "warning: Crashlytics upload-symbols not found at ${CRASHLYTICS_PATH}"
+                    # dSYM 파일 찾기
+                    DSYM_PATH="${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}"
+                    if [ ! -d "$DSYM_PATH" ]; then
+                        echo "warning: dSYM not found at ${DSYM_PATH}"
                         exit 0
                     fi
                     
-                    "${CRASHLYTICS_PATH}" -gsp "${SRCROOT}/App/Resources/GoogleService-Info.plist" -p ios "${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}"
-                    """, name: "Upload Crashlytics Symbols")
+                    # Crashlytics 업로드 도구 경로 설정
+                    DERIVED_DATA_PATHS=(
+                        "/Volumes/SSD/Library/Developer/Xcode/DerivedData"
+                        "${HOME}/Library/Developer/Xcode/DerivedData"
+                    )
+                    
+                    for DERIVED_DATA_PATH in "${DERIVED_DATA_PATHS[@]}"; do
+                        if [ -d "${DERIVED_DATA_PATH}" ]; then
+                            CRASHLYTICS_PATH=$(find "${DERIVED_DATA_PATH}" -path "*/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols" -type f | head -n 1)
+                            if [ -f "${CRASHLYTICS_PATH}" ]; then
+                                break
+                            fi
+                        fi
+                    done
+                    
+                    if [ ! -f "${CRASHLYTICS_PATH}" ]; then
+                        echo "warning: Crashlytics upload-symbols not found in any DerivedData directory"
+                        exit 0
+                    fi
+                    
+                    # Upload dSYM
+                    "${CRASHLYTICS_PATH}" -gsp "${SRCROOT}/App/Resources/GoogleService-Info.plist" -p ios "${DSYM_PATH}"
+                    """, name: "Upload Crashlytics Symbols", runOnlyWhenInstalling: true)
             ],
             dependencies: [
                 .target(name: "Domain"),

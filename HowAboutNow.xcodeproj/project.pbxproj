@@ -11,14 +11,12 @@
 		00758E74C8EDC51CB25C31D9 /* StorageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1538E124E4137229AF91F91C /* StorageClient.swift */; };
 		0422BC9773F0D4984E4FA95F /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA3992B946390614823993E /* MainTabView.swift */; };
 		06616526B8E36E17DA9A70C7 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6403820A78221371749F74 /* SplashView.swift */; };
-		0A04A4127CA50B0117A83AF2 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 2CE56718046421FC6606C270 /* FirebaseMessaging */; };
 		0C34CA1E8450468B5175AE05 /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1495894857D751284A8443B3 /* Presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487FE65FF11700AD91952518 /* Presentation.framework */; };
 		149FC64AF08C08B93533940E /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; };
 		1ACF8E3E7EBC0567057414C5 /* DiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA3AFAFB0CC5C618BEEBAA9 /* DiaryListView.swift */; };
 		1DB5CE816768A4DA2220603C /* Presentation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 487FE65FF11700AD91952518 /* Presentation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1EE743612DBEC6556FA30FDC /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; };
-		335604FE7952D383418F484C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A0634149E7D37E6FFD9A81C6 /* FirebaseFirestore */; };
 		3B0A67844E7CB5FDBCC24D3A /* Infrastructure.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4990F0441C513133B63555E3 /* DiaryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CE53AD25B3CB56D572A8EE /* DiaryRepository.swift */; };
 		4BC9AF53EB84413D6980BAF5 /* HowAboutNow.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */; };
@@ -27,15 +25,13 @@
 		56942D45E440352F0FFB1D6E /* Configuration.template.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */; };
 		591F20EEF8A25B9872C531C3 /* DiaryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ACE46A25AC51E719FA488F /* DiaryEditorView.swift */; };
 		5C4A84644E6AFBFCBE1569CA /* Infrastructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; };
-		690562AAF69EB204946D952B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 834E4292C2A0ADF5ACCC84EF /* Alamofire */; };
 		6CD8222A0D28E3F31481F50C /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; };
 		7634837ADB44AB198E8F6B7E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 6FEEB52B16D6EBD0F58FA022 /* Localizable.xcstrings */; };
 		7B4417C4F2B5237215A42CAC /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0314B61D9C0E9B752695B0ED /* Data.framework */; };
-		7D4B22C70A44D504A85CF54A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6B42194E03C06F3D689E6747 /* FirebaseAnalytics */; };
+		7D4B22C70A44D504A85CF54A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 834E4292C2A0ADF5ACCC84EF /* Alamofire */; };
 		7E115D71FCF250363A939A59 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31A66267A925F6CEEBFBFB5 /* CalendarView.swift */; };
 		8977D65C6DC9344C7ABDE81F /* DiaryEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F3F4ACE46AEA0E85B6EA6 /* DiaryEditorViewModel.swift */; };
 		8CF26FF7BB65F0F877D82BA7 /* TuistPlists+HowAboutNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */; };
-		8D151364F70654408D302F36 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 6540AA0F7C5E831CD8AA5909 /* SwiftProtobuf */; };
 		95FBC03431A3AD9DCE139C72 /* EmotionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E99F2FD37329CB5D09C840 /* EmotionIcon.swift */; };
 		99B36500EB469A81EF66EC58 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9719C91D86B478CF55892A01 /* NetworkClient.swift */; };
 		9C76328271C2A56A15C607CF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210E69E358712BBA0E4225E2 /* SettingsView.swift */; };
@@ -54,8 +50,6 @@
 		C6D7170C5E28B99C5FF90EBB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B098A9CCDC67446C3AEB5BE3 /* GoogleService-Info.plist */; };
 		D7BFCFDD2358BE5328B39899 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC337D9A0621F3F94994B683 /* Diary.swift */; };
 		D8CA25CDC6BCE3DCC42C919E /* Data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0314B61D9C0E9B752695B0ED /* Data.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DDA845BE3C70ABE96FE0456C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6DB28DDF6E8C830AFD92EC5E /* FirebaseAuth */; };
-		EB8184C3E5BD65592C61A50E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 620D68098BB503E4DFEB8CC1 /* FirebaseCrashlytics */; };
 		ED33507F5AE02FEEA1F23737 /* Infrastructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; };
 		F0560750539596263E6F56FB /* OpenAIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B52C858B1A4623A939EC16 /* OpenAIModels.swift */; };
 		F5E3E813327FD37CE94633CD /* TuistAssets+HowAboutNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D14B44856F39843935F8DC /* TuistAssets+HowAboutNow.swift */; };
@@ -241,9 +235,6 @@
 				149FC64AF08C08B93533940E /* Domain.framework in Frameworks */,
 				ED33507F5AE02FEEA1F23737 /* Infrastructure.framework in Frameworks */,
 				1495894857D751284A8443B3 /* Presentation.framework in Frameworks */,
-				0A04A4127CA50B0117A83AF2 /* FirebaseMessaging in Frameworks */,
-				EB8184C3E5BD65592C61A50E /* FirebaseCrashlytics in Frameworks */,
-				8D151364F70654408D302F36 /* SwiftProtobuf in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,10 +251,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D4B22C70A44D504A85CF54A /* FirebaseAnalytics in Frameworks */,
-				DDA845BE3C70ABE96FE0456C /* FirebaseAuth in Frameworks */,
-				335604FE7952D383418F484C /* FirebaseFirestore in Frameworks */,
-				690562AAF69EB204946D952B /* Alamofire in Frameworks */,
+				7D4B22C70A44D504A85CF54A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,9 +590,6 @@
 			);
 			name = Infrastructure;
 			packageProductDependencies = (
-				6B42194E03C06F3D689E6747 /* FirebaseAnalytics */,
-				6DB28DDF6E8C830AFD92EC5E /* FirebaseAuth */,
-				A0634149E7D37E6FFD9A81C6 /* FirebaseFirestore */,
 				834E4292C2A0ADF5ACCC84EF /* Alamofire */,
 			);
 			productName = Infrastructure;
@@ -639,7 +624,6 @@
 				39A727AEB9ED9B46E88B5D3B /* Resources */,
 				661BB3321B184F3FCE93FD9D /* Frameworks */,
 				67BA790DE884EB614156615C /* Embed Frameworks */,
-				F69903B0EDE3AF1BC7F754C6 /* Firebase Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -651,9 +635,6 @@
 			);
 			name = HowAboutNow;
 			packageProductDependencies = (
-				2CE56718046421FC6606C270 /* FirebaseMessaging */,
-				620D68098BB503E4DFEB8CC1 /* FirebaseCrashlytics */,
-				6540AA0F7C5E831CD8AA5909 /* SwiftProtobuf */,
 			);
 			productName = HowAboutNow;
 			productReference = 300EB610D129B2D1F53796D6 /* HowAboutNow.app */;
@@ -722,9 +703,6 @@
 			mainGroup = B68710D438C1881E4DB2307D;
 			packageReferences = (
 				E03E552E7C06D5B48CD9BF19 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				113F48A94996FE195FDB8B14 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
-				B6180B05909649A4D1297C09 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				95F6E15FC82AA4EE6AF9AB85 /* XCRemoteSwiftPackageReference "abseil-cpp-binary" */,
 			);
 			productRefGroup = 138F0BBF2C72A63DB989A7D2 /* Products */;
 			projectDirPath = "";
@@ -782,27 +760,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		F69903B0EDE3AF1BC7F754C6 /* Firebase Crashlytics */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Firebase Crashlytics";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		14ACD18226C364178F26CEE4 /* Sources */ = {
@@ -1407,30 +1364,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		113F48A94996FE195FDB8B14 /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-protobuf.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.25.2;
-			};
-		};
-		95F6E15FC82AA4EE6AF9AB85 /* XCRemoteSwiftPackageReference "abseil-cpp-binary" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/google/abseil-cpp-binary.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2024011601.0;
-			};
-		};
-		B6180B05909649A4D1297C09 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.19.1;
-			};
-		};
 		E03E552E7C06D5B48CD9BF19 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1442,33 +1375,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2CE56718046421FC6606C270 /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FirebaseMessaging;
-		};
-		620D68098BB503E4DFEB8CC1 /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FirebaseCrashlytics;
-		};
-		6540AA0F7C5E831CD8AA5909 /* SwiftProtobuf */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = SwiftProtobuf;
-		};
-		6B42194E03C06F3D689E6747 /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FirebaseAnalytics;
-		};
-		6DB28DDF6E8C830AFD92EC5E /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FirebaseAuth;
-		};
 		834E4292C2A0ADF5ACCC84EF /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Alamofire;
-		};
-		A0634149E7D37E6FFD9A81C6 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

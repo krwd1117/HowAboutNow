@@ -11,6 +11,7 @@
 		00758E74C8EDC51CB25C31D9 /* StorageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1538E124E4137229AF91F91C /* StorageClient.swift */; };
 		0422BC9773F0D4984E4FA95F /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA3992B946390614823993E /* MainTabView.swift */; };
 		06616526B8E36E17DA9A70C7 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6403820A78221371749F74 /* SplashView.swift */; };
+		0A04A4127CA50B0117A83AF2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4FD20BDE33692602CCCDACB7 /* FirebaseAnalytics */; };
 		0C34CA1E8450468B5175AE05 /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1495894857D751284A8443B3 /* Presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487FE65FF11700AD91952518 /* Presentation.framework */; };
 		149FC64AF08C08B93533940E /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; };
@@ -50,6 +51,7 @@
 		C6D7170C5E28B99C5FF90EBB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B098A9CCDC67446C3AEB5BE3 /* GoogleService-Info.plist */; };
 		D7BFCFDD2358BE5328B39899 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC337D9A0621F3F94994B683 /* Diary.swift */; };
 		D8CA25CDC6BCE3DCC42C919E /* Data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0314B61D9C0E9B752695B0ED /* Data.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EB8184C3E5BD65592C61A50E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 620D68098BB503E4DFEB8CC1 /* FirebaseCrashlytics */; };
 		ED33507F5AE02FEEA1F23737 /* Infrastructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; };
 		F0560750539596263E6F56FB /* OpenAIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B52C858B1A4623A939EC16 /* OpenAIModels.swift */; };
 		F5E3E813327FD37CE94633CD /* TuistAssets+HowAboutNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D14B44856F39843935F8DC /* TuistAssets+HowAboutNow.swift */; };
@@ -235,6 +237,8 @@
 				149FC64AF08C08B93533940E /* Domain.framework in Frameworks */,
 				ED33507F5AE02FEEA1F23737 /* Infrastructure.framework in Frameworks */,
 				1495894857D751284A8443B3 /* Presentation.framework in Frameworks */,
+				0A04A4127CA50B0117A83AF2 /* FirebaseAnalytics in Frameworks */,
+				EB8184C3E5BD65592C61A50E /* FirebaseCrashlytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,6 +628,7 @@
 				39A727AEB9ED9B46E88B5D3B /* Resources */,
 				661BB3321B184F3FCE93FD9D /* Frameworks */,
 				67BA790DE884EB614156615C /* Embed Frameworks */,
+				F3FB7A53B4E93FAE3CF24DCD /* Upload Crashlytics Symbols */,
 			);
 			buildRules = (
 			);
@@ -635,6 +640,8 @@
 			);
 			name = HowAboutNow;
 			packageProductDependencies = (
+				4FD20BDE33692602CCCDACB7 /* FirebaseAnalytics */,
+				620D68098BB503E4DFEB8CC1 /* FirebaseCrashlytics */,
 			);
 			productName = HowAboutNow;
 			productReference = 300EB610D129B2D1F53796D6 /* HowAboutNow.app */;
@@ -703,6 +710,7 @@
 			mainGroup = B68710D438C1881E4DB2307D;
 			packageReferences = (
 				E03E552E7C06D5B48CD9BF19 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				B6180B05909649A4D1297C09 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 138F0BBF2C72A63DB989A7D2 /* Products */;
 			projectDirPath = "";
@@ -760,6 +768,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F3FB7A53B4E93FAE3CF24DCD /* Upload Crashlytics Symbols */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Upload Crashlytics Symbols";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    exit 0\nfi\n\nCRASHLYTICS_PATH=\"${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols\"\n\nif [ ! -f \"${CRASHLYTICS_PATH}\" ]; then\n    echo \"warning: Crashlytics upload-symbols not found at ${CRASHLYTICS_PATH}\"\n    exit 0\nfi\n\n\"${CRASHLYTICS_PATH}\" -gsp \"${SRCROOT}/App/Resources/GoogleService-Info.plist\" -p ios \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		14ACD18226C364178F26CEE4 /* Sources */ = {
@@ -955,6 +984,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME)-Swift.h";
@@ -1200,6 +1233,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME)-Swift.h";
@@ -1364,6 +1401,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B6180B05909649A4D1297C09 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 		E03E552E7C06D5B48CD9BF19 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1375,6 +1420,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4FD20BDE33692602CCCDACB7 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseAnalytics;
+		};
+		620D68098BB503E4DFEB8CC1 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseCrashlytics;
+		};
 		834E4292C2A0ADF5ACCC84EF /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Alamofire;

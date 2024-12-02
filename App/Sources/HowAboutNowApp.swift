@@ -10,9 +10,16 @@ import Domain
 import Data
 import Infrastructure
 import Presentation
+import Firebase
+import FirebaseCrashlytics
 
 @main
 struct HowAboutNowApp: App {
+    init() {
+        FirebaseApp.configure()
+//        fatalError("Firebase Crashlytics")
+    }
+    
     var body: some Scene {
         WindowGroup {
             SplashView(

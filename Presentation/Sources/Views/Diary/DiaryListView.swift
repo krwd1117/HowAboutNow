@@ -18,9 +18,6 @@ public struct DiaryListView: View {
             backgroundGradient
             mainContent
             floatingActionButton
-            #if DEBUG
-            debugCrashButton
-            #endif
         }
         .navigationTitle("diary_title")
         .navigationBarTitleDisplayMode(.large)
@@ -140,37 +137,6 @@ public struct DiaryListView: View {
             }
         }
     }
-    
-    #if DEBUG
-    private var debugCrashButton: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                Button {
-                    fatalError("Crash was triggered")
-                } label: {
-                    Image(systemName: "ladybug.fill")
-                        .font(.title3)
-                        .foregroundStyle(.white)
-                        .frame(width: 40, height: 40)
-                        .background(
-                            Circle()
-                                .fill(
-                                    LinearGradient(
-                                        colors: [.red, .red.opacity(0.8)],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
-                        )
-                }
-                .padding([.trailing, .bottom], 20)
-            }
-            .padding(.bottom, 70)
-        }
-    }
-    #endif
     
     private func createDiaryEditor() -> some View {
         NavigationStack {

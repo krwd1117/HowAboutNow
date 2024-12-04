@@ -62,7 +62,12 @@ public struct DiaryListView: View {
             } else if viewModel.diaries.isEmpty {
                 emptyStateView
             } else {
-                DiaryListViewComponent(viewModel: viewModel, selectedDiary: $selectedDiary, diaryToDelete: $diaryToDelete, showingDeleteAlert: $showingDeleteAlert)
+                DiaryListViewComponent(
+                    viewModel: viewModel,
+                    selectedDiary: $selectedDiary,
+                    diaryToDelete: $diaryToDelete,
+                    showingDeleteAlert: $showingDeleteAlert
+                )
             }
         }
     }

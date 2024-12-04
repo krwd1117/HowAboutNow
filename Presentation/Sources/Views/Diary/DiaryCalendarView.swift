@@ -6,6 +6,8 @@ public struct DiaryCalendarView: View {
     @State private var selectedDate = Date()
     @State private var showingDiaryEditor = false
     @State private var selectedDiary: Diary?
+    @State private var showingDeleteAlert = false
+    @State private var diaryToDelete: Diary?
     @Environment(\.colorScheme) private var colorScheme
     
     public var body: some View {
@@ -44,7 +46,8 @@ public struct DiaryCalendarView: View {
                                         }
                                         
                                         Button(role: .destructive) {
-                                            // TODO: Delete diary
+                                            diaryToDelete = diary
+                                            showingDeleteAlert = true
                                         } label: {
                                             Label("delete", systemImage: "trash")
                                         }
@@ -160,6 +163,16 @@ public struct DiaryCalendarView: View {
                     onDatePickerToggle: { _ in }
                 )
             )
+        }
+        .alert("delete_diary", isPresented: $showingDeleteAlert, presenting: diaryToDelete) { diary in
+            Button("delete", role: .destructive) {
+                Task {
+                    await viewModel.deleteDiary(diary)
+                }
+            }
+            Button("cancel", role: .cancel) {}
+        } message: { diary in
+            Text("delete_diary_confirm")
         }
     }
 }

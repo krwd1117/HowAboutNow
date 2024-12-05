@@ -15,10 +15,8 @@
 		0C34CA1E8450468B5175AE05 /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1495894857D751284A8443B3 /* Presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487FE65FF11700AD91952518 /* Presentation.framework */; };
 		149FC64AF08C08B93533940E /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; };
-		1ACF8E3E7EBC0567057414C5 /* DiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA3AFAFB0CC5C618BEEBAA9 /* DiaryListView.swift */; };
 		1DB5CE816768A4DA2220603C /* Presentation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 487FE65FF11700AD91952518 /* Presentation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1EE743612DBEC6556FA30FDC /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; };
-		2556AC3B57D49797269CF3E1 /* DiaryEditorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657E0BE1309AD7C4572A97BB /* DiaryEditorSheet.swift */; };
 		3B0A67844E7CB5FDBCC24D3A /* Infrastructure.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4990F0441C513133B63555E3 /* DiaryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CE53AD25B3CB56D572A8EE /* DiaryRepository.swift */; };
 		4BC9AF53EB84413D6980BAF5 /* HowAboutNow.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */; };
@@ -44,7 +42,6 @@
 		A4B34826DFAC6A3CCD189DCE /* DiaryAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB849A33BEC43312B560D725 /* DiaryAnalysisService.swift */; };
 		AABCD64CEBE1941192FA38B7 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269ADD8D568DA74DEA267D3C /* Logger.swift */; };
 		AAF937929EF01E8D2A4DB178 /* OpenAIDiaryAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA176C7AE85C215325D7A091 /* OpenAIDiaryAnalysisService.swift */; };
-		AF68B38E917A44EF184D0C24 /* DiaryCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F79D24594766F52E2D9D9 /* DiaryCalendarView.swift */; };
 		B2B220DBBA6771A885D22AE9 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3021457D003DDA2CC148E798 /* SplashViewModel.swift */; };
 		B39B5B459B8570DA24CE9EAA /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810A5D4A795671A64AA698AF /* ErrorView.swift */; };
 		B3C42CBDB9B45FBA09C0F9C3 /* DiaryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA86E38AECE4B9336F1B5BBE /* DiaryCardView.swift */; };
@@ -178,7 +175,6 @@
 		039F3F4ACE46AEA0E85B6EA6 /* DiaryEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditorViewModel.swift; sourceTree = "<group>"; };
 		0EA3992B946390614823993E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		1538E124E4137229AF91F91C /* StorageClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageClient.swift; sourceTree = "<group>"; };
-		1AA3AFAFB0CC5C618BEEBAA9 /* DiaryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListView.swift; sourceTree = "<group>"; };
 		1C1E9F977DE5C95B075FF515 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		210E69E358712BBA0E4225E2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		21ACE46A25AC51E719FA488F /* DiaryEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditorView.swift; sourceTree = "<group>"; };
@@ -197,14 +193,12 @@
 		52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HowAboutNow.entitlements; sourceTree = "<group>"; };
 		5E1102C8624634BE7BA957B3 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
 		63DA33347133D31897F433C9 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
-		657E0BE1309AD7C4572A97BB /* DiaryEditorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditorSheet.swift; sourceTree = "<group>"; };
 		6FEEB52B16D6EBD0F58FA022 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistPlists+HowAboutNow.swift"; sourceTree = "<group>"; };
 		786B1F1B070ABE5F20D2B266 /* Infrastructure-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Infrastructure-Info.plist"; sourceTree = "<group>"; };
 		7D6403820A78221371749F74 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		810A5D4A795671A64AA698AF /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		8D33B07C88C5B649DCC92852 /* Data-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Data-Info.plist"; sourceTree = "<group>"; };
-		8E7F79D24594766F52E2D9D9 /* DiaryCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCalendarView.swift; sourceTree = "<group>"; };
 		950120CAA8D2D43E5CBD0987 /* Domain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Domain-Info.plist"; sourceTree = "<group>"; };
 		9719C91D86B478CF55892A01 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		A612A7C42D6C20E9A40DC10A /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -368,9 +362,7 @@
 		5C85CEB3BCE10F05F903EFC6 /* Diary */ = {
 			isa = PBXGroup;
 			children = (
-				8E7F79D24594766F52E2D9D9 /* DiaryCalendarView.swift */,
 				21ACE46A25AC51E719FA488F /* DiaryEditorView.swift */,
-				1AA3AFAFB0CC5C618BEEBAA9 /* DiaryListView.swift */,
 				5E1102C8624634BE7BA957B3 /* DiaryView.swift */,
 			);
 			path = Diary;
@@ -390,7 +382,6 @@
 				B31A66267A925F6CEEBFBFB5 /* CalendarView.swift */,
 				C604234B2BF4B7055ED0348C /* DeleteConfirmationAlert.swift */,
 				FA86E38AECE4B9336F1B5BBE /* DiaryCardView.swift */,
-				657E0BE1309AD7C4572A97BB /* DiaryEditorSheet.swift */,
 				28E99F2FD37329CB5D09C840 /* EmotionIcon.swift */,
 				1C1E9F977DE5C95B075FF515 /* EmptyStateView.swift */,
 				810A5D4A795671A64AA698AF /* ErrorView.swift */,
@@ -828,14 +819,11 @@
 				7E115D71FCF250363A939A59 /* CalendarView.swift in Sources */,
 				DA600EF84AF4DB346FBF4311 /* DeleteConfirmationAlert.swift in Sources */,
 				B3C42CBDB9B45FBA09C0F9C3 /* DiaryCardView.swift in Sources */,
-				2556AC3B57D49797269CF3E1 /* DiaryEditorSheet.swift in Sources */,
 				95FBC03431A3AD9DCE139C72 /* EmotionIcon.swift in Sources */,
 				4D562846D602C83AAF370E28 /* EmptyStateView.swift in Sources */,
 				B39B5B459B8570DA24CE9EAA /* ErrorView.swift in Sources */,
 				6E78CFF18A7ACD7EAC5C3DF8 /* FloatingActionButton.swift in Sources */,
-				AF68B38E917A44EF184D0C24 /* DiaryCalendarView.swift in Sources */,
 				591F20EEF8A25B9872C531C3 /* DiaryEditorView.swift in Sources */,
-				1ACF8E3E7EBC0567057414C5 /* DiaryListView.swift in Sources */,
 				4E4FD776C436C0CF5C7CF989 /* DiaryView.swift in Sources */,
 				0422BC9773F0D4984E4FA95F /* MainTabView.swift in Sources */,
 				06616526B8E36E17DA9A70C7 /* SplashView.swift in Sources */,

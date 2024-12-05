@@ -1,12 +1,22 @@
 import SwiftUI
+import Domain
 
 public struct DeleteConfirmationAlert {
+    let viewModel: DiaryViewModel
+    let diary: Diary
     let isPresented: Binding<Bool>
-    let onDelete: () -> Void
+    let onComplete: () -> Void
     
-    public init(isPresented: Binding<Bool>, onDelete: @escaping () -> Void) {
+    public init(
+        viewModel: DiaryViewModel,
+        diary: Diary,
+        isPresented: Binding<Bool>,
+        onComplete: @escaping () -> Void
+    ) {
+        self.viewModel = viewModel
+        self.diary = diary
         self.isPresented = isPresented
-        self.onDelete = onDelete
+        self.onComplete = onComplete
     }
     
     public var alert: Alert {
@@ -14,7 +24,10 @@ public struct DeleteConfirmationAlert {
             title: Text("delete_diary"),
             message: Text("delete_diary_confirm"),
             primaryButton: .destructive(Text("delete")) {
-                onDelete()
+                Task {
+                    await viewModel.deleteDiary(diary)
+                    onComplete()
+                }
             },
             secondaryButton: .cancel(Text("cancel"))
         )

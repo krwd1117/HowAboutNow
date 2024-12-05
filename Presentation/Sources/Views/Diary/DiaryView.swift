@@ -10,8 +10,16 @@ public struct DiaryView: View {
     @State private var diaryToDelete: Diary?
     @State private var showingListView = false
     
-    init(viewModel: DiaryViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+    public init(
+        diaryRepository: any DiaryRepository,
+        diaryAnalysisService: any DiaryAnalysisService
+    ) {
+        _viewModel = StateObject(
+            wrappedValue: DiaryViewModel(
+                diaryRepository: diaryRepository,
+                diaryAnalysisService: diaryAnalysisService
+            )
+        )
     }
     
     public var body: some View {
@@ -45,47 +53,37 @@ public struct DiaryView: View {
             }
         }
         .sheet(isPresented: $showingDiaryEditor) {
-            DiaryEditorSheet(
-                date: selectedDate,
-                onSave: { title, content, date, emotion in
-                    Task {
-                        await viewModel.saveDiary(
-                            title: title,
-                            content: content,
-                            date: date
-                        )
-                    }
-                }
+            DiaryEditorView(
+                viewModel: DiaryEditorViewModel(
+                    diaryViewModel: viewModel,
+                    date: selectedDate
+                )
             )
         }
         .sheet(item: $selectedDiary) { diary in
-            DiaryEditorSheet(
-                diary: diary,
-                onSave: { title, content, date, emotion in
-                    Task {
-                        await viewModel.updateDiary(
-                            diary,
-                            title: title,
-                            content: content,
-                            date: date,
-                            emotion: emotion
-                        )
-                    }
-                }
+            DiaryEditorView(
+                viewModel: DiaryEditorViewModel(
+                    diaryViewModel: viewModel,
+                    diary: diary,
+                    title: diary.title,
+                    content: diary.content,
+                    date: diary.date,
+                    emotion: diary.emotion,
+                    isEditing: true
+                )
             )
         }
         .alert(isPresented: $showingDeleteAlert) {
-            DeleteConfirmationAlert(
-                isPresented: $showingDeleteAlert,
-                onDelete: {
-                    if let diary = diaryToDelete {
-                        Task {
-                            await viewModel.deleteDiary(diary)
-                        }
-                    }
-                    diaryToDelete = nil
-                }
-            ).alert
+            if let diary = diaryToDelete {
+                DeleteConfirmationAlert(
+                    viewModel: viewModel,
+                    diary: diary,
+                    isPresented: $showingDeleteAlert,
+                    onComplete: { diaryToDelete = nil }
+                ).alert
+            } else {
+                Alert(title: Text(""))
+            }
         }
         .task {
             await viewModel.loadDiaries()
@@ -97,8 +95,13 @@ public struct DiaryView: View {
     private var calendarSection: some View {
         CalendarView(
             selectedDate: $selectedDate,
-            diaries: viewModel.diaries
-        ) { _ in }
+            diaries: viewModel.diaries,
+            onDateSelected: { date in
+                withAnimation {
+                    selectedDate = date
+                }
+            }
+        )
         .padding(.horizontal)
     }
     
@@ -107,45 +110,33 @@ public struct DiaryView: View {
             if viewModel.isLoading {
                 ProgressView()
             } else if showingListView {
-                listContent
-            } else {
-                dateFilteredContent
-            }
-        }
-    }
-    
-    private var dateFilteredContent: some View {
-        let selectedDiaries = viewModel.diaries.filter { 
-            Calendar.current.isDate($0.date, inSameDayAs: selectedDate)
-        }
-        
-        return Group {
-            if selectedDiaries.isEmpty {
-                EmptyStateView(
-                    title: "no_diary_for_date",
-                    description: "write_diary_for_date",
-                    buttonTitle: "write_new_diary"
-                ) {
-                    showingDiaryEditor = true
+                if viewModel.diaries.isEmpty {
+                    EmptyStateView(
+                        title: "no_diary",
+                        description: "write_first_diary",
+                        buttonTitle: "write_new_diary"
+                    ) {
+                        showingDiaryEditor = true
+                    }
+                } else {
+                    diaryList(diaries: viewModel.diaries)
                 }
             } else {
-                diaryList(diaries: selectedDiaries)
-            }
-        }
-    }
-    
-    private var listContent: some View {
-        Group {
-            if viewModel.diaries.isEmpty {
-                EmptyStateView(
-                    title: "no_diary",
-                    description: "write_first_diary",
-                    buttonTitle: "write_new_diary"
-                ) {
-                    showingDiaryEditor = true
+                let filteredDiaries = viewModel.diaries.filter { 
+                    Calendar.current.isDate($0.date, inSameDayAs: selectedDate)
                 }
-            } else {
-                diaryList(diaries: viewModel.diaries)
+                
+                if filteredDiaries.isEmpty {
+                    EmptyStateView(
+                        title: "no_diary_for_date",
+                        description: "write_diary_for_date",
+                        buttonTitle: "write_new_diary"
+                    ) {
+                        showingDiaryEditor = true
+                    }
+                } else {
+                    diaryList(diaries: filteredDiaries)
+                }
             }
         }
     }
@@ -156,7 +147,9 @@ public struct DiaryView: View {
                 ForEach(diaries) { diary in
                     DiaryCardView(
                         diary: diary,
-                        onTap: { selectedDiary = diary },
+                        onTap: {
+                            selectedDiary = diary
+                        },
                         onDelete: {
                             diaryToDelete = diary
                             showingDeleteAlert = true

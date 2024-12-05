@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import Domain
 
 /// 다이어리 작성 및 수정 화면
 public struct DiaryEditorView: View {
@@ -69,18 +70,16 @@ public struct DiaryEditorView: View {
                 
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
-                        viewModel.save()
-                        dismiss()
+                        Task {
+                            await viewModel.save()
+                            dismiss()
+                        }
                     } label: {
                         Text(LocalizedStringKey("save"))
                             .fontWeight(.medium)
                     }
                     .disabled(!viewModel.isValid)
-                    .tint(.pink)
                 }
-            }
-            .onAppear {
-                focusField = viewModel.title.isEmpty ? .title : .content
             }
         }
     }
@@ -119,13 +118,12 @@ public struct DiaryEditorView: View {
             }
             
             Button {
-                dismissKeyboard()
                 withAnimation(.spring(response: 0.3)) {
                     viewModel.showDatePicker.toggle()
                 }
             } label: {
                 HStack {
-                    Text(viewModel.selectedDate.formatted(date: .abbreviated, time: .omitted))
+                    Text(viewModel.date.formatted(date: .abbreviated, time: .omitted))
                         .foregroundStyle(.primary)
                     Spacer()
                     Image(systemName: "chevron.right")
@@ -144,7 +142,7 @@ public struct DiaryEditorView: View {
             if viewModel.showDatePicker {
                 DatePicker(
                     "",
-                    selection: $viewModel.selectedDate,
+                    selection: $viewModel.date,
                     displayedComponents: .date
                 )
                 .datePickerStyle(.graphical)
@@ -197,7 +195,6 @@ public struct DiaryEditorView: View {
                 )
             } else {
                 Button {
-                    dismissKeyboard()
                     withAnimation(.spring(response: 0.3)) {
                         viewModel.showEmotionPicker.toggle()
                     }
@@ -294,14 +291,4 @@ public struct DiaryEditorView: View {
             .foregroundStyle(selectedEmotion == emotion ? .pink : .primary)
         }
     }
-}
-
-#Preview {
-    DiaryEditorView(viewModel: DiaryEditorViewModel(
-        title: "",
-        content: "",
-        date: .now,
-        onSave: { _, _, _, _ in },
-        onDatePickerToggle: { _ in }
-    ))
 }

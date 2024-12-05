@@ -1,51 +1,35 @@
 import Foundation
 import Domain
+import Combine
 
+@MainActor
 public final class DiaryViewModel: ObservableObject {
-    @Published private(set) var diaries: [Diary] = []
-    @Published private(set) var isLoading = false
-    @Published private(set) var error: Error?
-    @Published public var isCalendarView: Bool
+    @Published public private(set) var diaries: [Diary] = []
+    @Published public private(set) var isLoading = false
     
-    private let repository: DiaryRepository
-    private let diaryAnalysisService: DiaryAnalysisService
-    private let defaults = UserDefaults.standard
-    private let viewModeKey = "DiaryViewMode"
+    private let diaryRepository: any DiaryRepository
+    private let diaryAnalysisService: any DiaryAnalysisService
     
-    public nonisolated init(repository: DiaryRepository,
-                          diaryAnalysisService: DiaryAnalysisService) {
-        self.repository = repository
+    public init(
+        diaryRepository: any DiaryRepository,
+        diaryAnalysisService: any DiaryAnalysisService
+    ) {
+        self.diaryRepository = diaryRepository
         self.diaryAnalysisService = diaryAnalysisService
-        self.isCalendarView = UserDefaults.standard.bool(forKey: "DiaryViewMode")
     }
     
-    public nonisolated func toggleViewMode() {
-        isCalendarView.toggle()
-        defaults.set(isCalendarView, forKey: viewModeKey)
-    }
-    
-    @MainActor
     public func loadDiaries() async {
         isLoading = true
-        error = nil
+        defer { isLoading = false }
         
         do {
-            let fetchedDiaries = try await repository.getDiaries()
-            diaries = fetchedDiaries.sorted { $0.date > $1.date }
+            diaries = try await diaryRepository.getDiaries()
         } catch {
-            self.error = error
+            print("Error loading diaries: \(error)")
         }
-        
-        isLoading = false
     }
     
-    @MainActor
     public func saveDiary(title: String, content: String, date: Date) async {
-        guard !title.isEmpty && !content.isEmpty else { return }
-        
-        isLoading = true
-        error = nil
-        
         do {
             let analysis = try await diaryAnalysisService.analyzeDiary(content: content)
             let diary = Diary(
@@ -55,23 +39,20 @@ public final class DiaryViewModel: ObservableObject {
                 summary: analysis.summary,
                 date: date
             )
-            
-            try await repository.saveDiary(diary)
+            try await diaryRepository.saveDiary(diary)
             await loadDiaries()
         } catch {
-            self.error = error
+            print("Error saving diary: \(error)")
         }
-        
-        isLoading = false
     }
     
-    @MainActor
-    public func updateDiary(_ diary: Diary, title: String, content: String, date: Date, emotion: String) async {
-        guard !title.isEmpty && !content.isEmpty else { return }
-        
-        isLoading = true
-        error = nil
-        
+    public func updateDiary(
+        _ diary: Diary,
+        title: String,
+        content: String,
+        date: Date,
+        emotion: String
+    ) async {
         do {
             let analysis = try await diaryAnalysisService.analyzeDiary(content: content)
             let updatedDiary = Diary(
@@ -82,28 +63,23 @@ public final class DiaryViewModel: ObservableObject {
                 summary: analysis.summary,
                 date: date
             )
-            
-            try await repository.updateDiary(updatedDiary)
+            try await diaryRepository.updateDiary(updatedDiary)
             await loadDiaries()
         } catch {
-            self.error = error
+            print("Error updating diary: \(error)")
         }
-        
-        isLoading = false
     }
     
-    @MainActor
     public func deleteDiary(_ diary: Diary) async {
-        isLoading = true
-        error = nil
-        
         do {
-            try await repository.deleteDiary(diary)
-            await loadDiaries()
+            try await diaryRepository.deleteDiary(diary)
+            diaries.removeAll { $0.id == diary.id }
         } catch {
-            self.error = error
+            print("Error deleting diary: \(error)")
         }
-        
-        isLoading = false
+    }
+    
+    private func sortDiaries() {
+        diaries.sort { $0.date > $1.date }
     }
 }

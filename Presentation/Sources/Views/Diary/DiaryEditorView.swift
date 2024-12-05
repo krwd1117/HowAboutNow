@@ -78,19 +78,6 @@ public struct DiaryEditorView: View {
                     .disabled(!viewModel.isValid)
                     .tint(.pink)
                 }
-                
-                ToolbarItem(placement: .keyboard) {
-                    HStack {
-                        Spacer()
-                        Button {
-                            dismissKeyboard()
-                        } label: {
-                            Label(LocalizedStringKey("dismiss_keyboard"), systemImage: "keyboard.chevron.compact.down.fill")
-                                .symbolRenderingMode(.hierarchical)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                }
             }
             .onAppear {
                 focusField = viewModel.title.isEmpty ? .title : .content

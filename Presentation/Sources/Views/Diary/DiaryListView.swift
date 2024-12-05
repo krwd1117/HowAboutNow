@@ -26,20 +26,46 @@ public struct DiaryListView: View {
         .navigationTitle("diary_title")
         .navigationBarTitleDisplayMode(.large)
         .sheet(isPresented: $showingDiaryEditor) {
-            createDiaryEditor()
+            DiaryEditorSheet(
+                onSave: { title, content, date, emotion in
+                    Task {
+                        await viewModel.saveDiary(
+                            title: title,
+                            content: content,
+                            date: date
+                        )
+                    }
+                }
+            )
         }
         .sheet(item: $selectedDiary) { diary in
-            editDiaryEditor(diary: diary)
-        }
-        .alert("delete_diary", isPresented: $showingDeleteAlert, presenting: diaryToDelete) { diary in
-            Button("delete", role: .destructive) {
-                Task {
-                    await viewModel.deleteDiary(diary)
+            DiaryEditorSheet(
+                diary: diary,
+                onSave: { title, content, date, emotion in
+                    Task {
+                        await viewModel.updateDiary(
+                            diary,
+                            title: title,
+                            content: content,
+                            date: date,
+                            emotion: emotion
+                        )
+                    }
                 }
-            }
-            Button("cancel", role: .cancel) {}
-        } message: { diary in
-            Text("delete_diary_confirm")
+            )
+        }
+        .alert(isPresented: $showingDeleteAlert) {
+            DeleteConfirmationAlert(
+                isPresented: $showingDeleteAlert,
+                onDelete: {
+                    if let diary = diaryToDelete {
+                        Task {
+                            await viewModel.deleteDiary(diary)
+                        }
+                    }
+                    diaryToDelete = nil
+                }
+            ).alert
         }
         .task {
             await viewModel.loadDiaries()
@@ -63,66 +89,28 @@ public struct DiaryListView: View {
                     showingDiaryEditor = true
                 }
             } else {
-                // 다이어리 목록 뷰
-                ScrollView {
-                    LazyVStack(spacing: 16) {
-                        ForEach(viewModel.diaries) { diary in
-                            DiaryCardView(
-                                diary: diary,
-                                onTap: { selectedDiary = diary },
-                                onDelete: {
-                                    diaryToDelete = diary
-                                    showingDeleteAlert = true
-                                }
-                            )
-                        }
-                    }
-                    .padding()
-                }
+                diaryList
             }
         }
     }
     
-    /// 다이어리 에디터 뷰 생성
-    private func createDiaryEditor() -> some View {
-        NavigationStack {
-            DiaryEditorView(
-                viewModel: DiaryEditorViewModel(
-                    onSave: { title, content, date, emotion in
-                        Task {
-                            await viewModel.saveDiary(title: title, content: content, date: date)
+    /// 다이어리 목록
+    private var diaryList: some View {
+        ScrollView {
+            LazyVStack(spacing: 16) {
+                ForEach(viewModel.diaries) { diary in
+                    DiaryCardView(
+                        diary: diary,
+                        onTap: { selectedDiary = diary },
+                        onDelete: {
+                            diaryToDelete = diary
+                            showingDeleteAlert = true
                         }
-                    },
-                    onDatePickerToggle: { _ in }
-                )
-            )
-        }
-    }
-    
-    /// 다이어리 에디터 뷰 생성 (수정)
-    private func editDiaryEditor(diary: Diary) -> some View {
-        NavigationStack {
-            DiaryEditorView(
-                viewModel: DiaryEditorViewModel(
-                    title: diary.title,
-                    content: diary.content,
-                    date: diary.date,
-                    emotion: diary.emotion,
-                    isEditing: true,
-                    onSave: { title, content, date, emotion in
-                        Task {
-                            await viewModel.updateDiary(
-                                diary,
-                                title: title,
-                                content: content,
-                                date: date,
-                                emotion: emotion
-                            )
-                        }
-                    },
-                    onDatePickerToggle: { _ in }
-                )
-            )
+                    )
+                    .padding(.horizontal)
+                }
+            }
+            .padding(.vertical)
         }
     }
 }

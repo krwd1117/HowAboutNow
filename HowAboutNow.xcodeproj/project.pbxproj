@@ -18,6 +18,7 @@
 		1ACF8E3E7EBC0567057414C5 /* DiaryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA3AFAFB0CC5C618BEEBAA9 /* DiaryListView.swift */; };
 		1DB5CE816768A4DA2220603C /* Presentation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 487FE65FF11700AD91952518 /* Presentation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1EE743612DBEC6556FA30FDC /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; };
+		2556AC3B57D49797269CF3E1 /* DiaryEditorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657E0BE1309AD7C4572A97BB /* DiaryEditorSheet.swift */; };
 		3B0A67844E7CB5FDBCC24D3A /* Infrastructure.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4990F0441C513133B63555E3 /* DiaryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CE53AD25B3CB56D572A8EE /* DiaryRepository.swift */; };
 		4BC9AF53EB84413D6980BAF5 /* HowAboutNow.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */; };
@@ -54,6 +55,7 @@
 		C6D7170C5E28B99C5FF90EBB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B098A9CCDC67446C3AEB5BE3 /* GoogleService-Info.plist */; };
 		D7BFCFDD2358BE5328B39899 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC337D9A0621F3F94994B683 /* Diary.swift */; };
 		D8CA25CDC6BCE3DCC42C919E /* Data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0314B61D9C0E9B752695B0ED /* Data.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA600EF84AF4DB346FBF4311 /* DeleteConfirmationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C604234B2BF4B7055ED0348C /* DeleteConfirmationAlert.swift */; };
 		EB8184C3E5BD65592C61A50E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 620D68098BB503E4DFEB8CC1 /* FirebaseCrashlytics */; };
 		ED33507F5AE02FEEA1F23737 /* Infrastructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; };
 		F0560750539596263E6F56FB /* OpenAIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B52C858B1A4623A939EC16 /* OpenAIModels.swift */; };
@@ -195,6 +197,7 @@
 		52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HowAboutNow.entitlements; sourceTree = "<group>"; };
 		5E1102C8624634BE7BA957B3 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
 		63DA33347133D31897F433C9 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
+		657E0BE1309AD7C4572A97BB /* DiaryEditorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditorSheet.swift; sourceTree = "<group>"; };
 		6FEEB52B16D6EBD0F58FA022 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistPlists+HowAboutNow.swift"; sourceTree = "<group>"; };
 		786B1F1B070ABE5F20D2B266 /* Infrastructure-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Infrastructure-Info.plist"; sourceTree = "<group>"; };
@@ -209,6 +212,7 @@
 		B098A9CCDC67446C3AEB5BE3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B2E54DF5E7FD3273A8A34EE8 /* View+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Keyboard.swift"; sourceTree = "<group>"; };
 		B31A66267A925F6CEEBFBFB5 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		C604234B2BF4B7055ED0348C /* DeleteConfirmationAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteConfirmationAlert.swift; sourceTree = "<group>"; };
 		CA176C7AE85C215325D7A091 /* OpenAIDiaryAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIDiaryAnalysisService.swift; sourceTree = "<group>"; };
 		D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Infrastructure.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC337D9A0621F3F94994B683 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
@@ -384,7 +388,9 @@
 			isa = PBXGroup;
 			children = (
 				B31A66267A925F6CEEBFBFB5 /* CalendarView.swift */,
+				C604234B2BF4B7055ED0348C /* DeleteConfirmationAlert.swift */,
 				FA86E38AECE4B9336F1B5BBE /* DiaryCardView.swift */,
+				657E0BE1309AD7C4572A97BB /* DiaryEditorSheet.swift */,
 				28E99F2FD37329CB5D09C840 /* EmotionIcon.swift */,
 				1C1E9F977DE5C95B075FF515 /* EmptyStateView.swift */,
 				810A5D4A795671A64AA698AF /* ErrorView.swift */,
@@ -820,7 +826,9 @@
 				F6CA31B2833240A2340677B0 /* DiaryViewModel.swift in Sources */,
 				B2B220DBBA6771A885D22AE9 /* SplashViewModel.swift in Sources */,
 				7E115D71FCF250363A939A59 /* CalendarView.swift in Sources */,
+				DA600EF84AF4DB346FBF4311 /* DeleteConfirmationAlert.swift in Sources */,
 				B3C42CBDB9B45FBA09C0F9C3 /* DiaryCardView.swift in Sources */,
+				2556AC3B57D49797269CF3E1 /* DiaryEditorSheet.swift in Sources */,
 				95FBC03431A3AD9DCE139C72 /* EmotionIcon.swift in Sources */,
 				4D562846D602C83AAF370E28 /* EmptyStateView.swift in Sources */,
 				B39B5B459B8570DA24CE9EAA /* ErrorView.swift in Sources */,

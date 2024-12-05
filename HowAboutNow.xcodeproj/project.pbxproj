@@ -26,6 +26,7 @@
 		56942D45E440352F0FFB1D6E /* Configuration.template.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */; };
 		591F20EEF8A25B9872C531C3 /* DiaryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ACE46A25AC51E719FA488F /* DiaryEditorView.swift */; };
 		5C4A84644E6AFBFCBE1569CA /* Infrastructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; };
+		61101E5A77ED32A1D62B4390 /* View+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E54DF5E7FD3273A8A34EE8 /* View+Keyboard.swift */; };
 		6CD8222A0D28E3F31481F50C /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; };
 		7634837ADB44AB198E8F6B7E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 6FEEB52B16D6EBD0F58FA022 /* Localizable.xcstrings */; };
 		7B4417C4F2B5237215A42CAC /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0314B61D9C0E9B752695B0ED /* Data.framework */; };
@@ -201,6 +202,7 @@
 		A612A7C42D6C20E9A40DC10A /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Configuration.template.plist; sourceTree = "<group>"; };
 		B098A9CCDC67446C3AEB5BE3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B2E54DF5E7FD3273A8A34EE8 /* View+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Keyboard.swift"; sourceTree = "<group>"; };
 		B31A66267A925F6CEEBFBFB5 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		CA176C7AE85C215325D7A091 /* OpenAIDiaryAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIDiaryAnalysisService.swift; sourceTree = "<group>"; };
 		D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Infrastructure.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -450,6 +452,7 @@
 		ABCE8960E460A0AB11638F12 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C92354B5AC64BB84D2BCC0A4 /* Extensions */,
 				0CE54702E5FB7F9B803439D1 /* ViewModels */,
 				4327A2728F777653AEC286B8 /* Views */,
 			);
@@ -496,6 +499,14 @@
 				CDE0996713183E4C3D4F5610 /* Sources */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		C92354B5AC64BB84D2BCC0A4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B2E54DF5E7FD3273A8A34EE8 /* View+Keyboard.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		CD52D16F7BC42577729EABA0 /* Interfaces */ = {
@@ -786,7 +797,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    exit 0\nfi\n\n# dSYM 파일 찾기\nDSYM_PATH=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"\nif [ ! -d \"$DSYM_PATH\" ]; then\n    echo \"warning: dSYM not found at ${DSYM_PATH}\"\n    exit 0\nfi\n\n# Crashlytics 업로드 도구 경로 설정\nDERIVED_DATA_PATHS=(\n    \"/Volumes/SSD/Library/Developer/Xcode/DerivedData\"\n    \"${HOME}/Library/Developer/Xcode/DerivedData\"\n)\n\nfor DERIVED_DATA_PATH in \"${DERIVED_DATA_PATHS[@]}\"; do\n    if [ -d \"${DERIVED_DATA_PATH}\" ]; then\n        CRASHLYTICS_PATH=$(find \"${DERIVED_DATA_PATH}\" -path \"*/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols\" -type f | head -n 1)\n        if [ -f \"${CRASHLYTICS_PATH}\" ]; then\n            break\n        fi\n    fi\ndone\n\nif [ ! -f \"${CRASHLYTICS_PATH}\" ]; then\n    echo \"warning: Crashlytics upload-symbols not found in any DerivedData directory\"\n    exit 0\nfi\n\n# Upload dSYM\n\"${CRASHLYTICS_PATH}\" -gsp \"${SRCROOT}/App/Resources/GoogleService-Info.plist\" -p ios \"${DSYM_PATH}\"\n";
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n    exit 0\nfi\n\n# dSYM 파일 찾기\nDSYM_PATH=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"\nif [ ! -d \"$DSYM_PATH\" ]; then\n    echo \"warning: dSYM not found at ${DSYM_PATH}\"\n    exit 0\nfi\n\n# Crashlytics 업로드 도구 경로 설정\nDERIVED_DATA_PATHS=(\n    \"/Volumes/SSD/Library/Developer/Xcode/DerivedData\"\n    \"${HOME}/Library/Developer/Xcode/DerivedData\"\n)\n\nfor DERIVED_DATA_PATH in \"${DERIVED_DATA_PATHS[@]}\"; do\n    if [ -d \"${DERIVED_DATA_PATH}\" ]; then\n        CRASHLYTICS_PATH=$(find \"${DERIVED_DATA_PATH}\" -path \"*/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/upload-symbols\" -type f | head -n 1)\n        if [ -f \"${CRASHLYTICS_PATH}\" ]; then\n            break\n        fi\n    fi\ndone\n\nif [ ! -f \"${CRASHLYTICS_PATH}\" ]; then\n    echo \"warning: Crashlytics upload-symbols not found in any DerivedData directory\"\n    exit 0\nfi\n\n# Upload dSYM\n\"${CRASHLYTICS_PATH}\" -gsp \"${SRCROOT}/App/Resources/GoogleService-Info.plist\" -p ios \"${DSYM_PATH}\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -795,6 +806,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61101E5A77ED32A1D62B4390 /* View+Keyboard.swift in Sources */,
 				8977D65C6DC9344C7ABDE81F /* DiaryEditorViewModel.swift in Sources */,
 				A72009072CD90136D93D3107 /* DiaryListViewModel.swift in Sources */,
 				B2B220DBBA6771A885D22AE9 /* SplashViewModel.swift in Sources */,

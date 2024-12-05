@@ -1,15 +1,23 @@
 import SwiftUI
 
+/// 설정 화면
 public struct SettingsView: View {
-    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+    /// 앱 버전
+    private let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
     @Environment(\.colorScheme) private var colorScheme
     
+    /// 초기화
     public init() {}
     
     public var body: some View {
         List {
+            /// 앱 정보 섹션
             appInfoSection
+            
+            /// 연락처 섹션
             contactSection
+            
+            /// 정보 섹션
             aboutSection
         }
         .navigationTitle("settings")
@@ -17,6 +25,7 @@ public struct SettingsView: View {
         .tint(.pink)
     }
     
+    /// 앱 정보 섹션
     private var appInfoSection: some View {
         Section {
             VStack(spacing: 16) {
@@ -41,6 +50,7 @@ public struct SettingsView: View {
         }
     }
     
+    /// 연락처 섹션
     private var contactSection: some View {
         Section {
             Link(destination: URL(string: "mailto:krwd1117@icloud.com")!) {
@@ -64,6 +74,7 @@ public struct SettingsView: View {
         }
     }
     
+    /// 정보 섹션
     private var aboutSection: some View {
         Section {
             NavigationLink {

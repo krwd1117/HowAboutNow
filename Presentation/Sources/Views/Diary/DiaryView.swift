@@ -1,6 +1,7 @@
 import SwiftUI
 import Domain
 
+/// 다이어리 목록 화면
 public struct DiaryView: View {
     @StateObject private var viewModel: DiaryListViewModel
     @State private var showingDiaryEditor = false
@@ -8,6 +9,9 @@ public struct DiaryView: View {
     @State private var showingDeleteAlert = false
     @State private var diaryToDelete: Diary?
     
+    /// 초기화
+    /// - Parameters:
+    ///   - viewModel: 다이어리 목록 뷰 모델
     public init(viewModel: DiaryListViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }

@@ -1,6 +1,8 @@
 import SwiftUI
 
+/// 에러 표시 뷰
 public struct ErrorView: View {
+    /// 에러 메시지
     let message: String
     
     public init(message: String) {

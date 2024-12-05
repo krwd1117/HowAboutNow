@@ -84,7 +84,7 @@ let project = Project(
                     
                     # Upload dSYM
                     "${CRASHLYTICS_PATH}" -gsp "${SRCROOT}/App/Resources/GoogleService-Info.plist" -p ios "${DSYM_PATH}"
-                    """, name: "Upload Crashlytics Symbols", runOnlyWhenInstalling: true)
+                    """, name: "Upload Crashlytics Symbols")
             ],
             dependencies: [
                 .target(name: "Domain"),

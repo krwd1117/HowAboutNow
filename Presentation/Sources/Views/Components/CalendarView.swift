@@ -1,16 +1,23 @@
 import SwiftUI
 import Domain
 
+/// 캘린더 표시 뷰
 public struct CalendarView: View {
+    /// 선택된 날짜
     @Binding var selectedDate: Date
+    /// 캘린더에 표시할 일기 배열
     let diaries: [Diary]
+    /// 날짜 선택 시 호출할 함수
     let onDateSelected: (Date) -> Void
     
-    private let calendar = Calendar.current
-    private let daysInWeek = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
-    
+    /// 현재 달력의 달
     @State private var currentMonth: Date = Date()
     
+    /// 초기화
+    /// - Parameters:
+    ///   - selectedDate: 선택된 날짜 바인딩
+    ///   - diaries: 캘린더에 표시할 일기 배열
+    ///   - onDateSelected: 날짜 선택 시 호출할 함수
     public init(selectedDate: Binding<Date>, diaries: [Diary], onDateSelected: @escaping (Date) -> Void) {
         self._selectedDate = selectedDate
         self.diaries = diaries
@@ -25,6 +32,7 @@ public struct CalendarView: View {
         }
     }
     
+    /// 달력 헤더 뷰
     private var monthHeader: some View {
         HStack {
             Button(action: previousMonth) {
@@ -47,9 +55,10 @@ public struct CalendarView: View {
         .padding(.horizontal)
     }
     
+    /// 요일 헤더 뷰
     private var daysHeader: some View {
         HStack {
-            ForEach(daysInWeek, id: \.self) { day in
+            ForEach(["sun", "mon", "tue", "wed", "thu", "fri", "sat"], id: \.self) { day in
                 Text(LocalizedStringKey(day))
                     .font(.caption)
                     .fontWeight(.bold)
@@ -59,6 +68,7 @@ public struct CalendarView: View {
         }
     }
     
+    /// 날짜 그리드 뷰
     private var daysGrid: some View {
         let days = getDaysInMonth()
         
@@ -69,7 +79,7 @@ public struct CalendarView: View {
                     
                     DayCell(
                         date: day,
-                        isSelected: calendar.isDate(day, inSameDayAs: selectedDate),
+                        isSelected: Calendar.current.isDate(day, inSameDayAs: selectedDate),
                         diaryCount: diariesForDay.count
                     )
                     .onTapGesture {
@@ -85,22 +95,23 @@ public struct CalendarView: View {
         }
     }
     
+    /// 달의 날짜 배열 계산
     private func getDaysInMonth() -> [Date?] {
-        let interval = calendar.dateInterval(of: .month, for: currentMonth)!
+        let interval = Calendar.current.dateInterval(of: .month, for: currentMonth)!
         let firstDay = interval.start
         
         // Get the first day of the week for this month
-        let firstWeekday = calendar.component(.weekday, from: firstDay)
+        let firstWeekday = Calendar.current.component(.weekday, from: firstDay)
         let offsetDays = firstWeekday - 1
         
         // Get the last day of the month
         let lastDay = interval.end
-        let daysInMonth = calendar.dateComponents([.day], from: firstDay, to: lastDay).day!
+        let daysInMonth = Calendar.current.dateComponents([.day], from: firstDay, to: lastDay).day!
         
         var days: [Date?] = Array(repeating: nil, count: offsetDays)
         
         for day in 0..<daysInMonth {
-            if let date = calendar.date(byAdding: .day, value: day, to: firstDay) {
+            if let date = Calendar.current.date(byAdding: .day, value: day, to: firstDay) {
                 days.append(date)
             }
         }
@@ -114,36 +125,36 @@ public struct CalendarView: View {
         return days
     }
     
+    /// 이전 달로 이동
     private func previousMonth() {
         withAnimation {
-            currentMonth = calendar.date(byAdding: .month, value: -1, to: currentMonth) ?? currentMonth
+            currentMonth = Calendar.current.date(byAdding: .month, value: -1, to: currentMonth) ?? currentMonth
         }
     }
     
+    /// 다음 달로 이동
     private func nextMonth() {
         withAnimation {
-            currentMonth = calendar.date(byAdding: .month, value: 1, to: currentMonth) ?? currentMonth
+            currentMonth = Calendar.current.date(byAdding: .month, value: 1, to: currentMonth) ?? currentMonth
         }
     }
 }
 
+/// 날짜 표시 뷰
 private struct DayCell: View {
+    /// 표시할 날짜
     let date: Date
+    /// 선택 여부
     let isSelected: Bool
+    /// 일기 개수
     let diaryCount: Int
-    
-    private let calendar = Calendar.current
-    
-    private var isToday: Bool {
-        calendar.isDateInToday(date)
-    }
     
     var body: some View {
         VStack(spacing: 4) {
-            Text("\(calendar.component(.day, from: date))")
+            Text("\(Calendar.current.component(.day, from: date))")
                 .font(.system(.body, design: .rounded))
-                .fontWeight(isToday ? .bold : .regular)
-                .foregroundStyle(isToday ? .pink : .primary)
+                .fontWeight(Calendar.current.isDateInToday(date) ? .bold : .regular)
+                .foregroundStyle(Calendar.current.isDateInToday(date) ? .pink : .primary)
             
             if diaryCount > 0 {
                 Text("\(diaryCount)")

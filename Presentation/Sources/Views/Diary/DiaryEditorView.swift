@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 
+/// 다이어리 작성 및 수정 화면
 public struct DiaryEditorView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
@@ -9,11 +10,14 @@ public struct DiaryEditorView: View {
     @State private var showDatePicker = false
     @State private var showEmotionPicker = false
     
+    /// 포커스 가능한 필드 정의
     private enum Field {
         case title
         case content
     }
     
+    /// 초기화
+    /// - Parameter viewModel: 다이어리 편집 ViewModel
     public init(viewModel: DiaryEditorViewModel) {
         self._viewModel = ObservedObject(wrappedValue: viewModel)
     }
@@ -22,13 +26,14 @@ public struct DiaryEditorView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 24) {
-                    titleSection
-                    dateSection
+                    titleSection      // 제목 입력 섹션
+                    dateSection      // 날짜 선택 섹션
                     if viewModel.isEditing {
-                        emotionSection
+                        emotionSection  // 감정 선택 섹션 (수정 모드에서만 표시)
                     }
-                    contentSection
+                    contentSection   // 내용 입력 섹션
                     
+                    // AI 분석 안내 메시지 (새 다이어리 작성 시에만 표시)
                     if !viewModel.isEditing {
                         VStack(spacing: 8) {
                             HStack(spacing: 4) {
@@ -79,7 +84,9 @@ public struct DiaryEditorView: View {
                 ToolbarItem(placement: .keyboard) {
                     HStack {
                         Spacer()
-                        Button(action: dismissKeyboard) {
+                        Button {
+                            dismissKeyboard()
+                        } label: {
                             Label(LocalizedStringKey("dismiss_keyboard"), systemImage: "keyboard.chevron.compact.down.fill")
                                 .symbolRenderingMode(.hierarchical)
                                 .foregroundStyle(.secondary)
@@ -93,6 +100,7 @@ public struct DiaryEditorView: View {
         }
     }
     
+    /// 제목 입력 섹션
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
@@ -114,6 +122,7 @@ public struct DiaryEditorView: View {
         }
     }
     
+    /// 날짜 선택 섹션
     private var dateSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
@@ -127,7 +136,7 @@ public struct DiaryEditorView: View {
             Button {
                 dismissKeyboard()
                 withAnimation(.spring(response: 0.3)) {
-                    showDatePicker.toggle()
+                    viewModel.showDatePicker.toggle()
                 }
             } label: {
                 HStack {
@@ -163,6 +172,7 @@ public struct DiaryEditorView: View {
         }
     }
     
+    /// 감정 선택 섹션
     private var emotionSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Label {
@@ -202,8 +212,8 @@ public struct DiaryEditorView: View {
                 )
             } else {
                 Button {
-                    dismissKeyboard()
-                    withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                    self.dismissKeyboard()
+                    withAnimation(.spring(response: 0.3)) {
                         showEmotionPicker.toggle()
                     }
                 } label: {
@@ -238,6 +248,7 @@ public struct DiaryEditorView: View {
         }
     }
     
+    /// 내용 입력 섹션
     private var contentSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
@@ -260,6 +271,7 @@ public struct DiaryEditorView: View {
         }
     }
     
+    /// 감정 버튼
     private struct EmotionButton: View {
         let emotion: String
         @Binding var selectedEmotion: String
@@ -296,13 +308,6 @@ public struct DiaryEditorView: View {
             }
             .foregroundStyle(selectedEmotion == emotion ? .pink : .primary)
         }
-    }
-    
-    private func dismissKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), 
-                                     to: nil, 
-                                     from: nil, 
-                                     for: nil)
     }
 }
 

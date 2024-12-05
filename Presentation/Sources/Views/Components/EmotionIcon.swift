@@ -1,10 +1,24 @@
 import SwiftUI
 
-struct EmotionIcon: View {
+/// 감정 아이콘 뷰
+public struct EmotionIcon: View {
+    /// 감정 텍스트
     let emotion: String
+    /// 아이콘 크기
+    let size: CGFloat
     
-    var body: some View {
+    /// 초기화
+    /// - Parameters:
+    ///   - emotion: 감정 텍스트
+    ///   - size: 아이콘 크기
+    public init(emotion: String, size: CGFloat = 24) {
+        self.emotion = emotion
+        self.size = size
+    }
+    
+    public var body: some View {
         Text(icon)
+            .font(.system(size: size))
     }
     
     private var icon: String {

@@ -1,6 +1,7 @@
 import SwiftUI
 import Domain
 
+/// 다이어리 목록 화면
 public struct DiaryListView: View {
     @StateObject private var viewModel: DiaryListViewModel
     @State private var showingDiaryEditor = false
@@ -9,6 +10,8 @@ public struct DiaryListView: View {
     @State private var diaryToDelete: Diary?
     @Environment(\.colorScheme) private var colorScheme
     
+    /// 초기화
+    /// - Parameter viewModel: 다이어리 목록 ViewModel
     public init(viewModel: DiaryListViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -42,6 +45,7 @@ public struct DiaryListView: View {
         }
     }
     
+    /// 배경 그라데이션
     private var backgroundGradient: some View {
         LinearGradient(
             colors: [
@@ -55,13 +59,17 @@ public struct DiaryListView: View {
         .ignoresSafeArea()
     }
     
+    /// 메인 컨텐츠
     private var mainContent: some View {
         Group {
             if viewModel.isLoading {
+                // 로딩 뷰
                 loadingView
             } else if viewModel.diaries.isEmpty {
+                // 빈 상태 뷰
                 emptyStateView
             } else {
+                // 다이어리 목록 뷰
                 DiaryListViewComponent(
                     viewModel: viewModel,
                     selectedDiary: $selectedDiary,
@@ -72,6 +80,7 @@ public struct DiaryListView: View {
         }
     }
     
+    /// 로딩 뷰
     private var loadingView: some View {
         VStack(spacing: 16) {
             ProgressView()
@@ -82,6 +91,7 @@ public struct DiaryListView: View {
         }
     }
     
+    /// 빈 상태 뷰
     private var emptyStateView: some View {
         ContentUnavailableView {
             Label {
@@ -107,6 +117,7 @@ public struct DiaryListView: View {
         }
     }
     
+    /// 플로팅 액션 버튼
     private var floatingActionButton: some View {
         VStack {
             Spacer()
@@ -143,6 +154,7 @@ public struct DiaryListView: View {
         }
     }
     
+    /// 다이어리 에디터 뷰 생성
     private func createDiaryEditor() -> some View {
         NavigationStack {
             DiaryEditorView(
@@ -158,6 +170,7 @@ public struct DiaryListView: View {
         }
     }
     
+    /// 다이어리 에디터 뷰 생성 (수정)
     private func editDiaryEditor(diary: Diary) -> some View {
         NavigationStack {
             DiaryEditorView(
@@ -185,6 +198,7 @@ public struct DiaryListView: View {
     }
 }
 
+/// 버튼 스타일
 struct BounceButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -193,6 +207,7 @@ struct BounceButtonStyle: ButtonStyle {
     }
 }
 
+/// 다이어리 목록 컴포넌트
 struct DiaryListViewComponent: View {
     @ObservedObject var viewModel: DiaryListViewModel
     @Binding var selectedDiary: Diary?
@@ -233,6 +248,7 @@ struct DiaryListViewComponent: View {
     }
 }
 
+/// 다이어리 셀
 struct DiaryCell: View {
     let diary: Diary
     @Environment(\.colorScheme) private var colorScheme
@@ -292,6 +308,7 @@ struct DiaryCell: View {
     }
 }
 
+/// 프리뷰
 struct DiaryListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
@@ -305,6 +322,7 @@ struct DiaryListView_Previews: PreviewProvider {
     }
 }
 
+/// 모의 다이어리 리포지토리
 private actor MockDiaryRepository: DiaryRepository {
     func getDiaries() async throws -> [Diary] {
         return [
@@ -319,6 +337,7 @@ private actor MockDiaryRepository: DiaryRepository {
     func deleteDiary(_ diary: Diary) async throws {}
 }
 
+/// 모의 다이어리 분석 서비스
 private actor MockDiaryAnalysisService: DiaryAnalysisService {
     func analyzeDiary(content: String) async throws -> DiaryAnalysis {
         DiaryAnalysis(emotion: "", summary: "")

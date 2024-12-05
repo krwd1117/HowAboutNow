@@ -1,7 +1,6 @@
 import Foundation
 import Domain
 
-@MainActor
 public final class SplashViewModel: ObservableObject {
     @Published public private(set) var isInitialized = false
     @Published public private(set) var error: Error?
@@ -12,7 +11,7 @@ public final class SplashViewModel: ObservableObject {
     private let repositoryProvider: () -> DiaryRepository
     private let serviceProvider: () throws -> DiaryAnalysisService
     
-    public init(
+    public nonisolated init(
         repositoryProvider: @escaping () -> DiaryRepository,
         serviceProvider: @escaping () throws -> DiaryAnalysisService
     ) {
@@ -20,6 +19,7 @@ public final class SplashViewModel: ObservableObject {
         self.serviceProvider = serviceProvider
     }
     
+    @MainActor
     public func initializeServices() async {
         do {
             // Initialize services

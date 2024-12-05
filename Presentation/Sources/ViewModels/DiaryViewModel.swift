@@ -1,8 +1,7 @@
 import Foundation
 import Domain
 
-@MainActor
-public final class DiaryListViewModel: ObservableObject {
+public final class DiaryViewModel: ObservableObject {
     @Published private(set) var diaries: [Diary] = []
     @Published private(set) var isLoading = false
     @Published private(set) var error: Error?
@@ -13,25 +12,26 @@ public final class DiaryListViewModel: ObservableObject {
     private let defaults = UserDefaults.standard
     private let viewModeKey = "DiaryViewMode"
     
-    public init(repository: DiaryRepository,
-               diaryAnalysisService: DiaryAnalysisService) {
+    public nonisolated init(repository: DiaryRepository,
+                          diaryAnalysisService: DiaryAnalysisService) {
         self.repository = repository
         self.diaryAnalysisService = diaryAnalysisService
         self.isCalendarView = UserDefaults.standard.bool(forKey: "DiaryViewMode")
     }
     
-    public func toggleViewMode() {
+    public nonisolated func toggleViewMode() {
         isCalendarView.toggle()
         defaults.set(isCalendarView, forKey: viewModeKey)
     }
     
+    @MainActor
     public func loadDiaries() async {
         isLoading = true
         error = nil
         
         do {
-            diaries = try await repository.getDiaries()
-                .sorted { $0.date > $1.date }
+            let fetchedDiaries = try await repository.getDiaries()
+            diaries = fetchedDiaries.sorted { $0.date > $1.date }
         } catch {
             self.error = error
         }
@@ -39,6 +39,7 @@ public final class DiaryListViewModel: ObservableObject {
         isLoading = false
     }
     
+    @MainActor
     public func saveDiary(title: String, content: String, date: Date) async {
         guard !title.isEmpty && !content.isEmpty else { return }
         
@@ -64,6 +65,7 @@ public final class DiaryListViewModel: ObservableObject {
         isLoading = false
     }
     
+    @MainActor
     public func updateDiary(_ diary: Diary, title: String, content: String, date: Date, emotion: String) async {
         guard !title.isEmpty && !content.isEmpty else { return }
         
@@ -90,6 +92,7 @@ public final class DiaryListViewModel: ObservableObject {
         isLoading = false
     }
     
+    @MainActor
     public func deleteDiary(_ diary: Diary) async {
         isLoading = true
         error = nil

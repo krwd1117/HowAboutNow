@@ -3,7 +3,7 @@ import Domain
 
 /// 다이어리 목록 화면
 public struct DiaryView: View {
-    @StateObject private var viewModel: DiaryListViewModel
+    @ObservedObject private var viewModel: DiaryViewModel
     @State private var showingDiaryEditor = false
     @State private var selectedDiary: Diary?
     @State private var showingDeleteAlert = false
@@ -11,9 +11,9 @@ public struct DiaryView: View {
     
     /// 초기화
     /// - Parameters:
-    ///   - viewModel: 다이어리 목록 뷰 모델
-    public init(viewModel: DiaryListViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+    ///   - viewModel: 다이어리 뷰 모델
+    public init(viewModel: DiaryViewModel) {
+        _viewModel = ObservedObject(wrappedValue: viewModel)
     }
     
     public var body: some View {
@@ -31,8 +31,7 @@ public struct DiaryView: View {
             }
             
             // Floating Action Button
-            FloatingAppendButton(showingDiaryEditor: $showingDiaryEditor)
-            
+            FloatingAppendButton(viewModel: viewModel, showingDiaryEditor: $showingDiaryEditor)
         }
         .sheet(isPresented: $showingDiaryEditor) {
             DiaryEditorView(
@@ -73,15 +72,18 @@ public struct DiaryView: View {
                 )
             )
         }
-        .alert("delete_diary_action", isPresented: $showingDeleteAlert, presenting: diaryToDelete) { diary in
-            Button("delete", role: .destructive) {
-                Task {
-                    await viewModel.deleteDiary(diary)
+        .alert("일기를 삭제하시겠습니까?", isPresented: $showingDeleteAlert) {
+            Button("삭제", role: .destructive) {
+                if let diary = diaryToDelete {
+                    Task {
+                        await viewModel.deleteDiary(diary)
+                    }
                 }
+                diaryToDelete = nil
             }
-            Button("cancel", role: .cancel) {}
-        } message: { diary in
-            Text("confirm_delete_diary")
+            Button("취소", role: .cancel) {
+                diaryToDelete = nil
+            }
         }
         .task {
             await viewModel.loadDiaries()
@@ -89,15 +91,15 @@ public struct DiaryView: View {
     }
 }
 
-/// Custom Navigation Bar
-fileprivate struct CustomNaivgationBar: View {
-    @ObservedObject var viewModel: DiaryListViewModel
+// MARK: - Custom Navigation Bar
+private struct CustomNaivgationBar: View {
+    @ObservedObject var viewModel: DiaryViewModel
     
     var body: some View {
         HStack {
-            Text(LocalizedStringKey("diary"))
+            Text("일기")
                 .font(.title)
-                .fontWeight(.bold)
+                .bold()
             
             Spacer()
             
@@ -109,15 +111,16 @@ fileprivate struct CustomNaivgationBar: View {
             }
         }
         .padding()
+        .background(Color(uiColor: .systemBackground))
     }
 }
 
-/// Floating Append Button
-fileprivate struct FloatingAppendButton: View {
+// MARK: - Floating Action Button
+private struct FloatingAppendButton: View {
+    @ObservedObject var viewModel: DiaryViewModel
     @Binding var showingDiaryEditor: Bool
     
     var body: some View {
-        // Floating Action Button
         VStack {
             Spacer()
             HStack {
@@ -132,7 +135,7 @@ fileprivate struct FloatingAppendButton: View {
                         .frame(width: 60, height: 60)
                         .background(Color.accentColor)
                         .clipShape(Circle())
-                        .shadow(radius: 4, y: 2)
+                        .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
                 }
                 .padding()
             }

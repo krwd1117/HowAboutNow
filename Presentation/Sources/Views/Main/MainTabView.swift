@@ -27,7 +27,7 @@ public struct MainTabView: View {
             TabView(selection: $selectedTab) {
                 // 다이어리 목록 탭
                 DiaryView(
-                    viewModel: DiaryListViewModel(
+                    viewModel: DiaryViewModel(
                         repository: repository,
                         diaryAnalysisService: diaryAnalysisService
                     )

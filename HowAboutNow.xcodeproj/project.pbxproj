@@ -39,7 +39,6 @@
 		9C76328271C2A56A15C607CF /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210E69E358712BBA0E4225E2 /* SettingsView.swift */; };
 		9ED1B0B721B8D386707C5F33 /* DiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24754B40682FC140C16CA1A6 /* DiaryUseCase.swift */; };
 		A4B34826DFAC6A3CCD189DCE /* DiaryAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB849A33BEC43312B560D725 /* DiaryAnalysisService.swift */; };
-		A72009072CD90136D93D3107 /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7292C7A4332BEFC0987AE2 /* DiaryListViewModel.swift */; };
 		AABCD64CEBE1941192FA38B7 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269ADD8D568DA74DEA267D3C /* Logger.swift */; };
 		AAF937929EF01E8D2A4DB178 /* OpenAIDiaryAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA176C7AE85C215325D7A091 /* OpenAIDiaryAnalysisService.swift */; };
 		AF68B38E917A44EF184D0C24 /* DiaryCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7F79D24594766F52E2D9D9 /* DiaryCalendarView.swift */; };
@@ -56,6 +55,7 @@
 		ED33507F5AE02FEEA1F23737 /* Infrastructure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4DCB098A79C50B76AAFAA9F /* Infrastructure.framework */; };
 		F0560750539596263E6F56FB /* OpenAIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B52C858B1A4623A939EC16 /* OpenAIModels.swift */; };
 		F5E3E813327FD37CE94633CD /* TuistAssets+HowAboutNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D14B44856F39843935F8DC /* TuistAssets+HowAboutNow.swift */; };
+		F6CA31B2833240A2340677B0 /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DA33347133D31897F433C9 /* DiaryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -189,7 +189,7 @@
 		5120185550E93D3CDAE01346 /* DiaryDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDataRepository.swift; sourceTree = "<group>"; };
 		52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HowAboutNow.entitlements; sourceTree = "<group>"; };
 		5E1102C8624634BE7BA957B3 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
-		6D7292C7A4332BEFC0987AE2 /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
+		63DA33347133D31897F433C9 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		6FEEB52B16D6EBD0F58FA022 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistPlists+HowAboutNow.swift"; sourceTree = "<group>"; };
 		786B1F1B070ABE5F20D2B266 /* Infrastructure-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Infrastructure-Info.plist"; sourceTree = "<group>"; };
@@ -276,7 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				039F3F4ACE46AEA0E85B6EA6 /* DiaryEditorViewModel.swift */,
-				6D7292C7A4332BEFC0987AE2 /* DiaryListViewModel.swift */,
+				63DA33347133D31897F433C9 /* DiaryViewModel.swift */,
 				3021457D003DDA2CC148E798 /* SplashViewModel.swift */,
 			);
 			path = ViewModels;
@@ -808,7 +808,7 @@
 			files = (
 				61101E5A77ED32A1D62B4390 /* View+Keyboard.swift in Sources */,
 				8977D65C6DC9344C7ABDE81F /* DiaryEditorViewModel.swift in Sources */,
-				A72009072CD90136D93D3107 /* DiaryListViewModel.swift in Sources */,
+				F6CA31B2833240A2340677B0 /* DiaryViewModel.swift in Sources */,
 				B2B220DBBA6771A885D22AE9 /* SplashViewModel.swift in Sources */,
 				7E115D71FCF250363A939A59 /* CalendarView.swift in Sources */,
 				95FBC03431A3AD9DCE139C72 /* EmotionIcon.swift in Sources */,

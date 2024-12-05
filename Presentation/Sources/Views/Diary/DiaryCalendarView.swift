@@ -2,7 +2,7 @@ import SwiftUI
 import Domain
 
 public struct DiaryCalendarView: View {
-    @ObservedObject var viewModel: DiaryListViewModel
+    @ObservedObject var viewModel: DiaryViewModel
     @State private var selectedDate = Date()
     @State private var showingDiaryEditor = false
     @State private var selectedDiary: Diary?

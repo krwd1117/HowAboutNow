@@ -3,7 +3,7 @@ import Domain
 
 /// 다이어리 목록 화면
 public struct DiaryListView: View {
-    @StateObject private var viewModel: DiaryListViewModel
+    @ObservedObject private var viewModel: DiaryViewModel
     @State private var showingDiaryEditor = false
     @State private var selectedDiary: Diary?
     @State private var showingDeleteAlert = false
@@ -11,9 +11,9 @@ public struct DiaryListView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     /// 초기화
-    /// - Parameter viewModel: 다이어리 목록 ViewModel
-    public init(viewModel: DiaryListViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
+    /// - Parameter viewModel: 다이어리 ViewModel
+    public init(viewModel: DiaryViewModel) {
+        _viewModel = ObservedObject(wrappedValue: viewModel)
     }
     
     public var body: some View {
@@ -70,12 +70,25 @@ public struct DiaryListView: View {
                 emptyStateView
             } else {
                 // 다이어리 목록 뷰
-                DiaryListViewComponent(
-                    viewModel: viewModel,
-                    selectedDiary: $selectedDiary,
-                    diaryToDelete: $diaryToDelete,
-                    showingDeleteAlert: $showingDeleteAlert
-                )
+                ScrollView {
+                    LazyVStack(spacing: 16) {
+                        ForEach(viewModel.diaries) { diary in
+                            DiaryCardView(diary: diary)
+                                .onTapGesture {
+                                    selectedDiary = diary
+                                }
+                                .contextMenu {
+                                    Button(role: .destructive) {
+                                        diaryToDelete = diary
+                                        showingDeleteAlert = true
+                                    } label: {
+                                        Label("삭제", systemImage: "trash")
+                                    }
+                                }
+                        }
+                    }
+                    .padding()
+                }
             }
         }
     }
@@ -198,6 +211,47 @@ public struct DiaryListView: View {
     }
 }
 
+/// 다이어리 카드 뷰
+private struct DiaryCardView: View {
+    let diary: Diary
+    @Environment(\.colorScheme) private var colorScheme
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text(diary.title)
+                    .font(.headline)
+                Spacer()
+                Text(diary.date.formatted(date: .abbreviated, time: .omitted))
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+            
+            Text(diary.content)
+                .font(.subheadline)
+                .lineLimit(3)
+                .foregroundColor(.secondary)
+            
+            HStack {
+                Text(diary.emotion)
+                    .font(.caption)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.accentColor.opacity(0.2))
+                    .cornerRadius(8)
+                
+                Spacer()
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(colorScheme == .dark ? Color(white: 0.15) : .white)
+                .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
+        )
+    }
+}
+
 /// 버튼 스타일
 struct BounceButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
@@ -207,113 +261,12 @@ struct BounceButtonStyle: ButtonStyle {
     }
 }
 
-/// 다이어리 목록 컴포넌트
-struct DiaryListViewComponent: View {
-    @ObservedObject var viewModel: DiaryListViewModel
-    @Binding var selectedDiary: Diary?
-    @Binding var diaryToDelete: Diary?
-    @Binding var showingDeleteAlert: Bool
-    
-    var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 16) {
-                ForEach(viewModel.diaries) { diary in
-                    DiaryCell(diary: diary)
-                        .onTapGesture {
-                            selectedDiary = diary
-                        }
-                        .contextMenu {
-                            Button {
-                                selectedDiary = diary
-                            } label: {
-                                Label("수정하기", systemImage: "pencil")
-                            }
-                            
-                            Button(role: .destructive) {
-                                diaryToDelete = diary
-                                showingDeleteAlert = true
-                            } label: {
-                                Label("삭제하기", systemImage: "trash")
-                            }
-                        }
-                }
-            }
-            .padding(.horizontal)
-            .padding(.top, 8)
-        }
-        .scrollIndicators(.hidden)
-        .refreshable {
-            await viewModel.loadDiaries()
-        }
-    }
-}
-
-/// 다이어리 셀
-struct DiaryCell: View {
-    let diary: Diary
-    @Environment(\.colorScheme) private var colorScheme
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .center, spacing: 8) {
-                EmotionIcon(emotion: diary.emotion)
-                    .font(.title2)
-                    .symbolEffect(.bounce)
-                
-                Text(diary.title)
-                    .font(.headline)
-                    .foregroundStyle(Color.primary)
-                
-                Spacer()
-                
-                Text(diary.date.formatted(date: .abbreviated, time: .omitted))
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-            
-            Text(diary.content)
-                .font(.body)
-                .lineLimit(3)
-                .multilineTextAlignment(.leading)
-            
-            if !diary.summary.isEmpty {
-                HStack(spacing: 4) {
-                    Image(systemName: "quote.opening")
-                        .font(.caption2)
-                        .foregroundStyle(.pink)
-                    
-                    Text(diary.summary)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
-                    
-                    Image(systemName: "quote.closing")
-                        .font(.caption2)
-                        .foregroundStyle(.pink)
-                }
-                .padding(.top, 4)
-            }
-        }
-        .padding()
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(colorScheme == .dark ? Color(uiColor: .secondarySystemBackground) : .white)
-                .shadow(color: .black.opacity(0.06), radius: 8, x: 0, y: 4)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(Color.pink.opacity(0.1), lineWidth: 1)
-        )
-    }
-}
-
 /// 프리뷰
 struct DiaryListView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             DiaryListView(
-                viewModel: DiaryListViewModel(
+                viewModel: DiaryViewModel(
                     repository: MockDiaryRepository(),
                     diaryAnalysisService: MockDiaryAnalysisService()
                 )

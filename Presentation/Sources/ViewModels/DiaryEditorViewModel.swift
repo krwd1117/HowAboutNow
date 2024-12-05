@@ -9,7 +9,6 @@
 import Foundation
 import Combine
 
-@MainActor
 public final class DiaryEditorViewModel: ObservableObject {
     @Published public var title: String
     @Published public var content: String

@@ -16,6 +16,7 @@ public final class DiaryEditorViewModel: ObservableObject {
     @Published public var selectedDate: Date
     @Published public var emotion: String
     @Published public var showDatePicker = false
+    @Published public var showEmotionPicker = false
     @Published public private(set) var isValid = false
     
     public let isEditing: Bool

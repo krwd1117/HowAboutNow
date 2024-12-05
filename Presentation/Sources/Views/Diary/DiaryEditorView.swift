@@ -7,8 +7,6 @@ public struct DiaryEditorView: View {
     @Environment(\.colorScheme) private var colorScheme
     @ObservedObject private var viewModel: DiaryEditorViewModel
     @FocusState private var focusField: Field?
-    @State private var showDatePicker = false
-    @State private var showEmotionPicker = false
     
     /// 포커스 가능한 필드 정의
     private enum Field {
@@ -146,7 +144,7 @@ public struct DiaryEditorView: View {
                     Image(systemName: "chevron.right")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
-                        .rotationEffect(.degrees(showDatePicker ? 90 : 0))
+                        .rotationEffect(.degrees(viewModel.showDatePicker ? 90 : 0))
                 }
                 .padding()
                 .background(
@@ -156,7 +154,7 @@ public struct DiaryEditorView: View {
             }
             .buttonStyle(.plain)
             
-            if showDatePicker {
+            if viewModel.showDatePicker {
                 DatePicker(
                     "",
                     selection: $viewModel.selectedDate,
@@ -184,7 +182,7 @@ public struct DiaryEditorView: View {
                     .symbolEffect(.bounce)
             }
             
-            if showEmotionPicker {
+            if viewModel.showEmotionPicker {
                 VStack(spacing: 12) {
                     Text(LocalizedStringKey("select_emotion"))
                         .font(.subheadline)
@@ -212,9 +210,9 @@ public struct DiaryEditorView: View {
                 )
             } else {
                 Button {
-                    self.dismissKeyboard()
+                    dismissKeyboard()
                     withAnimation(.spring(response: 0.3)) {
-                        showEmotionPicker.toggle()
+                        viewModel.showEmotionPicker.toggle()
                     }
                 } label: {
                     HStack {
@@ -235,7 +233,7 @@ public struct DiaryEditorView: View {
                         Image(systemName: "chevron.right")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
-                            .rotationEffect(.degrees(showEmotionPicker ? 90 : 0))
+                            .rotationEffect(.degrees(viewModel.showEmotionPicker ? 90 : 0))
                     }
                     .padding()
                     .background(

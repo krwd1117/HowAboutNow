@@ -18,9 +18,10 @@ public struct DiaryListView: View {
     
     public var body: some View {
         ZStack {
-            backgroundGradient
             mainContent
-            floatingActionButton
+            FloatingActionButton(
+                action: { showingDiaryEditor = true }
+            )
         }
         .navigationTitle("diary_title")
         .navigationBarTitleDisplayMode(.large)
@@ -45,124 +46,39 @@ public struct DiaryListView: View {
         }
     }
     
-    /// 배경 그라데이션
-    private var backgroundGradient: some View {
-        LinearGradient(
-            colors: [
-                Color(uiColor: .systemBackground),
-                Color(uiColor: .systemBackground).opacity(0.95),
-                Color.pink.opacity(0.1)
-            ],
-            startPoint: .top,
-            endPoint: .bottom
-        )
-        .ignoresSafeArea()
-    }
-    
     /// 메인 컨텐츠
     private var mainContent: some View {
         Group {
             if viewModel.isLoading {
                 // 로딩 뷰
-                loadingView
+                ProgressView()
+                    .scaleEffect(1.2)
             } else if viewModel.diaries.isEmpty {
                 // 빈 상태 뷰
-                emptyStateView
+                EmptyStateView(
+                    title: "empty_diary_title",
+                    description: "empty_diary_description",
+                    buttonTitle: "write_new_diary"
+                ) {
+                    showingDiaryEditor = true
+                }
             } else {
                 // 다이어리 목록 뷰
                 ScrollView {
                     LazyVStack(spacing: 16) {
                         ForEach(viewModel.diaries) { diary in
-                            DiaryCardView(diary: diary)
-                                .onTapGesture {
-                                    selectedDiary = diary
+                            DiaryCardView(
+                                diary: diary,
+                                onTap: { selectedDiary = diary },
+                                onDelete: {
+                                    diaryToDelete = diary
+                                    showingDeleteAlert = true
                                 }
-                                .contextMenu {
-                                    Button(role: .destructive) {
-                                        diaryToDelete = diary
-                                        showingDeleteAlert = true
-                                    } label: {
-                                        Label("삭제", systemImage: "trash")
-                                    }
-                                }
+                            )
                         }
                     }
                     .padding()
                 }
-            }
-        }
-    }
-    
-    /// 로딩 뷰
-    private var loadingView: some View {
-        VStack(spacing: 16) {
-            ProgressView()
-                .scaleEffect(1.2)
-            Text("loading_diaries")
-                .font(.callout)
-                .foregroundStyle(.secondary)
-        }
-    }
-    
-    /// 빈 상태 뷰
-    private var emptyStateView: some View {
-        ContentUnavailableView {
-            Label {
-                Text("empty_diary_title")
-            } icon: {
-                Image(systemName: "book.closed")
-                    .symbolEffect(.bounce)
-                    .foregroundStyle(.pink)
-                    .font(.largeTitle)
-            }
-        } description: {
-            Text("empty_diary_description")
-                .foregroundStyle(.secondary)
-        } actions: {
-            Button {
-                showingDiaryEditor = true
-            } label: {
-                Label("write_new_diary", systemImage: "plus")
-                    .font(.body.weight(.medium))
-            }
-            .buttonStyle(.borderedProminent)
-            .tint(.pink)
-        }
-    }
-    
-    /// 플로팅 액션 버튼
-    private var floatingActionButton: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                Button {
-                    withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
-                        showingDiaryEditor = true
-                    }
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.title3.weight(.semibold))
-                        .foregroundStyle(.white)
-                        .frame(width: 56, height: 56)
-                        .background(
-                            Circle()
-                                .fill(
-                                    LinearGradient(
-                                        colors: [.pink, .pink.opacity(0.8)],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
-                                .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
-                        )
-                        .overlay(
-                            Circle()
-                                .stroke(.white.opacity(0.2), lineWidth: 1)
-                        )
-                }
-                .padding([.trailing, .bottom], 20)
-                .buttonStyle(BounceButtonStyle())
             }
         }
     }
@@ -208,56 +124,6 @@ public struct DiaryListView: View {
                 )
             )
         }
-    }
-}
-
-/// 다이어리 카드 뷰
-private struct DiaryCardView: View {
-    let diary: Diary
-    @Environment(\.colorScheme) private var colorScheme
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Text(diary.title)
-                    .font(.headline)
-                Spacer()
-                Text(diary.date.formatted(date: .abbreviated, time: .omitted))
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-            
-            Text(diary.content)
-                .font(.subheadline)
-                .lineLimit(3)
-                .foregroundColor(.secondary)
-            
-            HStack {
-                Text(diary.emotion)
-                    .font(.caption)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color.accentColor.opacity(0.2))
-                    .cornerRadius(8)
-                
-                Spacer()
-            }
-        }
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(colorScheme == .dark ? Color(white: 0.15) : .white)
-                .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
-        )
-    }
-}
-
-/// 버튼 스타일
-struct BounceButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .scaleEffect(configuration.isPressed ? 0.88 : 1)
-            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: configuration.isPressed)
     }
 }
 

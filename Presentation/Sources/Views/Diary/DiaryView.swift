@@ -20,21 +20,7 @@ public struct DiaryView: View {
         ZStack {
             VStack(spacing: 0) {
                 // Custom Navigation Bar
-                HStack {
-                    Text(LocalizedStringKey("diary"))
-                        .font(.title)
-                        .fontWeight(.bold)
-                    
-                    Spacer()
-                    
-                    Button {
-                        viewModel.toggleViewMode()
-                    } label: {
-                        Image(systemName: viewModel.isCalendarView ? "list.bullet" : "calendar")
-                            .font(.title2)
-                    }
-                }
-                .padding()
+                CustomNaivgationBar(viewModel: viewModel)
                 
                 // Content
                 if viewModel.isCalendarView {
@@ -45,25 +31,8 @@ public struct DiaryView: View {
             }
             
             // Floating Action Button
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    Button {
-                        showingDiaryEditor = true
-                    } label: {
-                        Image(systemName: "plus")
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .frame(width: 60, height: 60)
-                            .background(Color.accentColor)
-                            .clipShape(Circle())
-                            .shadow(radius: 4, y: 2)
-                    }
-                    .padding()
-                }
-            }
+            FloatingAppendButton(showingDiaryEditor: $showingDiaryEditor)
+            
         }
         .sheet(isPresented: $showingDiaryEditor) {
             DiaryEditorView(
@@ -116,6 +85,57 @@ public struct DiaryView: View {
         }
         .task {
             await viewModel.loadDiaries()
+        }
+    }
+}
+
+/// Custom Navigation Bar
+fileprivate struct CustomNaivgationBar: View {
+    @ObservedObject var viewModel: DiaryListViewModel
+    
+    var body: some View {
+        HStack {
+            Text(LocalizedStringKey("diary"))
+                .font(.title)
+                .fontWeight(.bold)
+            
+            Spacer()
+            
+            Button {
+                viewModel.toggleViewMode()
+            } label: {
+                Image(systemName: viewModel.isCalendarView ? "list.bullet" : "calendar")
+                    .font(.title2)
+            }
+        }
+        .padding()
+    }
+}
+
+/// Floating Append Button
+fileprivate struct FloatingAppendButton: View {
+    @Binding var showingDiaryEditor: Bool
+    
+    var body: some View {
+        // Floating Action Button
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button {
+                    showingDiaryEditor = true
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(width: 60, height: 60)
+                        .background(Color.accentColor)
+                        .clipShape(Circle())
+                        .shadow(radius: 4, y: 2)
+                }
+                .padding()
+            }
         }
     }
 }

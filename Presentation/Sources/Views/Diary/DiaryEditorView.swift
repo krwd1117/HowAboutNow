@@ -82,7 +82,9 @@ public struct DiaryEditorView: View {
                 }
             }
             .alert("알림", isPresented: $viewModel.showError) {
-                Button("확인", role: .cancel) {}
+                Button("확인", role: .cancel) {
+                    viewModel.resetError()
+                }
             } message: {
                 Text(viewModel.errorMessage ?? "")
             }

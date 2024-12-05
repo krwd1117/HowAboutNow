@@ -6,6 +6,9 @@ import Combine
 public final class DiaryViewModel: ObservableObject {
     @Published public private(set) var diaries: [Diary] = []
     @Published public private(set) var isLoading = false
+    @Published public var selectedDate = Date()
+    @Published public var selectedDiary: Diary?
+    @Published public var diaryToDelete: Diary?
     
     private let diaryRepository: any DiaryRepository
     private let diaryAnalysisService: any DiaryAnalysisService
@@ -27,6 +30,18 @@ public final class DiaryViewModel: ObservableObject {
         } catch {
             print("Error loading diaries: \(error)")
         }
+    }
+    
+    public var filteredDiaries: [Diary] {
+        diaries.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }
+    }
+    
+    public func selectDiary(_ diary: Diary?) {
+        selectedDiary = diary
+    }
+    
+    public func markForDeletion(_ diary: Diary?) {
+        diaryToDelete = diary
     }
     
     public func saveDiary(title: String, content: String, date: Date) async {

@@ -3,11 +3,8 @@ import Domain
 
 public struct DiaryView: View {
     @StateObject private var viewModel: DiaryViewModel
-    @State private var selectedDate = Date()
     @State private var showingDiaryEditor = false
-    @State private var selectedDiary: Diary?
     @State private var showingDeleteAlert = false
-    @State private var diaryToDelete: Diary?
     @State private var showingListView = false
     
     public init(
@@ -56,11 +53,11 @@ public struct DiaryView: View {
             DiaryEditorView(
                 viewModel: DiaryEditorViewModel(
                     diaryViewModel: viewModel,
-                    date: selectedDate
+                    date: viewModel.selectedDate
                 )
             )
         }
-        .sheet(item: $selectedDiary) { diary in
+        .sheet(item: $viewModel.selectedDiary) { diary in
             DiaryEditorView(
                 viewModel: DiaryEditorViewModel(
                     diaryViewModel: viewModel,
@@ -74,12 +71,12 @@ public struct DiaryView: View {
             )
         }
         .alert(isPresented: $showingDeleteAlert) {
-            if let diary = diaryToDelete {
+            if let diary = viewModel.diaryToDelete {
                 DeleteConfirmationAlert(
                     viewModel: viewModel,
                     diary: diary,
                     isPresented: $showingDeleteAlert,
-                    onComplete: { diaryToDelete = nil }
+                    onComplete: { viewModel.markForDeletion(nil) }
                 ).alert
             } else {
                 Alert(title: Text(""))
@@ -90,15 +87,13 @@ public struct DiaryView: View {
         }
     }
     
-    // MARK: - Private Views
-    
     private var calendarSection: some View {
         CalendarView(
-            selectedDate: $selectedDate,
+            selectedDate: $viewModel.selectedDate,
             diaries: viewModel.diaries,
             onDateSelected: { date in
                 withAnimation {
-                    selectedDate = date
+                    viewModel.selectedDate = date
                 }
             }
         )
@@ -122,11 +117,7 @@ public struct DiaryView: View {
                     diaryList(diaries: viewModel.diaries)
                 }
             } else {
-                let filteredDiaries = viewModel.diaries.filter { 
-                    Calendar.current.isDate($0.date, inSameDayAs: selectedDate)
-                }
-                
-                if filteredDiaries.isEmpty {
+                if viewModel.filteredDiaries.isEmpty {
                     EmptyStateView(
                         title: "no_diary_for_date",
                         description: "write_diary_for_date",
@@ -135,7 +126,7 @@ public struct DiaryView: View {
                         showingDiaryEditor = true
                     }
                 } else {
-                    diaryList(diaries: filteredDiaries)
+                    diaryList(diaries: viewModel.filteredDiaries)
                 }
             }
         }
@@ -148,10 +139,10 @@ public struct DiaryView: View {
                     DiaryCardView(
                         diary: diary,
                         onTap: {
-                            selectedDiary = diary
+                            viewModel.selectDiary(diary)
                         },
                         onDelete: {
-                            diaryToDelete = diary
+                            viewModel.markForDeletion(diary)
                             showingDeleteAlert = true
                         }
                     )

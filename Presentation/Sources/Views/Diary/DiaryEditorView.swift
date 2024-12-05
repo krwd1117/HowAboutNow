@@ -81,6 +81,11 @@ public struct DiaryEditorView: View {
                     .disabled(!viewModel.isValid)
                 }
             }
+            .alert("알림", isPresented: $viewModel.showError) {
+                Button("확인", role: .cancel) {}
+            } message: {
+                Text(viewModel.errorMessage ?? "")
+            }
         }
     }
     

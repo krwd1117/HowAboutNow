@@ -22,11 +22,20 @@ public final class DiaryViewModel: ObservableObject {
     }
     
     public func loadDiaries() async {
-        isLoading = true
-        defer { isLoading = false }
+        await MainActor.run {
+            isLoading = true
+        }
+        defer {
+            Task { @MainActor in
+                isLoading = false
+            }
+        }
         
         do {
-            diaries = try await diaryRepository.getDiaries()
+            let loadedDiaries = try await diaryRepository.getDiaries()
+            await MainActor.run {
+                diaries = loadedDiaries
+            }
         } catch {
             print("Error loading diaries: \(error)")
         }
@@ -40,43 +49,38 @@ public final class DiaryViewModel: ObservableObject {
         selectedDiary = diary
     }
     
+    @MainActor
     public func markForDeletion(_ diary: Diary?) {
         diaryToDelete = diary
     }
     
-    public func saveDiary(title: String, content: String, date: Date) async {
+    public func saveDiary(diary: Diary) async throws {
         do {
-            let analysis = try await diaryAnalysisService.analyzeDiary(content: content)
-            let diary = Diary(
-                title: title,
-                content: content,
+            let analysis = try await diaryAnalysisService.analyzeDiary(content: diary.content)
+            let analyzedDiary = Diary(
+                id: diary.id,
+                title: diary.title,
+                content: diary.content,
                 emotion: analysis.emotion,
                 summary: analysis.summary,
-                date: date
+                date: diary.date
             )
-            try await diaryRepository.saveDiary(diary)
+            try await diaryRepository.saveDiary(analyzedDiary)
             await loadDiaries()
         } catch {
-            print("Error saving diary: \(error)")
+            throw error
         }
     }
     
-    public func updateDiary(
-        _ diary: Diary,
-        title: String,
-        content: String,
-        date: Date,
-        emotion: String
-    ) async {
+    public func updateDiary(_ diary: Diary, title: String, content: String, emotion: String) async {
         do {
-            let analysis = try await diaryAnalysisService.analyzeDiary(content: content)
             let updatedDiary = Diary(
                 id: diary.id,
                 title: title,
                 content: content,
-                emotion: emotion.isEmpty ? analysis.emotion : emotion,
-                summary: analysis.summary,
-                date: date
+                emotion: emotion,
+                summary: diary.summary,
+                date: diary.date
             )
             try await diaryRepository.updateDiary(updatedDiary)
             await loadDiaries()
@@ -88,7 +92,9 @@ public final class DiaryViewModel: ObservableObject {
     public func deleteDiary(_ diary: Diary) async {
         do {
             try await diaryRepository.deleteDiary(diary)
-            diaries.removeAll { $0.id == diary.id }
+            await MainActor.run {
+                diaries.removeAll { $0.id == diary.id }
+            }
         } catch {
             print("Error deleting diary: \(error)")
         }

@@ -38,12 +38,7 @@ public struct DiaryCardView: View {
             
             // 감정 태그
             HStack {
-                Text(diary.emotion)
-                    .font(.caption)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color.accentColor.opacity(0.2))
-                    .cornerRadius(8)
+                EmotionIcon(emotion: diary.emotion)
                 
                 Spacer()
                 

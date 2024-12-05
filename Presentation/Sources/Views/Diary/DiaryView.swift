@@ -24,11 +24,16 @@ public struct DiaryView: View {
             ZStack {
                 VStack(spacing: 0) {
                     if !showingListView {
-                        calendarSection
+                        DiaryCalendarSection(viewModel: viewModel)
                         Divider().padding(.vertical)
                     }
                     
-                    diarySection
+                    DiaryContentSection(
+                        viewModel: viewModel,
+                        showingListView: showingListView,
+                        showingDiaryEditor: $showingDiaryEditor,
+                        showingDeleteAlert: $showingDeleteAlert
+                    )
                 }
                 
                 FloatingActionButton(
@@ -86,8 +91,14 @@ public struct DiaryView: View {
             await viewModel.loadDiaries()
         }
     }
+}
+
+// MARK: - Subviews
+
+fileprivate struct DiaryCalendarSection: View {
+    @ObservedObject var viewModel: DiaryViewModel
     
-    private var calendarSection: some View {
+    var body: some View {
         CalendarView(
             selectedDate: $viewModel.selectedDate,
             diaries: viewModel.diaries,
@@ -99,8 +110,15 @@ public struct DiaryView: View {
         )
         .padding(.horizontal)
     }
+}
+
+fileprivate struct DiaryContentSection: View {
+    @ObservedObject var viewModel: DiaryViewModel
+    let showingListView: Bool
+    @Binding var showingDiaryEditor: Bool
+    @Binding var showingDeleteAlert: Bool
     
-    private var diarySection: some View {
+    var body: some View {
         Group {
             if viewModel.isLoading {
                 ProgressView()
@@ -114,7 +132,11 @@ public struct DiaryView: View {
                         showingDiaryEditor = true
                     }
                 } else {
-                    diaryList(diaries: viewModel.diaries)
+                    DiaryListView(
+                        diaries: viewModel.diaries,
+                        viewModel: viewModel,
+                        showingDeleteAlert: $showingDeleteAlert
+                    )
                 }
             } else {
                 if viewModel.filteredDiaries.isEmpty {
@@ -126,13 +148,23 @@ public struct DiaryView: View {
                         showingDiaryEditor = true
                     }
                 } else {
-                    diaryList(diaries: viewModel.filteredDiaries)
+                    DiaryListView(
+                        diaries: viewModel.filteredDiaries,
+                        viewModel: viewModel,
+                        showingDeleteAlert: $showingDeleteAlert
+                    )
                 }
             }
         }
     }
+}
+
+fileprivate struct DiaryListView: View {
+    let diaries: [Diary]
+    @ObservedObject var viewModel: DiaryViewModel
+    @Binding var showingDeleteAlert: Bool
     
-    private func diaryList(diaries: [Diary]) -> some View {
+    var body: some View {
         ScrollView {
             LazyVStack(spacing: 16) {
                 ForEach(diaries) { diary in

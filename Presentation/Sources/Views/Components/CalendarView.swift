@@ -80,7 +80,7 @@ public struct CalendarView: View {
                     DayCell(
                         date: day,
                         isSelected: Calendar.current.isDate(day, inSameDayAs: selectedDate),
-                        diaryCount: diariesForDay.count
+                        diaries: diariesForDay
                     )
                     .onTapGesture {
                         withAnimation {
@@ -146,8 +146,8 @@ private struct DayCell: View {
     let date: Date
     /// 선택 여부
     let isSelected: Bool
-    /// 일기 개수
-    let diaryCount: Int
+    /// 해당 날짜의 일기들
+    let diaries: [Diary]
     
     var body: some View {
         VStack(spacing: 4) {
@@ -156,17 +156,21 @@ private struct DayCell: View {
                 .fontWeight(Calendar.current.isDateInToday(date) ? .bold : .regular)
                 .foregroundStyle(Calendar.current.isDateInToday(date) ? .pink : .primary)
             
-            if diaryCount > 0 {
-                Text("\(diaryCount)")
-                    .font(.system(.caption, design: .rounded))
-                    .fontWeight(.bold)
-                    .foregroundStyle(.pink)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 2)
-                    .background {
-                        Capsule()
-                            .fill(.pink.opacity(0.1))
-                    }
+            if !diaries.isEmpty {
+                if diaries.count == 1 {
+                    EmotionIcon(emotion: diaries[0].emotion)
+                } else {
+                    Text("\(diaries.count)")
+                        .font(.system(.caption, design: .rounded))
+                        .fontWeight(.bold)
+                        .foregroundStyle(.pink)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 2)
+                        .background {
+                            Capsule()
+                                .fill(.pink.opacity(0.1))
+                        }
+                }
             }
         }
         .frame(height: 50)

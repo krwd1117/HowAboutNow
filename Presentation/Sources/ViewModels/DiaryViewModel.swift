@@ -55,20 +55,33 @@ public final class DiaryViewModel: ObservableObject {
     }
     
     public func saveDiary(diary: Diary) async throws {
-        do {
-            let analysis = try await diaryAnalysisService.analyzeDiary(content: diary.content)
-            let analyzedDiary = Diary(
-                id: diary.id,
-                title: diary.title,
-                content: diary.content,
-                emotion: analysis.emotion,
-                summary: analysis.summary,
-                date: diary.date
-            )
-            try await diaryRepository.saveDiary(analyzedDiary)
-            await loadDiaries()
-        } catch {
-            throw error
+        // 먼저 일기를 저장
+        try await diaryRepository.saveDiary(diary)
+        await loadDiaries()
+        
+        // 백그라운드에서 감정 분석 수행
+        Task.detached { [weak self] in
+            do {
+                let analysis = try await self?.diaryAnalysisService.analyzeDiary(content: diary.content)
+                guard let analysis = analysis else { return }
+                
+                let analyzedDiary = Diary(
+                    id: diary.id,
+                    title: diary.title,
+                    content: diary.content,
+                    emotion: analysis.emotion,
+                    summary: analysis.summary,
+                    date: diary.date
+                )
+                
+                // UI 스레드에서 일기 업데이트
+                try? await self?.diaryRepository.updateDiary(analyzedDiary)
+                Task {
+                    await self?.loadDiaries()
+                }
+            } catch {
+                print("Error analyzing diary: \(error)")
+            }
         }
     }
     

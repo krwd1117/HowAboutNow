@@ -4,8 +4,8 @@ AI와 함께 쓰는 감정 일기장
 하루의 감정을 기록하고 AI가 분석해주는 새로운 방식의 일기장 서비스
 
 <p align="center">
-  <a href="[앱스토어 링크]">
-    <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/ko-kr?size=250x83&amp;releaseDate=1704844800" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;">
+  <a href="https://apps.apple.com/kr/app/%EB%82%98%EC%9D%98-%EB%A7%A4%EC%9D%BC/id6738888378">
+    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" style="width: 180px;">
   </a>
 </p>
 

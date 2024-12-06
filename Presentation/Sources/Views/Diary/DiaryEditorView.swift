@@ -58,7 +58,7 @@ public struct DiaryEditorView: View {
                 .padding()
             }
             .background(Color(uiColor: .systemGroupedBackground))
-            .navigationTitle(LocalizedStringKey(viewModel.title.isEmpty ? "new_diary" : viewModel.title))
+            .navigationTitle(LocalizedStringKey(viewModel.title.isEmpty ? "새로운 일기" : viewModel.title))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -76,18 +76,18 @@ public struct DiaryEditorView: View {
                             }
                         }
                     } label: {
-                        Text(LocalizedStringKey("save"))
-                            .fontWeight(.medium)
+                        Text("저장")
+                            .fontWeight(.semibold)
                     }
                     .disabled(!viewModel.isValid)
                 }
             }
-            .alert("알림", isPresented: $viewModel.showError) {
-                Button("확인", role: .cancel) {
-                    viewModel.resetError()
+            .alert(viewModel.alertTitle, isPresented: $viewModel.showAlert) {
+                Button("확인") {
+                    viewModel.resetAlert()
                 }
             } message: {
-                Text(viewModel.errorMessage ?? "")
+                Text(viewModel.alertMessage)
             }
         }
     }
@@ -148,15 +148,33 @@ public struct DiaryEditorView: View {
             .buttonStyle(.plain)
             
             if viewModel.showDatePicker {
-                DatePicker(
-                    "",
-                    selection: $viewModel.date,
-                    displayedComponents: .date
-                )
-                .datePickerStyle(.graphical)
+                VStack(spacing: 16) {
+                    HStack {
+                        Text("날짜 선택")
+                            .font(.headline)
+                        Spacer()
+                        Button {
+                            withAnimation(.spring(response: 0.3)) {
+                                viewModel.showDatePicker.toggle()
+                            }
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundStyle(.secondary)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    
+                    DatePicker(
+                        "",
+                        selection: $viewModel.date,
+                        displayedComponents: .date
+                    )
+                    .datePickerStyle(.graphical)
+                    .tint(.pink)
+                }
                 .padding()
                 .background(
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
                         .fill(Color(uiColor: .secondarySystemGroupedBackground))
                 )
             }

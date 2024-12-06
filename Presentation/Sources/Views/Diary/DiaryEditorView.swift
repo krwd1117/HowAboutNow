@@ -71,8 +71,9 @@ public struct DiaryEditorView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
                         Task {
-                            await viewModel.save()
-                            dismiss()
+                            if await viewModel.save() {
+                                dismiss()
+                            }
                         }
                     } label: {
                         Text(LocalizedStringKey("save"))
@@ -207,7 +208,7 @@ public struct DiaryEditorView: View {
                     }
                 } label: {
                     HStack {
-                        EmotionIcon(emotion: viewModel.emotion)
+                        EmotionIcon(emotion: viewModel.emotion, isLoading: viewModel.isAnalyzing)
                             .font(.title)
                             .symbolEffect(.bounce)
                         

@@ -23,6 +23,8 @@ public final class DiaryEditorViewModel: ObservableObject {
     @Published public private(set) var isValid = false
     @Published public var errorMessage: String?
     @Published public var showError = false
+    @Published public var isAnalyzing = false
+    @Published public var analyzeMessage: String?
     
     @Published var showDatePicker: Bool = false
     @Published var showEmotionPicker: Bool = false
@@ -56,25 +58,37 @@ public final class DiaryEditorViewModel: ObservableObject {
         errorMessage = nil
     }
     
-    public func save() async {
+    public func save() async -> Bool {
         let existingDiariesForDate = diaryViewModel.diaries.filter { Calendar.current.isDate($0.date, inSameDayAs: date) }
         
         // 수정 모드가 아닐 때, 같은 날짜에 일기가 이미 있으면 저장하지 않음
         if !isEditing && !existingDiariesForDate.isEmpty {
             await MainActor.run {
-                errorMessage = "이미 오늘의 일기가 있습니다."
+                errorMessage = "이미 오늘의 일기가 있습니다.\n다른 날짜를 선택해주세요."
                 showError = true
+                showDatePicker = true
             }
-            return
+            return false
         }
         
         // 수정 모드일 때, 다른 일기가 있으면 저장하지 않음
         if isEditing && !existingDiariesForDate.isEmpty && existingDiariesForDate[0].id != diary?.id {
             await MainActor.run {
-                errorMessage = "이미 해당 날짜의 일기가 있습니다."
+                errorMessage = "이미 해당 날짜의 일기가 있습니다.\n다른 날짜를 선택해주세요."
                 showError = true
+                showDatePicker = true
             }
-            return
+            return false
+        }
+        
+        await MainActor.run {
+            isAnalyzing = true
+        }
+        
+        defer {
+            Task { @MainActor in
+                isAnalyzing = false
+            }
         }
         
         if let diary = diary {
@@ -84,6 +98,7 @@ public final class DiaryEditorViewModel: ObservableObject {
                 content: content,
                 emotion: emotion
             )
+            return true
         } else {
             let diary = Diary(
                 id: UUID().uuidString,
@@ -96,12 +111,14 @@ public final class DiaryEditorViewModel: ObservableObject {
             
             do {
                 try await diaryViewModel.saveDiary(diary: diary)
+                return true
             } catch {
                 print("Error saving diary: \(error)")
                 await MainActor.run {
                     errorMessage = "일기 저장에 실패했습니다."
                     showError = true
                 }
+                return false
             }
         }
     }

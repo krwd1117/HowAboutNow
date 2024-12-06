@@ -58,7 +58,7 @@ public struct DiaryEditorView: View {
                 .padding()
             }
             .background(Color(uiColor: .systemGroupedBackground))
-            .navigationTitle(LocalizedStringKey(viewModel.title.isEmpty ? "새로운 일기" : viewModel.title))
+            .navigationTitle(LocalizedStringKey(viewModel.title.isEmpty ? "new_diary" : viewModel.title))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -76,14 +76,14 @@ public struct DiaryEditorView: View {
                             }
                         }
                     } label: {
-                        Text("저장")
+                        Text(LocalizedStringKey("save"))
                             .fontWeight(.semibold)
                     }
                     .disabled(!viewModel.isValid)
                 }
             }
             .alert(viewModel.alertTitle, isPresented: $viewModel.showAlert) {
-                Button("확인") {
+                Button(LocalizedStringKey("confirm")) {
                     viewModel.resetAlert()
                 }
             } message: {
@@ -103,7 +103,7 @@ public struct DiaryEditorView: View {
                     .foregroundStyle(.pink)
             }
             
-            TextField("title_placeholder", text: $viewModel.title)
+            TextField(LocalizedStringKey("title_placeholder"), text: $viewModel.title)
                 .focused($focusField, equals: .title)
                 .font(.headline)
                 .padding()
@@ -150,7 +150,7 @@ public struct DiaryEditorView: View {
             if viewModel.showDatePicker {
                 VStack(spacing: 16) {
                     HStack {
-                        Text("날짜 선택")
+                        Text(LocalizedStringKey("select_date"))
                             .font(.headline)
                         Spacer()
                         Button {

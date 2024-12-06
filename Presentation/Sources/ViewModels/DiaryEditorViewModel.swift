@@ -66,8 +66,8 @@ public final class DiaryEditorViewModel: ObservableObject {
         // 수정 모드가 아닐 때, 같은 날짜에 일기가 이미 있으면 저장하지 않음
         if !isEditing && !existingDiariesForDate.isEmpty {
             await MainActor.run {
-                alertTitle = "이미 작성된 일기가 있습니다"
-                alertMessage = "다른 날짜를 선택하고 다시 시도해주세요."
+                alertTitle = "diary_exists_title"
+                alertMessage = "diary_exists_select_another_date"
                 showAlert = true
                 showDatePicker = true
             }
@@ -77,8 +77,8 @@ public final class DiaryEditorViewModel: ObservableObject {
         // 수정 모드일 때, 다른 일기가 있으면 저장하지 않음
         if isEditing && !existingDiariesForDate.isEmpty && existingDiariesForDate[0].id != diary?.id {
             await MainActor.run {
-                alertTitle = "이미 작성된 일기가 있습니다"
-                alertMessage = "다른 날짜를 선택하고 다시 시도해주세요."
+                alertTitle = "diary_exists_title"
+                alertMessage = "diary_exists_select_another_date"
                 showAlert = true
                 showDatePicker = true
             }
@@ -119,8 +119,8 @@ public final class DiaryEditorViewModel: ObservableObject {
             } catch {
                 print("Error saving diary: \(error)")
                 await MainActor.run {
-                    alertTitle = "저장 실패"
-                    alertMessage = "일기를 저장하는 중에 문제가 발생했습니다. 다시 시도해주세요."
+                    alertTitle = "save_failed_title"
+                    alertMessage = "save_failed_message"
                     showAlert = true
                 }
                 return false

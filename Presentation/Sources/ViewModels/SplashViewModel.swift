@@ -7,6 +7,7 @@ public final class SplashViewModel: ObservableObject {
     
     public private(set) var repository: DiaryRepository?
     public private(set) var diaryAnalysisService: DiaryAnalysisService?
+    public private(set) var initialDiaries: [Diary]?
     
     private let repositoryProvider: () -> DiaryRepository
     private let serviceProvider: () throws -> DiaryAnalysisService
@@ -27,11 +28,12 @@ public final class SplashViewModel: ObservableObject {
             let analysisService = try serviceProvider()
             
             // Pre-fetch data
-            _ = try await repository.getDiaries()
+            let diaries = try await repository.getDiaries()
             
-            // Store services
+            // Store services and data
             self.repository = repository
             self.diaryAnalysisService = analysisService
+            self.initialDiaries = diaries
             
             self.isInitialized = true
             self.error = nil

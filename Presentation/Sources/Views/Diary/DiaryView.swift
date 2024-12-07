@@ -9,12 +9,14 @@ public struct DiaryView: View {
     
     public init(
         diaryRepository: any DiaryRepository,
-        diaryAnalysisService: any DiaryAnalysisService
+        diaryAnalysisService: any DiaryAnalysisService,
+        initialDiaries: [Diary]? = nil
     ) {
         _viewModel = StateObject(
             wrappedValue: DiaryViewModel(
                 diaryRepository: diaryRepository,
-                diaryAnalysisService: diaryAnalysisService
+                diaryAnalysisService: diaryAnalysisService,
+                initialDiaries: initialDiaries
             )
         )
     }
@@ -40,8 +42,6 @@ public struct DiaryView: View {
                     action: { showingDiaryEditor = true }
                 )
             }
-            .navigationTitle("diary_title")
-            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

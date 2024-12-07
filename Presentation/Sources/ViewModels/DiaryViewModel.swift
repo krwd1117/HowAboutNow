@@ -16,13 +16,20 @@ public final class DiaryViewModel: ObservableObject {
     
     public init(
         diaryRepository: any DiaryRepository,
-        diaryAnalysisService: any DiaryAnalysisService
+        diaryAnalysisService: any DiaryAnalysisService,
+        initialDiaries: [Diary]? = nil
     ) {
         self.diaryRepository = diaryRepository
         self.diaryAnalysisService = diaryAnalysisService
+        if let initialDiaries {
+            self.diaries = initialDiaries
+        }
     }
     
     public func loadDiaries() async {
+        // Skip loading if we already have initial data
+        guard diaries.isEmpty else { return }
+        
         await MainActor.run {
             isLoading = true
         }

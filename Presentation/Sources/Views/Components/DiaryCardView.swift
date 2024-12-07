@@ -23,11 +23,17 @@ public struct DiaryCardView: View {
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            // 제목과 날짜
+            // 제목, 감정, 날짜
             HStack {
-                Text(diary.title)
-                    .font(.headline)
+                HStack(spacing: 8) {
+                    Text(diary.title)
+                        .font(.headline)
+                    
+                    EmotionIcon(emotion: diary.emotion)
+                }
+                
                 Spacer()
+                
                 Text(diary.date.formatted(date: .abbreviated, time: .omitted))
                     .font(.subheadline)
                     .foregroundColor(.secondary)
@@ -39,27 +45,21 @@ public struct DiaryCardView: View {
                 .lineLimit(3)
                 .foregroundColor(.secondary)
             
-            // 감정 태그
-            HStack {
-                EmotionIcon(emotion: diary.emotion)
-                
-                Spacer()
-                
-                if !diary.summary.isEmpty {
-                    HStack(spacing: 4) {
-                        Image(systemName: "quote.opening")
-                            .font(.caption2)
-                            .foregroundStyle(.pink)
-                        
-                        Text(diary.summary)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .lineLimit(1)
-                        
-                        Image(systemName: "quote.closing")
-                            .font(.caption2)
-                            .foregroundStyle(.pink)
-                    }
+            // AI 분석
+            if !diary.summary.isEmpty {
+                HStack(spacing: 4) {
+                    Image(systemName: "quote.opening")
+                        .font(.caption2)
+                        .foregroundStyle(.pink)
+                    
+                    Text(diary.summary)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                    
+                    Image(systemName: "quote.closing")
+                        .font(.caption2)
+                        .foregroundStyle(.pink)
                 }
             }
         }

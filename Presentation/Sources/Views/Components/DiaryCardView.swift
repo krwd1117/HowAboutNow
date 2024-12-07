@@ -5,16 +5,19 @@ import Domain
 public struct DiaryCardView: View {
     let diary: Diary
     let onTap: () -> Void
+    let onEdit: () -> Void
     let onDelete: () -> Void
     @Environment(\.colorScheme) private var colorScheme
     
     public init(
         diary: Diary,
         onTap: @escaping () -> Void,
+        onEdit: @escaping () -> Void,
         onDelete: @escaping () -> Void
     ) {
         self.diary = diary
         self.onTap = onTap
+        self.onEdit = onEdit
         self.onDelete = onDelete
     }
     
@@ -68,6 +71,10 @@ public struct DiaryCardView: View {
         )
         .onTapGesture(perform: onTap)
         .contextMenu {
+            Button(action: onEdit) {
+                Label("수정", systemImage: "pencil")
+            }
+            
             Button(role: .destructive, action: onDelete) {
                 Label("삭제", systemImage: "trash")
             }

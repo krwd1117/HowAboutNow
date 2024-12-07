@@ -63,17 +63,35 @@ public struct DiaryView: View {
             )
         }
         .sheet(item: $viewModel.selectedDiary) { diary in
-            DiaryEditorView(
-                viewModel: DiaryEditorViewModel(
-                    diaryViewModel: viewModel,
-                    diary: diary,
-                    title: diary.title,
-                    content: diary.content,
-                    date: diary.date,
-                    emotion: diary.emotion,
-                    isEditing: true
+            NavigationStack {
+                DiaryEditorView(
+                    viewModel: DiaryEditorViewModel(
+                        diaryViewModel: viewModel,
+                        diary: diary,
+                        title: diary.title,
+                        content: diary.content,
+                        date: diary.date,
+                        emotion: diary.emotion,
+                        isEditing: true
+                    )
                 )
-            )
+            }
+        }
+        .sheet(item: $viewModel.selectedDiaryForDetail) { diary in
+            NavigationStack {
+                DiaryDetailView(
+                    diary: diary,
+                    onEdit: {
+                        viewModel.selectedDiaryForDetail = nil
+                        viewModel.selectDiary(diary)
+                    },
+                    onDelete: {
+                        viewModel.selectedDiaryForDetail = nil
+                        viewModel.markForDeletion(diary)
+                        showingDeleteAlert = true
+                    }
+                )
+            }
         }
         .alert(isPresented: $showingDeleteAlert) {
             if let diary = viewModel.diaryToDelete {
@@ -171,7 +189,13 @@ fileprivate struct DiaryListView: View {
                     DiaryCardView(
                         diary: diary,
                         onTap: {
-                            viewModel.selectDiary(diary)
+                            viewModel.selectedDiary = nil  // Clear any existing edit mode
+                            showingDeleteAlert = false     // Clear any pending delete
+                            viewModel.selectedDiaryForDetail = diary
+                        },
+                        onEdit: {
+                            viewModel.selectedDiaryForDetail = nil  // Clear detail view if open
+                            viewModel.selectDiary(diary)  // Open edit mode
                         },
                         onDelete: {
                             viewModel.markForDeletion(diary)

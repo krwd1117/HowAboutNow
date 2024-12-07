@@ -9,6 +9,7 @@ public final class DiaryViewModel: ObservableObject {
     @Published public var selectedDate = Date()
     @Published public var selectedDiary: Diary?
     @Published public var diaryToDelete: Diary?
+    @Published public var selectedDiaryForDetail: Diary?
     
     private let diaryRepository: any DiaryRepository
     private let diaryAnalysisService: any DiaryAnalysisService

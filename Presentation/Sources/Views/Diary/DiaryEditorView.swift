@@ -102,15 +102,16 @@ public struct DiaryEditorView: View {
                 Image(systemName: "pencil")
                     .foregroundStyle(.pink)
             }
+            .font(.headline)
             
             TextField(LocalizedStringKey("title_placeholder"), text: $viewModel.title)
                 .focused($focusField, equals: .title)
-                .font(.headline)
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .fill(Color(uiColor: .secondarySystemGroupedBackground))
-                )
+                .textFieldStyle(.roundedBorder)
+                .font(.body)
+            
+            Text(LocalizedStringKey("title_auto_generate"))
+                .font(.caption)
+                .foregroundStyle(.secondary)
         }
     }
     

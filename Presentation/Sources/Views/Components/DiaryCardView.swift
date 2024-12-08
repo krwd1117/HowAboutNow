@@ -46,6 +46,7 @@ public struct DiaryCardView: View {
                     .font(.subheadline)
                     .lineLimit(3)
                     .foregroundColor(.secondary)
+                    .multilineTextAlignment(.leading)
                 
                 // AI 분석
                 if !diary.summary.isEmpty {

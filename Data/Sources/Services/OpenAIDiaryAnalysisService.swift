@@ -15,29 +15,29 @@ public actor OpenAIDiaryAnalysisService: DiaryAnalysisService {
     
     public func analyzeDiary(content: String) async throws -> DiaryAnalysis {
         let prompt = """
-        Please analyze the following diary entry:
+        Analyze this diary:
         
         Diary: "\(content)"
         
-        1. Choose one emotion that best describes the overall feeling from this diary entry: happy, joy, peaceful, sad, angry, anxious, hopeful
-        2. Summarize the diary content in one sentence using the same language as the diary entry.
+        1. Choose emotion: happy, joy, peaceful, sad, angry, anxious, hopeful
+        2. Summarize in ONE sentence using the SAME language as the diary
         
-        Please respond in the following JSON format:
+        Format:
         {
-            "emotion": "selected_emotion",
-            "summary": "one_sentence_summary"
+            "emotion": "emotion",
+            "summary": "summary in diary's language"
         }
         """
         
         let parameters: [String: Any] = [
-            "model": "gpt-4",
+            "model": "gpt-3.5-turbo",
             "messages": [
                 [
                     "role": "system",
                     "content": """
-                        You are a diary analysis expert.
-                        Analyze the diary content to identify the writer's emotions and provide a brief summary.
-                        Always respond in the specified JSON format.
+                        Korean diary → Korean summary
+                        English diary → English summary
+                        Use natural, gentle tone
                         """
                 ],
                 [
@@ -48,18 +48,16 @@ public actor OpenAIDiaryAnalysisService: DiaryAnalysisService {
             "temperature": 0.7
         ]
         
-        let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(apiKey)",
-            "Content-Type": "application/json"
-        ]
-        
         return try await withCheckedThrowingContinuation { continuation in
             AF.request(
                 baseURL,
                 method: .post,
                 parameters: parameters,
                 encoding: JSONEncoding.default,
-                headers: headers
+                headers: [
+                    "Authorization": "Bearer \(apiKey)",
+                    "Content-Type": "application/json"
+                ]
             )
             .responseDecodable(of: OpenAIResponse.self) { response in
                 switch response.result {

@@ -2,21 +2,18 @@ import SwiftUI
 import Domain
 
 public struct DiaryDetailView: View {
+    let viewModel: DiaryViewModel
     let diary: Diary
-    let onEdit: () -> Void
-    let onDelete: () -> Void
     
     @Environment(\.dismiss) private var dismiss
     @State private var showDeleteConfirmation = false
     
     public init(
-        diary: Diary,
-        onEdit: @escaping () -> Void,
-        onDelete: @escaping () -> Void
+        viewModel: DiaryViewModel,
+        diary: Diary
     ) {
+        self.viewModel = viewModel
         self.diary = diary
-        self.onEdit = onEdit
-        self.onDelete = onDelete
     }
     
     public var body: some View {
@@ -41,14 +38,28 @@ public struct DiaryDetailView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
-                    Button(action: onEdit) {
-                        Label("edit", systemImage: "pencil")
-                    }
+                    NavigationLink(
+                        destination: {
+                            let editorViewModel = DiaryEditorViewModel(
+                                diaryViewModel: viewModel,
+                                diary: diary,
+                                title: diary.title,
+                                content: diary.content,
+                                date: diary.date,
+                                emotion: diary.emotion,
+                                isEditing: true
+                            )
+                            DiaryEditorView(viewModel: editorViewModel)
+                        },
+                        label: {
+                            Label(LocalizedStringKey("edit"), systemImage: "pencil")
+                        }
+                    )
                     
                     Button(role: .destructive) {
                         showDeleteConfirmation = true
                     } label: {
-                        Label("delete", systemImage: "trash")
+                        Label(LocalizedStringKey("delete"), systemImage: "trash")
                     }
                 } label: {
                     Image(systemName: "ellipsis.circle")
@@ -56,11 +67,16 @@ public struct DiaryDetailView: View {
                 }
             }
         }
-        .alert("delete_diary_confirm", isPresented: $showDeleteConfirmation) {
-            Button("cancel", role: .cancel) { }
-            Button("delete", role: .destructive, action: onDelete)
+        .alert(LocalizedStringKey("delete_diary_confirm"), isPresented: $showDeleteConfirmation) {
+            Button(LocalizedStringKey("cancel"), role: .cancel) { }
+            Button(LocalizedStringKey("delete"), role: .destructive, action: {
+                Task {
+                    await viewModel.deleteDiary(diary)
+                    dismiss()
+                }  
+            })
         } message: {
-            Text("delete_diary_message")
+            Text(LocalizedStringKey("delete_diary_message"))
         }
     }
     
@@ -116,7 +132,7 @@ public struct DiaryDetailView: View {
     private var analysisSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Label {
-                Text("ai_analysis")
+                Text(LocalizedStringKey("ai_analysis"))
                     .font(.headline)
             } icon: {
                 Image(systemName: "wand.and.stars")

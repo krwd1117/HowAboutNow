@@ -3,8 +3,6 @@ import Domain
 
 public struct DiaryView: View {
     @StateObject private var viewModel: DiaryViewModel
-    @State private var showingDiaryEditor = false
-    @State private var showingDeleteAlert = false
     @State private var showingListView = false
     
     public init(
@@ -32,14 +30,22 @@ public struct DiaryView: View {
                     
                     DiaryContentSection(
                         viewModel: viewModel,
-                        showingListView: showingListView,
-                        showingDiaryEditor: $showingDiaryEditor,
-                        showingDeleteAlert: $showingDeleteAlert
+                        showingListView: showingListView
                     )
                 }
                 
                 FloatingActionButton(
-                    action: { showingDiaryEditor = true }
+                    destination: DiaryEditorView(
+                        viewModel: DiaryEditorViewModel(
+                            diaryViewModel: viewModel,
+                            diary: nil,
+                            title: "",
+                            content: "",
+                            date: viewModel.selectedDate,
+                            emotion: "",
+                            isEditing: false
+                        )
+                    )
                 )
             }
             .toolbar {
@@ -53,60 +59,9 @@ public struct DiaryView: View {
                     }
                 }
             }
-        }
-        .sheet(isPresented: $showingDiaryEditor) {
-            DiaryEditorView(
-                viewModel: DiaryEditorViewModel(
-                    diaryViewModel: viewModel,
-                    date: viewModel.selectedDate
-                )
-            )
-        }
-        .sheet(item: $viewModel.selectedDiary) { diary in
-            NavigationStack {
-                DiaryEditorView(
-                    viewModel: DiaryEditorViewModel(
-                        diaryViewModel: viewModel,
-                        diary: diary,
-                        title: diary.title,
-                        content: diary.content,
-                        date: diary.date,
-                        emotion: diary.emotion,
-                        isEditing: true
-                    )
-                )
+            .task {
+                await viewModel.loadDiaries()
             }
-        }
-        .sheet(item: $viewModel.selectedDiaryForDetail) { diary in
-            NavigationStack {
-                DiaryDetailView(
-                    diary: diary,
-                    onEdit: {
-                        viewModel.selectedDiaryForDetail = nil
-                        viewModel.selectDiary(diary)
-                    },
-                    onDelete: {
-                        viewModel.selectedDiaryForDetail = nil
-                        viewModel.markForDeletion(diary)
-                        showingDeleteAlert = true
-                    }
-                )
-            }
-        }
-        .alert(isPresented: $showingDeleteAlert) {
-            if let diary = viewModel.diaryToDelete {
-                DeleteConfirmationAlert(
-                    viewModel: viewModel,
-                    diary: diary,
-                    isPresented: $showingDeleteAlert,
-                    onComplete: { viewModel.markForDeletion(nil) }
-                ).alert
-            } else {
-                Alert(title: Text(""))
-            }
-        }
-        .task {
-            await viewModel.loadDiaries()
         }
     }
 }
@@ -133,45 +88,25 @@ fileprivate struct DiaryCalendarSection: View {
 fileprivate struct DiaryContentSection: View {
     @ObservedObject var viewModel: DiaryViewModel
     let showingListView: Bool
-    @Binding var showingDiaryEditor: Bool
-    @Binding var showingDeleteAlert: Bool
     
     var body: some View {
         Group {
-            if viewModel.isLoading {
-                ProgressView()
-            } else if showingListView {
-                if viewModel.diaries.isEmpty {
-                    EmptyStateView(
-                        title: "no_diary",
-                        description: "write_first_diary",
-                        buttonTitle: "write_new_diary"
-                    ) {
-                        showingDiaryEditor = true
-                    }
-                } else {
-                    DiaryListView(
-                        diaries: viewModel.diaries,
-                        viewModel: viewModel,
-                        showingDeleteAlert: $showingDeleteAlert
-                    )
-                }
+            let diariesToShow = showingListView ? viewModel.diaries : viewModel.filteredDiaries
+            let emptyTitle = showingListView ? LocalizedStringKey("empty_diary") : LocalizedStringKey("empty_diary_for_date")
+            let emptyDescription = showingListView ? LocalizedStringKey("write_first_diary") : LocalizedStringKey("write_diary_for_date")
+            
+            if diariesToShow.isEmpty {
+                EmptyStateView(
+                    viewModel: viewModel,
+                    title: emptyTitle,
+                    description: emptyDescription,
+                    buttonTitle: LocalizedStringKey("write_new_diary")
+                ) {}
             } else {
-                if viewModel.filteredDiaries.isEmpty {
-                    EmptyStateView(
-                        title: "no_diary_for_date",
-                        description: "write_diary_for_date",
-                        buttonTitle: "write_new_diary"
-                    ) {
-                        showingDiaryEditor = true
-                    }
-                } else {
-                    DiaryListView(
-                        diaries: viewModel.filteredDiaries,
-                        viewModel: viewModel,
-                        showingDeleteAlert: $showingDeleteAlert
-                    )
-                }
+                DiaryListView(
+                    diaries: diariesToShow,
+                    viewModel: viewModel
+                )
             }
         }
     }
@@ -180,27 +115,14 @@ fileprivate struct DiaryContentSection: View {
 fileprivate struct DiaryListView: View {
     let diaries: [Diary]
     @ObservedObject var viewModel: DiaryViewModel
-    @Binding var showingDeleteAlert: Bool
     
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 16) {
                 ForEach(diaries) { diary in
                     DiaryCardView(
-                        diary: diary,
-                        onTap: {
-                            viewModel.selectedDiary = nil  // Clear any existing edit mode
-                            showingDeleteAlert = false     // Clear any pending delete
-                            viewModel.selectedDiaryForDetail = diary
-                        },
-                        onEdit: {
-                            viewModel.selectedDiaryForDetail = nil  // Clear detail view if open
-                            viewModel.selectDiary(diary)  // Open edit mode
-                        },
-                        onDelete: {
-                            viewModel.markForDeletion(diary)
-                            showingDeleteAlert = true
-                        }
+                        viewModel: viewModel,
+                        diary: diary
                     )
                 }
             }

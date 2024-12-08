@@ -1,11 +1,11 @@
 import SwiftUI
 
 /// 플로팅 액션 버튼
-public struct FloatingActionButton: View {
-    let action: () -> Void
+public struct FloatingActionButton<Destination: View>: View {
+    let destination: Destination
     
-    public init(action: @escaping () -> Void) {
-        self.action = action
+    public init(destination: Destination) {
+        self.destination = destination
     }
     
     public var body: some View {
@@ -13,7 +13,9 @@ public struct FloatingActionButton: View {
             Spacer()
             HStack {
                 Spacer()
-                Button(action: action) {
+                NavigationLink {
+                    destination
+                } label: {
                     Image(systemName: "plus")
                         .font(.title2)
                         .fontWeight(.semibold)

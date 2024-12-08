@@ -61,13 +61,6 @@ public struct DiaryEditorView: View {
             .navigationTitle(LocalizedStringKey(viewModel.title.isEmpty ? "new_diary" : viewModel.title))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(LocalizedStringKey("cancel")) {
-                        dismiss()
-                    }
-                    .foregroundStyle(.secondary)
-                }
-                
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
                         Task {

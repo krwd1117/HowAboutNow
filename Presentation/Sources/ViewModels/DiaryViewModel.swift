@@ -7,9 +7,6 @@ public final class DiaryViewModel: ObservableObject {
     @Published public private(set) var diaries: [Diary] = []
     @Published public private(set) var isLoading = false
     @Published public var selectedDate = Date()
-    @Published public var selectedDiary: Diary?
-    @Published public var diaryToDelete: Diary?
-    @Published public var selectedDiaryForDetail: Diary?
     
     private let diaryRepository: any DiaryRepository
     private let diaryAnalysisService: any DiaryAnalysisService
@@ -27,9 +24,6 @@ public final class DiaryViewModel: ObservableObject {
     }
     
     public func loadDiaries() async {
-        // Skip loading if we already have initial data
-        guard diaries.isEmpty else { return }
-        
         await MainActor.run {
             isLoading = true
         }
@@ -51,15 +45,6 @@ public final class DiaryViewModel: ObservableObject {
     
     public var filteredDiaries: [Diary] {
         diaries.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }
-    }
-    
-    public func selectDiary(_ diary: Diary?) {
-        selectedDiary = diary
-    }
-    
-    @MainActor
-    public func markForDeletion(_ diary: Diary?) {
-        diaryToDelete = diary
     }
     
     public func saveDiary(diary: Diary) async throws {
@@ -113,15 +98,9 @@ public final class DiaryViewModel: ObservableObject {
     public func deleteDiary(_ diary: Diary) async {
         do {
             try await diaryRepository.deleteDiary(diary)
-            await MainActor.run {
-                diaries.removeAll { $0.id == diary.id }
-            }
+            await loadDiaries()
         } catch {
             print("Error deleting diary: \(error)")
         }
-    }
-    
-    private func sortDiaries() {
-        diaries.sort { $0.date > $1.date }
     }
 }

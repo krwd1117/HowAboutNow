@@ -34,7 +34,7 @@ public struct DiaryDetailView: View {
         }
         .background(Color(uiColor: .systemGroupedBackground))
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(diary.title)
+        .navigationTitle(LocalizedStringKey("diary_detail"))
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
@@ -83,7 +83,7 @@ public struct DiaryDetailView: View {
     // MARK: - Sections
     
     private var dateEmotionSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        HStack(alignment: .center, spacing: 8) {
             Label {
                 Text(diary.date.formatted(date: .abbreviated, time: .omitted))
                     .foregroundStyle(.primary)
@@ -93,15 +93,8 @@ public struct DiaryDetailView: View {
             }
             .font(.subheadline)
             
-            Label {
-                Text(LocalizedStringKey(diary.emotion))
-                    .foregroundStyle(.primary)
-            } icon: {
-                Image(systemName: "heart.fill")
-                    .foregroundStyle(.pink)
-                    .symbolEffect(.bounce)
-            }
-            .font(.subheadline)
+            EmotionIcon(emotion: diary.emotion)
+                .foregroundStyle(.primary)
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)

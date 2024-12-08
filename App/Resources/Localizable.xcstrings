@@ -813,6 +813,40 @@
         }
       }
     },
+    "diary_detail" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Detail"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "상세보기"
+          }
+        }
+      }
+    },
+    "diary_edit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Diary"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일기 수정하기"
+          }
+        }
+      }
+    },
     "diary_exists_select_another_date" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1365,7 +1399,7 @@
       }
     },
     "new_diary" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1373,22 +1407,27 @@
             "value" : "New Diary"
           }
         },
-        "ja" : {
+        "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "新しい日記"
+            "value" : "새로운 일기"
+          }
+        }
+      }
+    },
+    "new_diary": {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Diary"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "새로운 일기"
-          }
-        },
-        "zh" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "新日记"
           }
         }
       }
@@ -1505,6 +1544,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "记录您的日常"
+          }
+        }
+      }
+    },
+    "revisit_diary": {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revisit Diary"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일기 돌아보기"
           }
         }
       }

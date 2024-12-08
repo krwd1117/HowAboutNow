@@ -19,6 +19,12 @@ public struct DiaryEditorView: View {
     /// - Parameter viewModel: 다이어리 편집 ViewModel
     public init(viewModel: DiaryEditorViewModel) {
         self._viewModel = ObservedObject(wrappedValue: viewModel)
+        
+        // Hide back button title
+        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(
+            UIOffset(horizontal: -1000, vertical: 0),
+            for: .default
+        )
     }
     
     public var body: some View {
@@ -58,23 +64,27 @@ public struct DiaryEditorView: View {
                 .padding()
             }
             .background(Color(uiColor: .systemGroupedBackground))
-            .navigationTitle(LocalizedStringKey(viewModel.title.isEmpty ? "new_diary" : viewModel.title))
+            .navigationTitle(LocalizedStringKey(viewModel.isEditing ? "revisit_diary" : "new_diary"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
                         Task {
-                            if await viewModel.save() {
+                            await viewModel.save()
+                            if !viewModel.showAlert {
                                 dismiss()
                             }
                         }
                     } label: {
                         Text(LocalizedStringKey("save"))
-                            .fontWeight(.semibold)
                     }
                     .disabled(!viewModel.isValid)
                 }
             }
+//            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbarRole(.editor)
+            .navigationBarBackButtonHidden(false)
+            .environment(\.defaultMinListRowHeight, 0)
             .alert(viewModel.alertTitle, isPresented: $viewModel.showAlert) {
                 Button(LocalizedStringKey("confirm")) {
                     viewModel.resetAlert()

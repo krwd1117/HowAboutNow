@@ -70,7 +70,7 @@ public struct DiaryEditorView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
                         Task {
-                            await viewModel.save()
+                            _ = await viewModel.save()
                             if !viewModel.showAlert {
                                 dismiss()
                             }

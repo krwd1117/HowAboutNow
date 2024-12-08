@@ -45,9 +45,6 @@ public struct EmptyStateView: View {
             })
             .buttonStyle(.borderedProminent)
             .tint(.pink)
-//            Button(action: action) {
-//                
-//            }
         }
     }
 }

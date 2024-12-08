@@ -21,15 +21,15 @@ public struct DeleteConfirmationAlert {
     
     public var alert: Alert {
         Alert(
-            title: Text("delete_diary"),
-            message: Text("delete_diary_confirm"),
-            primaryButton: .destructive(Text("delete")) {
+            title: Text(LocalizedStringKey("delete_diary_confirm")),
+            message: Text(LocalizedStringKey("delete_diary_message")),
+            primaryButton: .destructive(Text(LocalizedStringKey("delete"))) {
                 Task {
                     await viewModel.deleteDiary(diary)
                     onComplete()
                 }
             },
-            secondaryButton: .cancel(Text("cancel"))
+            secondaryButton: .cancel(Text(LocalizedStringKey("cancel")))
         )
     }
 }

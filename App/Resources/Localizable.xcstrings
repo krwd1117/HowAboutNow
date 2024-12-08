@@ -703,6 +703,35 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Delete Diary"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日記の削除"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일기 삭제"
+          }
+        },
+        "zh" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除日记"
+          }
+        }
+      }
+    },
+    "delete_diary_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "Are you sure you want to delete this diary?"
           }
         },

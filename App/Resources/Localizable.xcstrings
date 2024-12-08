@@ -2,7 +2,7 @@
   "sourceLanguage" : "en",
   "strings" : {
     "about_app" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -31,7 +31,7 @@
       }
     },
     "about_app_description1" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -60,7 +60,7 @@
       }
     },
     "about_app_description2" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -89,30 +89,30 @@
       }
     },
     "about_app_description3" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hope your every day is happier and more meaningful. "
+            "value" : "Hope your every day is happier and more meaningful."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "あなたの毎日がより幸せで意味のあるものになりますように。 "
+            "value" : "あなたの毎日がより幸せで意味のあるものになりますように。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "당신의 하루하루가 더 행복하고 의미있기를 바랍니다. "
+            "value" : "당신의 하루하루가 더 행복하고 의미있기를 바랍니다."
           }
         },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "希望您的每一天都更快乐，更有意义。 "
+            "value" : "希望您的每一天都更快乐，更有意义。"
           }
         }
       }
@@ -152,25 +152,25 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Once you save your diary, I'll help you understand your feelings better with AI magic "
+            "value" : "Once you save your diary, I'll help you understand your feelings better with AI magic"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "日記を保存したら、AIの魔法であなたの気持ちをもっと理解するお手伝いをします "
+            "value" : "日記を保存したら、AIの魔法であなたの気持ちをもっと理解するお手伝いをします"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "일기를 저장하면 AI의 특별한 마법으로 당신의 감정을 더 잘 이해할 수 있도록 도와드릴게요 "
+            "value" : "일기를 저장하면 AI의 특별한 마법으로 당신의 감정을 더 잘 이해할 수 있도록 도와드릴게요"
           }
         },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "保存日记后，我会用AI魔法帮你更好地了解自己的心情哦 "
+            "value" : "保存日记后，我会用AI魔法帮你更好地了解自己的心情哦"
           }
         }
       }
@@ -181,25 +181,25 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Let's analyze your feelings together "
+            "value" : "Let's analyze your feelings together"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "あなたの気持ちを一緒に分析しましょう "
+            "value" : "あなたの気持ちを一緒に分析しましょう"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "오늘의 감정을 함께 살펴볼까요? "
+            "value" : "오늘의 감정을 함께 살펴볼까요?"
           }
         },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "让我们一起分析你的心情吧 "
+            "value" : "让我们一起分析你的心情吧"
           }
         }
       }
@@ -341,7 +341,7 @@
             "value" : "감정 변경"
           }
         },
-        "zh-Hans" : {
+        "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "更改情绪"
@@ -379,7 +379,7 @@
       }
     },
     "confirm_delete_diary" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -408,7 +408,7 @@
       }
     },
     "contact" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -437,7 +437,7 @@
       }
     },
     "contact_us" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -466,7 +466,7 @@
       }
     },
     "content" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -582,7 +582,7 @@
       }
     },
     "delete" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -611,7 +611,7 @@
       }
     },
     "delete_action" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -640,7 +640,7 @@
       }
     },
     "delete_diary" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -669,7 +669,7 @@
       }
     },
     "delete_diary_action" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -698,7 +698,7 @@
       }
     },
     "delete_diary_confirm" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -727,7 +727,7 @@
       }
     },
     "developer" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -785,7 +785,7 @@
       }
     },
     "diary" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -822,10 +822,22 @@
             "value" : "Detail"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "상세보기"
+          }
+        },
+        "zh" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "详细信息"
           }
         }
       }
@@ -839,10 +851,22 @@
             "value" : "Edit Diary"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日記を編集"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "일기 수정하기"
+          }
+        },
+        "zh" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑日记"
           }
         }
       }
@@ -853,25 +877,25 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Would you like to pick another date? "
+            "value" : "Would you like to pick another date?"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "別の日を選んでみませんか？ "
+            "value" : "別の日を選んでみませんか？"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "다른 날짜를 선택해볼까요? "
+            "value" : "다른 날짜를 선택해볼까요?"
           }
         },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "要选择另一天吗？ "
+            "value" : "要选择另一天吗？"
           }
         }
       }
@@ -882,31 +906,31 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! There's already a diary for this date "
+            "value" : "Oops! There's already a diary for this date"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "あら！この日の日記はもうありますよ "
+            "value" : "あら！この日の日記はもうありますよ"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "앗! 이날의 일기가 이미 있어요 "
+            "value" : "앗! 이날의 일기가 이미 있어요"
           }
         },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "哎呀！这天已经有日记了呢 "
+            "value" : "哎呀！这天已经有日记了呢"
           }
         }
       }
     },
     "diary_title" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -935,7 +959,7 @@
       }
     },
     "dismiss_keyboard" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -964,7 +988,7 @@
       }
     },
     "edit" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -993,7 +1017,7 @@
       }
     },
     "edit_action" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1051,7 +1075,7 @@
       }
     },
     "empty_diary_description" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1080,7 +1104,7 @@
       }
     },
     "empty_diary_title" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1109,7 +1133,7 @@
       }
     },
     "error_initialization" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1167,7 +1191,7 @@
       }
     },
     "fri" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1254,7 +1278,7 @@
       }
     },
     "information" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1312,7 +1336,7 @@
       }
     },
     "loading_diaries" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1341,7 +1365,7 @@
       }
     },
     "mon" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1407,21 +1431,10 @@
             "value" : "New Diary"
           }
         },
-        "ko" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "새로운 일기"
-          }
-        }
-      }
-    },
-    "new_diary": {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "New Diary"
+            "value" : "新しい日記"
           }
         },
         "ko" : {
@@ -1429,11 +1442,17 @@
             "state" : "translated",
             "value" : "새로운 일기"
           }
+        },
+        "zh" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新建日记"
+          }
         }
       }
     },
     "no_diary_for_date" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1491,7 +1510,7 @@
       }
     },
     "privacy_policy" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1520,7 +1539,7 @@
       }
     },
     "record_your_day" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1548,7 +1567,7 @@
         }
       }
     },
-    "revisit_diary": {
+    "revisit_diary" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -1557,16 +1576,28 @@
             "value" : "Revisit Diary"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日記を振り返る"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "일기 돌아보기"
           }
+        },
+        "zh" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "回顾日记"
+          }
         }
       }
     },
     "retry" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1624,7 +1655,7 @@
       }
     },
     "sat" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1687,25 +1718,25 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Let's try saving your diary again! "
+            "value" : "Let's try saving your diary again!"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "もう一度保存してみましょう！ "
+            "value" : "もう一度保存してみましょう！"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "일기를 다시 한 번 저장해볼까요? "
+            "value" : "일기를 다시 한 번 저장해볼까요?"
           }
         },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "让我们再试一次保存吧！ "
+            "value" : "让我们再试一次保存吧！"
           }
         }
       }
@@ -1716,25 +1747,25 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oops! Something went wrong "
+            "value" : "Oops! Something went wrong"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "あれ？何か問題が起きちゃいました "
+            "value" : "あれ？何か問題が起きちゃいました"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "앗! 문제가 생겼어요 "
+            "value" : "앗! 문제가 생겼어요"
           }
         },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "哎呀！出了点问题呢 "
+            "value" : "哎呀！出了点问题呢"
           }
         }
       }
@@ -1789,7 +1820,7 @@
             "value" : "오늘의 기분은 어떠신가요?"
           }
         },
-        "zh-Hans" : {
+        "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "今天感觉如何？"
@@ -1798,7 +1829,7 @@
       }
     },
     "settings" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1827,7 +1858,7 @@
       }
     },
     "sun" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1876,7 +1907,7 @@
             "value" : "탭하여 감정 변경하기"
           }
         },
-        "zh-Hans" : {
+        "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "点击更改情绪"
@@ -1885,7 +1916,7 @@
       }
     },
     "thu" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1943,7 +1974,7 @@
       }
     },
     "title_auto_generate" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1963,7 +1994,7 @@
             "value" : "✨ 비워두면 AI가 딱 맞는 제목을 지어줄게요~"
           }
         },
-        "zh-Hans" : {
+        "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "✨ 让AI为你想个完美标题吧！空着就好啦～"
@@ -1977,31 +2008,31 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "What's on your mind today? "
+            "value" : "What's on your mind today?"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "今日はどんな気持ち？ "
+            "value" : "今日はどんな気持ち？"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "오늘은 어떤 하루였나요? "
+            "value" : "오늘은 어떤 하루였나요?"
           }
         },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "今天想写点什么呢？ "
+            "value" : "今天想写点什么呢？"
           }
         }
       }
     },
     "today" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2030,7 +2061,7 @@
       }
     },
     "tomorrow" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2059,7 +2090,7 @@
       }
     },
     "tue" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2088,7 +2119,7 @@
       }
     },
     "version_format" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2117,7 +2148,7 @@
       }
     },
     "wed" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2204,7 +2235,7 @@
       }
     },
     "yesterday" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2378,5 +2409,5 @@
       }
     }
   },
-  "version" : "1.0"
+  "version" : "1.1.0"
 }

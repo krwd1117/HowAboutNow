@@ -81,7 +81,6 @@ public struct DiaryEditorView: View {
                     .disabled(!viewModel.isValid)
                 }
             }
-//            .toolbarBackground(.visible, for: .navigationBar)
             .toolbarRole(.editor)
             .navigationBarBackButtonHidden(false)
             .environment(\.defaultMinListRowHeight, 0)

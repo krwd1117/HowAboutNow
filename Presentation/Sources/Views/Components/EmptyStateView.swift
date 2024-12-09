@@ -37,7 +37,10 @@ public struct EmptyStateView: View {
                 .foregroundStyle(.secondary)
         } actions: {
             NavigationLink(destination: {
-                let diaryEditoreViewModel = DiaryEditorViewModel(diaryViewModel: viewModel)
+                let diaryEditoreViewModel = DiaryEditorViewModel(
+                    diaryViewModel: viewModel,
+                    date: viewModel.selectedDate
+                )
                 DiaryEditorView(viewModel: diaryEditoreViewModel)
             }, label: {
                 Label(buttonTitle, systemImage: "plus")

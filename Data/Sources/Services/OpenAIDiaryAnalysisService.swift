@@ -15,38 +15,41 @@ public actor OpenAIDiaryAnalysisService: DiaryAnalysisService {
     
     public func analyzeDiary(content: String) async throws -> DiaryAnalysis {
         let prompt = """
-        Analyze this diary:
-        
-        Diary: "\(content)"
-        
-        1. Choose emotion: happy, joy, peaceful, sad, angry, anxious, hopeful
-        2. Summarize in ONE sentence using the SAME language as the diary
-        
-        Format:
+        Analyze the given diary entry and provide the following information:
+
+        Diary content: "\(content)"
+
+        Instructions:
+        1. Identify the main emotion from this list: happy, joy, peaceful, sad, angry, anxious, hopeful.
+        2. Write a one-sentence summary of the diary entry in the same language as the diary content. Use a natural and empathetic tone.
+
+        Response format:
         {
-            "emotion": "emotion",
-            "summary": "summary in diary's language"
+            "emotion": "selected emotion",
+            "summary": "one-sentence summary in the diary's language"
         }
         """
+
         
         let parameters: [String: Any] = [
-            "model": "gpt-3.5-turbo",
+            "model": "gpt-3.5-turbo", // 사용할 OpenAI 모델
             "messages": [
                 [
                     "role": "system",
                     "content": """
-                        Korean diary → Korean summary
-                        English diary → English summary
-                        Use natural, gentle tone
-                        """
+                    You are an assistant analyzing diary entries. Your goal is to:
+                    - Respond with a natural and empathetic tone.
+                    - Match the language of the diary entry.
+                    """
                 ],
                 [
                     "role": "user",
-                    "content": prompt
+                    "content": prompt // 유저가 제공하는 프롬프트
                 ]
             ],
-            "temperature": 0.7
+            "temperature": 0.7 // 응답의 창의성 설정
         ]
+
         
         return try await withCheckedThrowingContinuation { continuation in
             AF.request(

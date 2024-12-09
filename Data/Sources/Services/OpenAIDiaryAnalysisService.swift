@@ -18,26 +18,26 @@ public actor OpenAIDiaryAnalysisService: DiaryAnalysisService {
         let temperature: Double = 0.7 // 응답의 창의성 설정
 
         let prompt = """
-        Analyze the given diary entry and provide the following information:
+        Analyze the diary entry below:
 
-        Diary content: "\(content)"
+        Diary: "\(content)"
 
-        Instructions:
-        1. Identify the main emotion from this list: happy, joy, peaceful, sad, angry, anxious, hopeful.
-        2. Write a one-sentence summary of the diary entry in the same language as the diary content. Use a natural and empathetic tone.
+        Tasks:
+        1. Identify the main emotion: happy, joy, peaceful, sad, angry, anxious, hopeful.
+        2. Write a one-sentence summary in the same language as the diary. If the diary is in Korean, the summary must be in Korean.
 
         Response format:
         {
             "emotion": "selected emotion",
-            "summary": "one-sentence summary in the diary's language"
+            "summary": "summary"
         }
         """
 
+
         let systemContent = """
-        You are an assistant analyzing diary entries. Your goal is to:
-        - Respond with a natural and empathetic tone.
-        - Match the language of the diary entry.
+        You are an assistant for analyzing diary entries. If the diary is written in Korean, provide the summary in Korean. If written in another language, use that language. Identify the main emotion and summarize the diary entry in one sentence. Do not include translations or additional explanations (e.g., parentheses). Respond naturally.
         """
+
 
         let parameters: [String: Any] = [
             "model": model,
@@ -53,6 +53,7 @@ public actor OpenAIDiaryAnalysisService: DiaryAnalysisService {
             ],
             "temperature": temperature
         ]
+
         
         return try await withCheckedThrowingContinuation { continuation in
             AF.request(

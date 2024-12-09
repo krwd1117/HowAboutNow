@@ -14,6 +14,9 @@ public actor OpenAIDiaryAnalysisService: DiaryAnalysisService {
     }
     
     public func analyzeDiary(content: String) async throws -> DiaryAnalysis {
+        let model = "gpt-3.5-turbo" // 사용 모델
+        let temperature: Double = 0.7 // 응답의 창의성 설정
+
         let prompt = """
         Analyze the given diary entry and provide the following information:
 
@@ -30,26 +33,26 @@ public actor OpenAIDiaryAnalysisService: DiaryAnalysisService {
         }
         """
 
-        
+        let systemContent = """
+        You are an assistant analyzing diary entries. Your goal is to:
+        - Respond with a natural and empathetic tone.
+        - Match the language of the diary entry.
+        """
+
         let parameters: [String: Any] = [
-            "model": "gpt-3.5-turbo", // 사용할 OpenAI 모델
+            "model": model,
             "messages": [
                 [
                     "role": "system",
-                    "content": """
-                    You are an assistant analyzing diary entries. Your goal is to:
-                    - Respond with a natural and empathetic tone.
-                    - Match the language of the diary entry.
-                    """
+                    "content": systemContent
                 ],
                 [
                     "role": "user",
-                    "content": prompt // 유저가 제공하는 프롬프트
+                    "content": prompt
                 ]
             ],
-            "temperature": 0.7 // 응답의 창의성 설정
+            "temperature": temperature
         ]
-
         
         return try await withCheckedThrowingContinuation { continuation in
             AF.request(

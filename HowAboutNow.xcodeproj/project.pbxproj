@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,11 +21,13 @@
 		1EE743612DBEC6556FA30FDC /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; };
 		279C1DA4902DE4DDE2242960 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4335D633EA1C8BFBCC10CF1 /* MainTabView.swift */; };
 		2FC23B8A8405B1D5D9A448AC /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E703636DE83ACF29EDF0B845 /* DiaryViewModel.swift */; };
+		36F596937526CEB2E5432D29 /* OpenAIRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E22CF55590AFB1D366F3039 /* OpenAIRepositoryProtocol.swift */; };
 		4BC9AF53EB84413D6980BAF5 /* HowAboutNow.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */; };
 		4C4EE08FE1FB49988D1B0192 /* EmotionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE55DFEE793E97A0D5AA3E5 /* EmotionIcon.swift */; };
-		4E079164D54903C6734074BC /* StorageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568E54017A20DA9711563BE /* StorageClient.swift */; };
+		4E079164D54903C6734074BC /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568E54017A20DA9711563BE /* StorageService.swift */; };
 		55CEFDB32A361AE7040595DE /* DiaryAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196DEE775B1623D82FBD1739 /* DiaryAnalysis.swift */; };
 		56942D45E440352F0FFB1D6E /* Configuration.template.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */; };
+		6B0B84E02D0DA7050068D21D /* OpenAIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0B84DF2D0DA7050068D21D /* OpenAIEndpoint.swift */; };
 		6C8CFF1133ECBA9E7D635750 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F52926C90DB48DF33B87E1 /* SplashViewModel.swift */; };
 		6CD8222A0D28E3F31481F50C /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; };
 		7634837ADB44AB198E8F6B7E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 6FEEB52B16D6EBD0F58FA022 /* Localizable.xcstrings */; };
@@ -34,7 +36,6 @@
 		851128630050771D1AADF5B9 /* DiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114B48836A619BEB854AE682 /* DiaryDetailView.swift */; };
 		8663A927E2E0B8E068FB9CA8 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D56751F0F1DB661CDEC9C /* SplashView.swift */; };
 		8CF26FF7BB65F0F877D82BA7 /* TuistPlists+HowAboutNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */; };
-		9723A4CFCF4651655255A396 /* DiaryDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433DC3CCFF813B49BCD84334 /* DiaryDataRepository.swift */; };
 		9AB3F21BBBE5C4EB6D8FA106 /* OpenAIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144892142D069B12DB1B1F7 /* OpenAIRequest.swift */; };
 		A1E792FEE5F67F01D71A86A1 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAB21318C3CAF6748765527 /* ConfigurationManager.swift */; };
 		A2B8DE951170F510CCE274F3 /* DiaryEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A63448B3E5B7DF2744F661 /* DiaryEditorViewModel.swift */; };
@@ -53,14 +54,16 @@
 		C6D7170C5E28B99C5FF90EBB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B098A9CCDC67446C3AEB5BE3 /* GoogleService-Info.plist */; };
 		CCF9BF88EFE7E041841062A4 /* AnalysisDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A62ED4CB336EB719A9A0051 /* AnalysisDiaryUseCase.swift */; };
 		CD400218794F521CA9A44C45 /* DiaryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE11B836A5C97E66B250C73 /* DiaryCardView.swift */; };
-		D141D4003B0E41531EBF6A4D /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7226EB60DCCC086EC266AFED /* NetworkClient.swift */; };
+		D141D4003B0E41531EBF6A4D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7226EB60DCCC086EC266AFED /* NetworkService.swift */; };
 		D5896E618CF96E183619FAC8 /* DeleteDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EA65C8525D58EA2EB2125A /* DeleteDiaryUseCase.swift */; };
 		D8CA25CDC6BCE3DCC42C919E /* Data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0314B61D9C0E9B752695B0ED /* Data.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF6D7EC1B56D0A20A44CCF7D /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A59CB62BF00563816A379C1 /* DiaryView.swift */; };
 		E1E88608C9E9596C7ACC97E0 /* DeleteConfirmationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB542A357E1537267DF128 /* DeleteConfirmationAlert.swift */; };
 		E2F07A9DA14727DFF18FE6A7 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807BE2EF8A0AA4654F7E741A /* Logger.swift */; };
 		E96F94A535C4372F14235C36 /* DiaryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BE32E2EF1718EAF4492723 /* DiaryEditorView.swift */; };
+		EB6AB68A60C82846F3A72826 /* OpenAIRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A1AA29FCD8F694DA693C8B /* OpenAIRepository.swift */; };
 		EB8184C3E5BD65592C61A50E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 620D68098BB503E4DFEB8CC1 /* FirebaseCrashlytics */; };
+		ECEF1EE5ABF56AFDE9AEC7D4 /* DiaryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5471E8CF3AEC732D52F93285 /* DiaryRepository.swift */; };
 		F5E3E813327FD37CE94633CD /* TuistAssets+HowAboutNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D14B44856F39843935F8DC /* TuistAssets+HowAboutNow.swift */; };
 		FAFE4F80E6C6EA7FA54EF5D0 /* AnalysisResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554E350936BE3ED34FB5444D /* AnalysisResponse.swift */; };
 		FE6E1941E1E20534CBEEDF85 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4231A19CA9659EE53A6F5E85 /* SettingsView.swift */; };
@@ -163,16 +166,18 @@
 		305B0DCDE2619DD4C51C6937 /* OpenAIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponse.swift; sourceTree = "<group>"; };
 		3C2D464A96060FF28048B39F /* FetchDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDiaryUseCase.swift; sourceTree = "<group>"; };
 		4231A19CA9659EE53A6F5E85 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		433DC3CCFF813B49BCD84334 /* DiaryDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDataRepository.swift; sourceTree = "<group>"; };
 		487FE65FF11700AD91952518 /* Presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		511147E3A5878FFCF0A93696 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HowAboutNow.entitlements; sourceTree = "<group>"; };
+		5471E8CF3AEC732D52F93285 /* DiaryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRepository.swift; sourceTree = "<group>"; };
 		554E350936BE3ED34FB5444D /* AnalysisResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisResponse.swift; sourceTree = "<group>"; };
 		6A59CB62BF00563816A379C1 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
+		6B0B84DF2D0DA7050068D21D /* OpenAIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIEndpoint.swift; sourceTree = "<group>"; };
 		6BE55DFEE793E97A0D5AA3E5 /* EmotionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionIcon.swift; sourceTree = "<group>"; };
-		6FEEB52B16D6EBD0F58FA022 /* Localizable.xcstrings */ = {isa = PBXFileReference; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		7226EB60DCCC086EC266AFED /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		6FEEB52B16D6EBD0F58FA022 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		7226EB60DCCC086EC266AFED /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistPlists+HowAboutNow.swift"; sourceTree = "<group>"; };
+		74A1AA29FCD8F694DA693C8B /* OpenAIRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIRepository.swift; sourceTree = "<group>"; };
 		807BE2EF8A0AA4654F7E741A /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		80F755A8E11CA4F7A76F06EF /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		81AB542A357E1537267DF128 /* DeleteConfirmationAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteConfirmationAlert.swift; sourceTree = "<group>"; };
@@ -182,6 +187,7 @@
 		8820D03E397C0B0FCF81B285 /* OpenAIDiaryAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIDiaryAnalysisService.swift; sourceTree = "<group>"; };
 		8C2D779D160A8E164E4EF453 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		8D33B07C88C5B649DCC92852 /* Data-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Data-Info.plist"; sourceTree = "<group>"; };
+		8E22CF55590AFB1D366F3039 /* OpenAIRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIRepositoryProtocol.swift; sourceTree = "<group>"; };
 		94BE32E2EF1718EAF4492723 /* DiaryEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditorView.swift; sourceTree = "<group>"; };
 		950120CAA8D2D43E5CBD0987 /* Domain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Domain-Info.plist"; sourceTree = "<group>"; };
 		99F52926C90DB48DF33B87E1 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
@@ -193,7 +199,7 @@
 		AFAB21318C3CAF6748765527 /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		B098A9CCDC67446C3AEB5BE3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B5A3B6728CFBAD61E5ECD150 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		C568E54017A20DA9711563BE /* StorageClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageClient.swift; sourceTree = "<group>"; };
+		C568E54017A20DA9711563BE /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		CD3095EEA74D1FF05071A9C7 /* UpdateDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDiaryUseCase.swift; sourceTree = "<group>"; };
 		D4D063E29ED1F46E1EF272AD /* DiaryRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRepositoryProtocol.swift; sourceTree = "<group>"; };
 		DD3947BC8C5C117E2FB9ED50 /* TuistBundle+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+HowAboutNow.swift"; sourceTree = "<group>"; };
@@ -336,14 +342,6 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
-		677735D88AA8AFAC5B6A5368 /* OpenAI */ = {
-			isa = PBXGroup;
-			children = (
-				8820D03E397C0B0FCF81B285 /* OpenAIDiaryAnalysisService.swift */,
-			);
-			path = OpenAI;
-			sourceTree = "<group>";
-		};
 		71852A7A7DDD492543080B63 /* InfoPlists */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,6 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				D4D063E29ED1F46E1EF272AD /* DiaryRepositoryProtocol.swift */,
+				8E22CF55590AFB1D366F3039 /* OpenAIRepositoryProtocol.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -436,7 +435,9 @@
 		BFB4E8BACCFE7076A6977A95 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				7226EB60DCCC086EC266AFED /* NetworkClient.swift */,
+				7226EB60DCCC086EC266AFED /* NetworkService.swift */,
+				6B0B84DF2D0DA7050068D21D /* OpenAIEndpoint.swift */,
+				8820D03E397C0B0FCF81B285 /* OpenAIDiaryAnalysisService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -496,7 +497,7 @@
 		E39A3CF051BBC7836A9A4F01 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				C568E54017A20DA9711563BE /* StorageClient.swift */,
+				C568E54017A20DA9711563BE /* StorageService.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -523,9 +524,8 @@
 			children = (
 				90F173DCDE06EF542B326A04 /* Common */,
 				04CFC7969BE3508CF8A0C3B5 /* Entities */,
-				BFB4E8BACCFE7076A6977A95 /* Network */,
-				677735D88AA8AFAC5B6A5368 /* OpenAI */,
 				E9C0CEBC4368CCCD79379226 /* Repositories */,
+				BFB4E8BACCFE7076A6977A95 /* Network */,
 				E39A3CF051BBC7836A9A4F01 /* Storage */,
 			);
 			path = Data;
@@ -534,7 +534,8 @@
 		E9C0CEBC4368CCCD79379226 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				433DC3CCFF813B49BCD84334 /* DiaryDataRepository.swift */,
+				5471E8CF3AEC732D52F93285 /* DiaryRepository.swift */,
+				74A1AA29FCD8F694DA693C8B /* OpenAIRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -647,8 +648,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				ORGANIZATIONNAME = HowAboutNow;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = C68EB2540CA791112451CAE6 /* Build configuration list for PBXProject "HowAboutNow" */;
 			compatibilityVersion = "Xcode 14.0";
@@ -775,15 +774,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B0B84E02D0DA7050068D21D /* OpenAIEndpoint.swift in Sources */,
 				A1E792FEE5F67F01D71A86A1 /* ConfigurationManager.swift in Sources */,
 				E2F07A9DA14727DFF18FE6A7 /* Logger.swift in Sources */,
 				9AB3F21BBBE5C4EB6D8FA106 /* OpenAIRequest.swift in Sources */,
 				FAFE4F80E6C6EA7FA54EF5D0 /* AnalysisResponse.swift in Sources */,
 				AA871DEA3F132A5EAF550D7F /* OpenAIResponse.swift in Sources */,
-				D141D4003B0E41531EBF6A4D /* NetworkClient.swift in Sources */,
+				D141D4003B0E41531EBF6A4D /* NetworkService.swift in Sources */,
 				15C60110D70A473D7AD19DFD /* OpenAIDiaryAnalysisService.swift in Sources */,
-				9723A4CFCF4651655255A396 /* DiaryDataRepository.swift in Sources */,
-				4E079164D54903C6734074BC /* StorageClient.swift in Sources */,
+				ECEF1EE5ABF56AFDE9AEC7D4 /* DiaryRepository.swift in Sources */,
+				EB6AB68A60C82846F3A72826 /* OpenAIRepository.swift in Sources */,
+				4E079164D54903C6734074BC /* StorageService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -794,6 +795,7 @@
 				A50B6D402ECC3148BA9BBCA8 /* Diary.swift in Sources */,
 				55CEFDB32A361AE7040595DE /* DiaryAnalysis.swift in Sources */,
 				B39F7D02F9ACCDE40A4E7767 /* DiaryRepositoryProtocol.swift in Sources */,
+				36F596937526CEB2E5432D29 /* OpenAIRepositoryProtocol.swift in Sources */,
 				C6681539786CC4916568EEDE /* AddDiaryUseCase.swift in Sources */,
 				CCF9BF88EFE7E041841062A4 /* AnalysisDiaryUseCase.swift in Sources */,
 				D5896E618CF96E183619FAC8 /* DeleteDiaryUseCase.swift in Sources */,
@@ -920,7 +922,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "$(inherited) -ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME)-Swift.h";
@@ -951,10 +956,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1043,10 +1045,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1073,10 +1072,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1141,7 +1137,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "$(inherited) -ObjC";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OBJC_INTERFACE_HEADER_NAME = "$(PRODUCT_NAME)-Swift.h";
@@ -1203,10 +1202,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

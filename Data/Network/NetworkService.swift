@@ -1,11 +1,11 @@
 import Foundation
 import Alamofire
 
-public protocol NetworkClient {
+public protocol NetworkServiceProtocol {
     func request<T: Decodable>(_ endpoint: URLRequestConvertible) async throws -> T
 }
 
-public final class DefaultNetworkClient: NetworkClient {
+public final class NetworkService: NetworkServiceProtocol {
     private let session: Session
     
     public init(session: Session = .default) {

@@ -68,8 +68,4 @@ public class DiaryRepository: DiaryRepositoryProtocol {
             throw RepositoryError.databaseError(error)
         }
     }
-    
-    public func analyzeDiary(diary: Diary) async throws -> DiaryAnalysis {
-        return DiaryAnalysis(emotion: "", summary: "")
-    }
 }

@@ -49,8 +49,11 @@ public final class DiaryViewModel: ObservableObject {
         // 백그라운드에서 감정 분석 수행
         Task.detached { [weak self] in
             do {
-                let analysis = try await self?.diContainer.analysisDiaryUseCase.excute(content: diary.content)
-                guard let analysis = analysis else { return }
+                let analysis = try await self?.diContainer.analysisDiaryUseCase.excute(diary: diary)
+                
+                guard let analysis = analysis else {
+                    return
+                }
                 
                 let analyzedDiary = Diary(
                     id: diary.id,

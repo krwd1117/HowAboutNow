@@ -1,12 +1,12 @@
 import Foundation
 
-public protocol StorageClient {
+public protocol StorageServiceProtocol {
     func save<T: Encodable>(_ value: T, forKey key: String) throws
     func load<T: Decodable>(forKey key: String) throws -> T?
     func remove(forKey key: String)
 }
 
-public final class UserDefaultsStorageClient: StorageClient {
+public final class StorageService: StorageServiceProtocol {
     private let userDefaults: UserDefaults
     private let encoder: JSONEncoder
     private let decoder: JSONDecoder

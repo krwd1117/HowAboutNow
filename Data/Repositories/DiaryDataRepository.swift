@@ -1,8 +1,13 @@
 import Foundation
 import Domain
-import Infrastructure
 
-public actor DiaryDataRepository: DiaryRepository {
+public class DiaryRepository: DiaryRepositoryProtocol {
+    
+    enum RepositoryError: Error {
+        case invalidDiary
+        case databaseError(Error)
+    }
+    
     private let userDefaults: UserDefaults
     private let diaryKey = "com.krwd.howaboutnow.diaries"
     
@@ -10,7 +15,7 @@ public actor DiaryDataRepository: DiaryRepository {
         self.userDefaults = userDefaults
     }
     
-    public func getDiaries() async throws -> [Diary] {
+    public func fetchDiaries() async throws -> [Diary] {
         guard let data = userDefaults.data(forKey: diaryKey) else {
             return []
         }
@@ -29,27 +34,26 @@ public actor DiaryDataRepository: DiaryRepository {
                 userDefaults.removeObject(forKey: self.diaryKey)
                 return []
             }
-            Logger.e("Failed to decode diaries: \(error)")
             throw RepositoryError.databaseError(error)
         }
     }
     
-    public func saveDiary(_ diary: Diary) async throws {
-        var diaries = try await getDiaries()
+    public func addDiary(diary: Diary) async throws {
+        var diaries = try await fetchDiaries()
         diaries.append(diary)
         try saveDiaries(diaries)
     }
     
-    public func updateDiary(_ diary: Diary) async throws {
-        var diaries = try await getDiaries()
+    public func updateDiary(diary: Diary) async throws {
+        var diaries = try await fetchDiaries()
         if let index = diaries.firstIndex(where: { $0.id == diary.id }) {
             diaries[index] = diary
             try saveDiaries(diaries)
         }
     }
     
-    public func deleteDiary(_ diary: Diary) async throws {
-        var diaries = try await getDiaries()
+    public func deleteDiary(diary: Diary) async throws {
+        var diaries = try await fetchDiaries()
         diaries.removeAll { $0.id == diary.id }
         try saveDiaries(diaries)
     }
@@ -61,15 +65,11 @@ public actor DiaryDataRepository: DiaryRepository {
             let data = try encoder.encode(diaries)
             userDefaults.set(data, forKey: diaryKey)
         } catch {
-            Logger.e("Failed to encode diaries: \(error)")
             throw RepositoryError.databaseError(error)
         }
     }
-}
-
-extension DiaryDataRepository {
-    enum RepositoryError: Error {
-        case invalidDiary
-        case databaseError(Error)
+    
+    public func analyzeDiary(diary: Diary) async throws -> DiaryAnalysis {
+        return DiaryAnalysis(emotion: "", summary: "")
     }
 }

@@ -2,21 +2,11 @@ import SwiftUI
 import Domain
 
 public struct DiaryView: View {
-    @StateObject private var viewModel: DiaryViewModel
+    @ObservedObject private var viewModel: DiaryViewModel
     @State private var showingListView = false
     
-    public init(
-        diaryRepository: any DiaryRepository,
-        diaryAnalysisService: any DiaryAnalysisService,
-        initialDiaries: [Diary]? = nil
-    ) {
-        _viewModel = StateObject(
-            wrappedValue: DiaryViewModel(
-                diaryRepository: diaryRepository,
-                diaryAnalysisService: diaryAnalysisService,
-                initialDiaries: initialDiaries
-            )
-        )
+    public init(viewModel: DiaryViewModel) {
+        self.viewModel = viewModel
     }
     
     public var body: some View {

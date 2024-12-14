@@ -2,9 +2,9 @@ import SwiftUI
 import Domain
 
 /// 스플래시 화면
-public struct SplashView: View {
+public struct SplashView: View {    
     /// 뷰 모델
-    @StateObject private var viewModel: SplashViewModel
+    @ObservedObject private var viewModel: SplashViewModel
     /// 애니메이션 크기
     @State private var size = 0.7
     /// 애니메이션 불투명도
@@ -16,30 +16,14 @@ public struct SplashView: View {
     /// - Parameters:
     ///   - repositoryProvider: 저장소 제공자
     ///   - serviceProvider: 서비스 제공자
-    public init(
-        repositoryProvider: @escaping () -> DiaryRepository,
-        serviceProvider: @escaping () throws -> DiaryAnalysisService
-    ) {
-        _viewModel = StateObject(wrappedValue: SplashViewModel(
-            repositoryProvider: repositoryProvider,
-            serviceProvider: serviceProvider
-        ))
+    public init(viewModel: SplashViewModel) {
+        self.viewModel = viewModel
     }
     
     public var body: some View {
         Group {
             if viewModel.isInitialized {
-                if let repository = viewModel.repository,
-                   let diaryAnalysisService = viewModel.diaryAnalysisService {
-                    /// 메인 탭 뷰
-                    MainTabView(
-                        repository: repository,
-                        diaryAnalysisService: diaryAnalysisService
-                    )
-                } else {
-                    /// 에러 뷰
-                    ErrorView(message: "Failed to initialize services")
-                }
+                MainTabView(diContainer: viewModel.diContainer)
             } else {
                 ZStack {
                     /// 배경 색상

@@ -8,30 +8,18 @@
 import SwiftUI
 import Domain
 import Data
-import Infrastructure
 import Presentation
 import Firebase
 import FirebaseCrashlytics
 
 @main
 struct HowAboutNowApp: App {
-    init() {
-        FirebaseApp.configure()
-//        fatalError("Firebase Crashlytics")
-    }
+    let container: DIContainer = DIContainer()
     
     var body: some Scene {
         WindowGroup {
-            SplashView(
-                repositoryProvider: {
-                    DiaryDataRepository()
-                },
-                serviceProvider: {
-                    try OpenAIDiaryAnalysisService()
-                }
-            )
-            .preferredColorScheme(.light)
-            .tint(.purple)
+            let viewModel = SplashViewModel(diContainer: container)
+            SplashView(viewModel: viewModel)
         }
     }
 }

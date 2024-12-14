@@ -1,16 +1,24 @@
 import Foundation
 import Domain
 import Alamofire
-import Infrastructure
 
-public actor OpenAIDiaryAnalysisService: DiaryAnalysisService {
+
+
+protocol OpenAIDiaryAnalysisServiceProtocol {
+    func analyzeDiary(content: String) async throws -> DiaryAnalysis
+}
+
+public actor OpenAIDiaryAnalysisService: OpenAIDiaryAnalysisServiceProtocol {
     private let apiKey: String
     private let baseURL: String
     
     public init() throws {
-        let config = ConfigurationManager.shared
-        self.apiKey = try config.string(for: ConfigurationManager.Keys.openAIAPIKey)
-        self.baseURL = try config.string(for: ConfigurationManager.Keys.openAIEndpoint)
+//        let config = ConfigurationManager.shared
+//        self.apiKey = try config.string(for: ConfigurationManager.Keys.openAIAPIKey)
+//        self.baseURL = try config.string(for: ConfigurationManager.Keys.openAIEndpoint)
+        
+        self.apiKey = ""
+        self.baseURL = ""
     }
     
     public func analyzeDiary(content: String) async throws -> DiaryAnalysis {
@@ -99,7 +107,3 @@ public actor OpenAIDiaryAnalysisService: DiaryAnalysisService {
     }
 }
 
-private struct AnalysisResponse: Codable {
-    let emotion: String
-    let summary: String
-}

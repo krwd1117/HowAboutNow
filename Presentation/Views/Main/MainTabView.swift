@@ -12,28 +12,23 @@ public struct MainTabView: View {
         case settings
     }
     
-    private let repository: DiaryRepository
-    private let diaryAnalysisService: DiaryAnalysisService
+    private let diContainer: DIContainerProtocol
     
     /// 초기화
-    public init(repository: DiaryRepository, 
-               diaryAnalysisService: DiaryAnalysisService) {
-        self.repository = repository
-        self.diaryAnalysisService = diaryAnalysisService
+    public init(diContainer: DIContainerProtocol) {
+        self.diContainer = diContainer
     }
     
     public var body: some View {
         ZStack {
             TabView(selection: $selectedTab) {
                 // 다이어리 목록 탭
-                DiaryView(
-                    diaryRepository: repository,
-                    diaryAnalysisService: diaryAnalysisService
-                )
-                .tag(0)
-                .tabItem {
-                    Label(LocalizedStringKey("diary"), systemImage: "book.fill")
-                }
+                let viewModel = DiaryViewModel(diContainer: diContainer)
+                DiaryView(viewModel: viewModel)
+                    .tag(0)
+                    .tabItem {
+                        Label(LocalizedStringKey("diary"), systemImage: "book.fill")
+                    }
                 
                 // 설정 탭
                 SettingsView()

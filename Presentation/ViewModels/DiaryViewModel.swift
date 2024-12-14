@@ -8,16 +8,13 @@ public final class DiaryViewModel: ObservableObject {
     @Published public private(set) var isLoading = false
     @Published public var selectedDate = Date()
     
-    private let diaryRepository: any DiaryRepository
-    private let diaryAnalysisService: any DiaryAnalysisService
+    private let diContainer: DIContainerProtocol
     
     public init(
-        diaryRepository: any DiaryRepository,
-        diaryAnalysisService: any DiaryAnalysisService,
+        diContainer: DIContainerProtocol,
         initialDiaries: [Diary]? = nil
     ) {
-        self.diaryRepository = diaryRepository
-        self.diaryAnalysisService = diaryAnalysisService
+        self.diContainer = diContainer
         if let initialDiaries {
             self.diaries = initialDiaries
         }
@@ -32,12 +29,9 @@ public final class DiaryViewModel: ObservableObject {
                 isLoading = false
             }
         }
-        
         do {
-            let loadedDiaries = try await diaryRepository.getDiaries()
-            await MainActor.run {
-                diaries = loadedDiaries
-            }
+            let loadedDiaries = try await diContainer.fetchDiaryUseCase.execute()
+            diaries = loadedDiaries
         } catch {
             print("Error loading diaries: \(error)")
         }
@@ -49,13 +43,13 @@ public final class DiaryViewModel: ObservableObject {
     
     public func saveDiary(diary: Diary) async throws {
         // 먼저 일기를 저장
-        try await diaryRepository.saveDiary(diary)
+        try await diContainer.addDiaryUseCase.execute(diary: diary)
         await loadDiaries()
         
         // 백그라운드에서 감정 분석 수행
         Task.detached { [weak self] in
             do {
-                let analysis = try await self?.diaryAnalysisService.analyzeDiary(content: diary.content)
+                let analysis = try await self?.diContainer.analysisDiaryUseCase.excute(content: diary.content)
                 guard let analysis = analysis else { return }
                 
                 let analyzedDiary = Diary(
@@ -68,7 +62,7 @@ public final class DiaryViewModel: ObservableObject {
                 )
                 
                 // UI 스레드에서 일기 업데이트
-                try? await self?.diaryRepository.updateDiary(analyzedDiary)
+                try? await self?.diContainer.updateDiaryUseCase.execute(diary: analyzedDiary)
                 Task {
                     await self?.loadDiaries()
                 }
@@ -88,7 +82,7 @@ public final class DiaryViewModel: ObservableObject {
                 summary: diary.summary,
                 date: diary.date
             )
-            try await diaryRepository.updateDiary(updatedDiary)
+            try await diContainer.updateDiaryUseCase.execute(diary: updatedDiary)
             await loadDiaries()
         } catch {
             print("Error updating diary: \(error)")
@@ -97,7 +91,7 @@ public final class DiaryViewModel: ObservableObject {
     
     public func deleteDiary(_ diary: Diary) async {
         do {
-            try await diaryRepository.deleteDiary(diary)
+            try await diContainer.deleteDiaryUseCase.execute(diary: diary)
             await loadDiaries()
         } catch {
             print("Error deleting diary: \(error)")

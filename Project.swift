@@ -92,7 +92,6 @@ let project = Project(
                 .target(name: "Domain"),
                 .target(name: "Data"),
                 .target(name: "Presentation"),
-                .target(name: "Infrastructure"),
                 .package(product: "FirebaseAnalytics"),
                 .package(product: "FirebaseCrashlytics"),
             ]
@@ -106,7 +105,7 @@ let project = Project(
             bundleId: "com.krwd.howaboutnow.domain",
             infoPlist: .default,
             sources: [
-                "Domain/Sources/**"
+                "Domain/**"
             ],
             dependencies: [],
             settings: .settings(
@@ -124,11 +123,11 @@ let project = Project(
             bundleId: "com.krwd.howaboutnow.data",
             infoPlist: .default,
             sources: [
-                "Data/Sources/**"
+                "Data/**"
             ],
             dependencies: [
                 .target(name: "Domain"),
-                .target(name: "Infrastructure")
+                .package(product: "Alamofire")
             ],
             settings: .settings(
                 base: [
@@ -145,30 +144,10 @@ let project = Project(
             bundleId: "com.krwd.howaboutnow.presentation",
             infoPlist: .default,
             sources: [
-                "Presentation/Sources/**"
+                "Presentation/**"
             ],
             dependencies: [
                 .target(name: "Domain")
-            ],
-            settings: .settings(
-                base: [
-                    "DEFINES_MODULE": "YES"
-                ]
-            )
-        ),
-        
-        // MARK: - Infrastructure Module
-        .target(
-            name: "Infrastructure",
-            destinations: [.iPhone],
-            product: .framework,
-            bundleId: "com.krwd.howaboutnow.infrastructure",
-            infoPlist: .default,
-            sources: [
-                "Infrastructure/Sources/**"
-            ],
-            dependencies: [
-                .package(product: "Alamofire")
             ],
             settings: .settings(
                 base: [

@@ -29,6 +29,8 @@ public struct DiaryCardView: View {
                 HStack {
                     HStack(spacing: 8) {
                         Text(diary.title)
+                            .multilineTextAlignment(.leading)
+                            .lineLimit(1)
                             .font(.headline)
                         
                         EmotionIcon(emotion: diary.emotion)

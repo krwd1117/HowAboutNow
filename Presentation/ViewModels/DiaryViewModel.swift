@@ -64,7 +64,6 @@ public final class DiaryViewModel: ObservableObject {
                     date: diary.date
                 )
                 
-                // UI 스레드에서 일기 업데이트
                 try? await self?.diContainer.updateDiaryUseCase.execute(diary: analyzedDiary)
                 Task {
                     await self?.loadDiaries()

@@ -92,9 +92,6 @@ public struct DiaryDetailView: View {
                     .foregroundStyle(.pink)
             }
             .font(.subheadline)
-            
-            EmotionIcon(emotion: diary.emotion)
-                .foregroundStyle(.primary)
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -106,10 +103,15 @@ public struct DiaryDetailView: View {
     
     private var contentSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text(diary.title)
-                .font(.title)
-                .fontWeight(.bold)
-            
+            HStack {
+                Text(diary.title)
+                    .font(.title)
+                    .fontWeight(.bold)
+
+                EmotionIcon(emotion: diary.emotion)
+                    .foregroundStyle(.primary)
+            }
+
             Text(diary.content)
                 .font(.body)
                 .lineSpacing(8)

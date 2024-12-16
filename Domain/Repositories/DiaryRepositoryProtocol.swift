@@ -4,4 +4,3 @@ public protocol DiaryRepositoryProtocol {
     func updateDiary(diary: Diary) async throws
     func deleteDiary(diary: Diary) async throws
 }
-

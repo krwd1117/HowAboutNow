@@ -1,5 +1,3 @@
-import Foundation
-
 public protocol AnalysisDiaryUseCaseProtocol {
     func excute(diary: Diary) async throws -> DiaryAnalysis?
 }

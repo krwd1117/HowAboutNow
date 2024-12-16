@@ -9,6 +9,7 @@
 import Foundation
 
 struct AnalysisResponse: Codable {
+    let title: String
     let emotion: String
     let summary: String
 }

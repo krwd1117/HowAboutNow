@@ -8,63 +8,71 @@
 
 /* Begin PBXBuildFile section */
 		003A790B251B0AA541AEE626 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC73A6A5E312125312D029C6 /* Configuration.plist */; };
-		00FEA868FC46B4C2E12697E2 /* UpdateDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3095EEA74D1FF05071A9C7 /* UpdateDiaryUseCase.swift */; };
 		0A04A4127CA50B0117A83AF2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 4FD20BDE33692602CCCDACB7 /* FirebaseAnalytics */; };
 		0C34CA1E8450468B5175AE05 /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E0FEA2946834083B6F5E880 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 90BF4128E6828519BA1700E0 /* Alamofire */; };
-		104BB7CB371E6B58F1F27C4A /* FetchDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2D464A96060FF28048B39F /* FetchDiaryUseCase.swift */; };
 		1495894857D751284A8443B3 /* Presentation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 487FE65FF11700AD91952518 /* Presentation.framework */; };
 		149FC64AF08C08B93533940E /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; };
-		15C60110D70A473D7AD19DFD /* OpenAIDiaryAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8820D03E397C0B0FCF81B285 /* OpenAIDiaryAnalysisService.swift */; };
+		18188696917CA500815149B0 /* UpdateOpenAIConfigurationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC6CEAB133CF91EFB1E892EB /* UpdateOpenAIConfigurationUseCase.swift */; };
 		192C565A3C184A6D9DE551F6 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A3B6728CFBAD61E5ECD150 /* CalendarView.swift */; };
 		1DB5CE816768A4DA2220603C /* Presentation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 487FE65FF11700AD91952518 /* Presentation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1EE743612DBEC6556FA30FDC /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; };
 		279C1DA4902DE4DDE2242960 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4335D633EA1C8BFBCC10CF1 /* MainTabView.swift */; };
 		2FC23B8A8405B1D5D9A448AC /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E703636DE83ACF29EDF0B845 /* DiaryViewModel.swift */; };
 		36F596937526CEB2E5432D29 /* OpenAIRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E22CF55590AFB1D366F3039 /* OpenAIRepositoryProtocol.swift */; };
+		423EBE6B796320BDD49E648E /* OpenAIConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A55159970F718C6DCF6AE6 /* OpenAIConfiguration.swift */; };
 		4BC9AF53EB84413D6980BAF5 /* HowAboutNow.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */; };
 		4C4EE08FE1FB49988D1B0192 /* EmotionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE55DFEE793E97A0D5AA3E5 /* EmotionIcon.swift */; };
-		4E079164D54903C6734074BC /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C568E54017A20DA9711563BE /* StorageService.swift */; };
+		4E2C1643C6D0C52763992A61 /* FetchDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBABEF713338B42B6EF5BDF /* FetchDiaryUseCase.swift */; };
 		55CEFDB32A361AE7040595DE /* DiaryAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 196DEE775B1623D82FBD1739 /* DiaryAnalysis.swift */; };
 		56942D45E440352F0FFB1D6E /* Configuration.template.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */; };
-		6B0B84E02D0DA7050068D21D /* OpenAIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0B84DF2D0DA7050068D21D /* OpenAIEndpoint.swift */; };
+		588B1B620E50EEFB3643FA4A /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC85AA0179C36978D2E32FA0 /* NetworkService.swift */; };
+		58D280E0FC8C0F0902425CD1 /* FirestoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3640611CCA04A3776FF0B993 /* FirestoreRepository.swift */; };
+		5E25221C4548F51A4038655B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D85A01C8B045A48D6377E2C8 /* FirebaseFirestore */; };
 		6C8CFF1133ECBA9E7D635750 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F52926C90DB48DF33B87E1 /* SplashViewModel.swift */; };
 		6CD8222A0D28E3F31481F50C /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A612A7C42D6C20E9A40DC10A /* Domain.framework */; };
+		7254262B285264415235B1B1 /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2AF4CD95BB448AF170E21A /* FirestoreService.swift */; };
 		7634837ADB44AB198E8F6B7E /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 6FEEB52B16D6EBD0F58FA022 /* Localizable.xcstrings */; };
 		7B4417C4F2B5237215A42CAC /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0314B61D9C0E9B752695B0ED /* Data.framework */; };
+		8011D2D2DC187AC605F9C718 /* OpenAIConfigurationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F81612D4F4D894A4C11DA715 /* OpenAIConfigurationResponse.swift */; };
 		83131BA1C447B1FD9A42B7D9 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C39BBD4D22AB2B3CA65C61 /* DIContainer.swift */; };
+		838D697CB1E94011D92832A2 /* UpdateDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77AC3CD1971C03F2534C951D /* UpdateDiaryUseCase.swift */; };
 		851128630050771D1AADF5B9 /* DiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 114B48836A619BEB854AE682 /* DiaryDetailView.swift */; };
 		8663A927E2E0B8E068FB9CA8 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D56751F0F1DB661CDEC9C /* SplashView.swift */; };
+		8CDF38DE682CFBB49B0E139B /* DeleteDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4621A85C6AC41C54E11B10 /* DeleteDiaryUseCase.swift */; };
 		8CF26FF7BB65F0F877D82BA7 /* TuistPlists+HowAboutNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */; };
 		9AB3F21BBBE5C4EB6D8FA106 /* OpenAIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A144892142D069B12DB1B1F7 /* OpenAIRequest.swift */; };
 		A1E792FEE5F67F01D71A86A1 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAB21318C3CAF6748765527 /* ConfigurationManager.swift */; };
 		A2B8DE951170F510CCE274F3 /* DiaryEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A63448B3E5B7DF2744F661 /* DiaryEditorViewModel.swift */; };
 		A50B6D402ECC3148BA9BBCA8 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80F755A8E11CA4F7A76F06EF /* Diary.swift */; };
 		AA871DEA3F132A5EAF550D7F /* OpenAIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305B0DCDE2619DD4C51C6937 /* OpenAIResponse.swift */; };
+		AE4220A895202313DD90F029 /* AddDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F785F1B5651CE314321762CA /* AddDiaryUseCase.swift */; };
 		AF4ED3B1BC63F3061018CF44 /* FloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1684802F282323C01DA7B1 /* FloatingActionButton.swift */; };
 		B12C368BDB10B9D0398AF140 /* View+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A109B9DCBC3FA47262336D4E /* View+Keyboard.swift */; };
 		B39F7D02F9ACCDE40A4E7767 /* DiaryRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D063E29ED1F46E1EF272AD /* DiaryRepositoryProtocol.swift */; };
 		B4C08FDAE870734BE23CF073 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2D779D160A8E164E4EF453 /* ErrorView.swift */; };
 		B4D8FDC1F2DCC937C7431797 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511147E3A5878FFCF0A93696 /* EmptyStateView.swift */; };
+		BDB19196886836D71BA0CA5D /* AnalysisDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D347C8D0D8B924F02909AC0 /* AnalysisDiaryUseCase.swift */; };
 		BDB2D28992E84257B1438E41 /* TuistBundle+HowAboutNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3947BC8C5C117E2FB9ED50 /* TuistBundle+HowAboutNow.swift */; };
 		C10CDC09A15CFB8844E473C4 /* HowAboutNowApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0005D74FC91600ACEF41D551 /* HowAboutNowApp.swift */; };
+		C22C9D1822A9AA8B06802BE8 /* OpenAIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FDE881CAA57408C05723B22 /* OpenAIService.swift */; };
 		C3C751B604D3D62A7D823D77 /* DIContainerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A57D9981B352595A8E80DA8 /* DIContainerProtocol.swift */; };
 		C5A7BC79C056FD6A5022F3A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB65F8FE973BC1E4726A8E5A /* Assets.xcassets */; };
-		C6681539786CC4916568EEDE /* AddDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827A14EE0F87E1B137941C88 /* AddDiaryUseCase.swift */; };
 		C6D7170C5E28B99C5FF90EBB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B098A9CCDC67446C3AEB5BE3 /* GoogleService-Info.plist */; };
-		CCF9BF88EFE7E041841062A4 /* AnalysisDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A62ED4CB336EB719A9A0051 /* AnalysisDiaryUseCase.swift */; };
 		CD400218794F521CA9A44C45 /* DiaryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE11B836A5C97E66B250C73 /* DiaryCardView.swift */; };
-		D141D4003B0E41531EBF6A4D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7226EB60DCCC086EC266AFED /* NetworkService.swift */; };
-		D5896E618CF96E183619FAC8 /* DeleteDiaryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EA65C8525D58EA2EB2125A /* DeleteDiaryUseCase.swift */; };
 		D8CA25CDC6BCE3DCC42C919E /* Data.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0314B61D9C0E9B752695B0ED /* Data.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF1C22FE468C6F0529A89676 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D939424482D60E5E6B0758F1 /* StorageService.swift */; };
 		DF6D7EC1B56D0A20A44CCF7D /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A59CB62BF00563816A379C1 /* DiaryView.swift */; };
 		E1E88608C9E9596C7ACC97E0 /* DeleteConfirmationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB542A357E1537267DF128 /* DeleteConfirmationAlert.swift */; };
 		E2F07A9DA14727DFF18FE6A7 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807BE2EF8A0AA4654F7E741A /* Logger.swift */; };
 		E96F94A535C4372F14235C36 /* DiaryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BE32E2EF1718EAF4492723 /* DiaryEditorView.swift */; };
+		E9E2B116A3DC52ECDCAAC16F /* OpenAIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5A3165C42D9B7E4E35FEEF /* OpenAIEndpoint.swift */; };
 		EB6AB68A60C82846F3A72826 /* OpenAIRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A1AA29FCD8F694DA693C8B /* OpenAIRepository.swift */; };
 		EB8184C3E5BD65592C61A50E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 620D68098BB503E4DFEB8CC1 /* FirebaseCrashlytics */; };
 		ECEF1EE5ABF56AFDE9AEC7D4 /* DiaryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5471E8CF3AEC732D52F93285 /* DiaryRepository.swift */; };
+		F3BE928899E39F982EBB8846 /* FetchOpenAIConfigurationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37629591843A42117E66252 /* FetchOpenAIConfigurationUseCase.swift */; };
 		F5E3E813327FD37CE94633CD /* TuistAssets+HowAboutNow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D14B44856F39843935F8DC /* TuistAssets+HowAboutNow.swift */; };
+		FA2BCF2B6D5CB8EDA0EC24E6 /* FirestoreRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1436E8FEF992EB12AF4DBB5A /* FirestoreRepositoryProtocol.swift */; };
 		FAFE4F80E6C6EA7FA54EF5D0 /* AnalysisResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554E350936BE3ED34FB5444D /* AnalysisResponse.swift */; };
 		FE6E1941E1E20534CBEEDF85 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4231A19CA9659EE53A6F5E85 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
@@ -158,33 +166,34 @@
 		0314B61D9C0E9B752695B0ED /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A57D9981B352595A8E80DA8 /* DIContainerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainerProtocol.swift; sourceTree = "<group>"; };
 		114B48836A619BEB854AE682 /* DiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailView.swift; sourceTree = "<group>"; };
+		1436E8FEF992EB12AF4DBB5A /* FirestoreRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreRepositoryProtocol.swift; sourceTree = "<group>"; };
 		196DEE775B1623D82FBD1739 /* DiaryAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAnalysis.swift; sourceTree = "<group>"; };
-		1A62ED4CB336EB719A9A0051 /* AnalysisDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisDiaryUseCase.swift; sourceTree = "<group>"; };
+		1D2AF4CD95BB448AF170E21A /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
+		1D347C8D0D8B924F02909AC0 /* AnalysisDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisDiaryUseCase.swift; sourceTree = "<group>"; };
 		29D14B44856F39843935F8DC /* TuistAssets+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+HowAboutNow.swift"; sourceTree = "<group>"; };
 		2B0D56751F0F1DB661CDEC9C /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		300EB610D129B2D1F53796D6 /* HowAboutNow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HowAboutNow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		305B0DCDE2619DD4C51C6937 /* OpenAIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIResponse.swift; sourceTree = "<group>"; };
-		3C2D464A96060FF28048B39F /* FetchDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDiaryUseCase.swift; sourceTree = "<group>"; };
+		3640611CCA04A3776FF0B993 /* FirestoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreRepository.swift; sourceTree = "<group>"; };
 		4231A19CA9659EE53A6F5E85 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		487FE65FF11700AD91952518 /* Presentation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Presentation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		511147E3A5878FFCF0A93696 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		52AC725FD6FD234D040CB101 /* HowAboutNow.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HowAboutNow.entitlements; sourceTree = "<group>"; };
 		5471E8CF3AEC732D52F93285 /* DiaryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRepository.swift; sourceTree = "<group>"; };
 		554E350936BE3ED34FB5444D /* AnalysisResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisResponse.swift; sourceTree = "<group>"; };
+		5FDE881CAA57408C05723B22 /* OpenAIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIService.swift; sourceTree = "<group>"; };
 		6A59CB62BF00563816A379C1 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
-		6B0B84DF2D0DA7050068D21D /* OpenAIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIEndpoint.swift; sourceTree = "<group>"; };
 		6BE55DFEE793E97A0D5AA3E5 /* EmotionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionIcon.swift; sourceTree = "<group>"; };
 		6FEEB52B16D6EBD0F58FA022 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		7226EB60DCCC086EC266AFED /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		743636B12172AFFD46817F51 /* TuistPlists+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistPlists+HowAboutNow.swift"; sourceTree = "<group>"; };
 		74A1AA29FCD8F694DA693C8B /* OpenAIRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIRepository.swift; sourceTree = "<group>"; };
+		77AC3CD1971C03F2534C951D /* UpdateDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDiaryUseCase.swift; sourceTree = "<group>"; };
 		807BE2EF8A0AA4654F7E741A /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		80F755A8E11CA4F7A76F06EF /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		81AB542A357E1537267DF128 /* DeleteConfirmationAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteConfirmationAlert.swift; sourceTree = "<group>"; };
 		81C39BBD4D22AB2B3CA65C61 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
-		827A14EE0F87E1B137941C88 /* AddDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDiaryUseCase.swift; sourceTree = "<group>"; };
 		84A63448B3E5B7DF2744F661 /* DiaryEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditorViewModel.swift; sourceTree = "<group>"; };
-		8820D03E397C0B0FCF81B285 /* OpenAIDiaryAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIDiaryAnalysisService.swift; sourceTree = "<group>"; };
+		8BBABEF713338B42B6EF5BDF /* FetchDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchDiaryUseCase.swift; sourceTree = "<group>"; };
 		8C2D779D160A8E164E4EF453 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		8D33B07C88C5B649DCC92852 /* Data-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Data-Info.plist"; sourceTree = "<group>"; };
 		8E22CF55590AFB1D366F3039 /* OpenAIRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIRepositoryProtocol.swift; sourceTree = "<group>"; };
@@ -196,17 +205,23 @@
 		A4335D633EA1C8BFBCC10CF1 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		A612A7C42D6C20E9A40DC10A /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD68B3C499E58E43A3E313B8 /* Configuration.template.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Configuration.template.plist; sourceTree = "<group>"; };
+		AF5A3165C42D9B7E4E35FEEF /* OpenAIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIEndpoint.swift; sourceTree = "<group>"; };
 		AFAB21318C3CAF6748765527 /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		B098A9CCDC67446C3AEB5BE3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B37629591843A42117E66252 /* FetchOpenAIConfigurationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchOpenAIConfigurationUseCase.swift; sourceTree = "<group>"; };
 		B5A3B6728CFBAD61E5ECD150 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		C568E54017A20DA9711563BE /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
-		CD3095EEA74D1FF05071A9C7 /* UpdateDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDiaryUseCase.swift; sourceTree = "<group>"; };
+		BF4621A85C6AC41C54E11B10 /* DeleteDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDiaryUseCase.swift; sourceTree = "<group>"; };
+		C8A55159970F718C6DCF6AE6 /* OpenAIConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIConfiguration.swift; sourceTree = "<group>"; };
 		D4D063E29ED1F46E1EF272AD /* DiaryRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRepositoryProtocol.swift; sourceTree = "<group>"; };
+		D939424482D60E5E6B0758F1 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		DC85AA0179C36978D2E32FA0 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		DD3947BC8C5C117E2FB9ED50 /* TuistBundle+HowAboutNow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+HowAboutNow.swift"; sourceTree = "<group>"; };
 		DFE11B836A5C97E66B250C73 /* DiaryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCardView.swift; sourceTree = "<group>"; };
-		E5EA65C8525D58EA2EB2125A /* DeleteDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDiaryUseCase.swift; sourceTree = "<group>"; };
 		E703636DE83ACF29EDF0B845 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
+		EC6CEAB133CF91EFB1E892EB /* UpdateOpenAIConfigurationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOpenAIConfigurationUseCase.swift; sourceTree = "<group>"; };
 		F779CA9CBB8DAB8DEB738FE1 /* Presentation-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Presentation-Info.plist"; sourceTree = "<group>"; };
+		F785F1B5651CE314321762CA /* AddDiaryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDiaryUseCase.swift; sourceTree = "<group>"; };
+		F81612D4F4D894A4C11DA715 /* OpenAIConfigurationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIConfigurationResponse.swift; sourceTree = "<group>"; };
 		FB65F8FE973BC1E4726A8E5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC1FB3BC1AB610DA3620379B /* HowAboutNow-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "HowAboutNow-Info.plist"; sourceTree = "<group>"; };
 		FC73A6A5E312125312D029C6 /* Configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Configuration.plist; sourceTree = "<group>"; };
@@ -247,6 +262,7 @@
 			files = (
 				1EE743612DBEC6556FA30FDC /* Domain.framework in Frameworks */,
 				0E0FEA2946834083B6F5E880 /* Alamofire in Frameworks */,
+				5E25221C4548F51A4038655B /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,10 +321,22 @@
 			path = Derived;
 			sourceTree = "<group>";
 		};
+		18977B5D6C9AB521411AEB61 /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				F785F1B5651CE314321762CA /* AddDiaryUseCase.swift */,
+				BF4621A85C6AC41C54E11B10 /* DeleteDiaryUseCase.swift */,
+				8BBABEF713338B42B6EF5BDF /* FetchDiaryUseCase.swift */,
+				77AC3CD1971C03F2534C951D /* UpdateDiaryUseCase.swift */,
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
 		44D7692A460BCC5DC264B06E /* Response */ = {
 			isa = PBXGroup;
 			children = (
 				554E350936BE3ED34FB5444D /* AnalysisResponse.swift */,
+				F81612D4F4D894A4C11DA715 /* OpenAIConfigurationResponse.swift */,
 				305B0DCDE2619DD4C51C6937 /* OpenAIResponse.swift */,
 			);
 			path = Response;
@@ -338,6 +366,7 @@
 			children = (
 				80F755A8E11CA4F7A76F06EF /* Diary.swift */,
 				196DEE775B1623D82FBD1739 /* DiaryAnalysis.swift */,
+				C8A55159970F718C6DCF6AE6 /* OpenAIConfiguration.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -362,6 +391,14 @@
 				E3DA36C82226B1642DCBB480 /* Settings */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		7F5981AF49188C2B7A777CB1 /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				B37629591843A42117E66252 /* FetchOpenAIConfigurationUseCase.swift */,
+			);
+			path = Firestore;
 			sourceTree = "<group>";
 		};
 		90F173DCDE06EF542B326A04 /* Common */ = {
@@ -407,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				D4D063E29ED1F46E1EF272AD /* DiaryRepositoryProtocol.swift */,
+				1436E8FEF992EB12AF4DBB5A /* FirestoreRepositoryProtocol.swift */,
 				8E22CF55590AFB1D366F3039 /* OpenAIRepositoryProtocol.swift */,
 			);
 			path = Repositories;
@@ -423,11 +461,9 @@
 		BF1CA31C5F27DA464D8FC883 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				827A14EE0F87E1B137941C88 /* AddDiaryUseCase.swift */,
-				1A62ED4CB336EB719A9A0051 /* AnalysisDiaryUseCase.swift */,
-				E5EA65C8525D58EA2EB2125A /* DeleteDiaryUseCase.swift */,
-				3C2D464A96060FF28048B39F /* FetchDiaryUseCase.swift */,
-				CD3095EEA74D1FF05071A9C7 /* UpdateDiaryUseCase.swift */,
+				18977B5D6C9AB521411AEB61 /* Diary */,
+				7F5981AF49188C2B7A777CB1 /* Firestore */,
+				DF6E509CB7E97B5C9F39EC68 /* OpenAI */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -435,9 +471,10 @@
 		BFB4E8BACCFE7076A6977A95 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				7226EB60DCCC086EC266AFED /* NetworkService.swift */,
-				6B0B84DF2D0DA7050068D21D /* OpenAIEndpoint.swift */,
-				8820D03E397C0B0FCF81B285 /* OpenAIDiaryAnalysisService.swift */,
+				1D2AF4CD95BB448AF170E21A /* FirestoreService.swift */,
+				DC85AA0179C36978D2E32FA0 /* NetworkService.swift */,
+				AF5A3165C42D9B7E4E35FEEF /* OpenAIEndpoint.swift */,
+				5FDE881CAA57408C05723B22 /* OpenAIService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -494,10 +531,19 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		DF6E509CB7E97B5C9F39EC68 /* OpenAI */ = {
+			isa = PBXGroup;
+			children = (
+				1D347C8D0D8B924F02909AC0 /* AnalysisDiaryUseCase.swift */,
+				EC6CEAB133CF91EFB1E892EB /* UpdateOpenAIConfigurationUseCase.swift */,
+			);
+			path = OpenAI;
+			sourceTree = "<group>";
+		};
 		E39A3CF051BBC7836A9A4F01 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				C568E54017A20DA9711563BE /* StorageService.swift */,
+				D939424482D60E5E6B0758F1 /* StorageService.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -524,8 +570,8 @@
 			children = (
 				90F173DCDE06EF542B326A04 /* Common */,
 				04CFC7969BE3508CF8A0C3B5 /* Entities */,
-				E9C0CEBC4368CCCD79379226 /* Repositories */,
 				BFB4E8BACCFE7076A6977A95 /* Network */,
+				E9C0CEBC4368CCCD79379226 /* Repositories */,
 				E39A3CF051BBC7836A9A4F01 /* Storage */,
 			);
 			path = Data;
@@ -535,6 +581,7 @@
 			isa = PBXGroup;
 			children = (
 				5471E8CF3AEC732D52F93285 /* DiaryRepository.swift */,
+				3640611CCA04A3776FF0B993 /* FirestoreRepository.swift */,
 				74A1AA29FCD8F694DA693C8B /* OpenAIRepository.swift */,
 			);
 			path = Repositories;
@@ -614,6 +661,7 @@
 			name = Data;
 			packageProductDependencies = (
 				90BF4128E6828519BA1700E0 /* Alamofire */,
+				D85A01C8B045A48D6377E2C8 /* FirebaseFirestore */,
 			);
 			productName = Data;
 			productReference = 0314B61D9C0E9B752695B0ED /* Data.framework */;
@@ -774,17 +822,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B0B84E02D0DA7050068D21D /* OpenAIEndpoint.swift in Sources */,
 				A1E792FEE5F67F01D71A86A1 /* ConfigurationManager.swift in Sources */,
 				E2F07A9DA14727DFF18FE6A7 /* Logger.swift in Sources */,
 				9AB3F21BBBE5C4EB6D8FA106 /* OpenAIRequest.swift in Sources */,
 				FAFE4F80E6C6EA7FA54EF5D0 /* AnalysisResponse.swift in Sources */,
+				8011D2D2DC187AC605F9C718 /* OpenAIConfigurationResponse.swift in Sources */,
 				AA871DEA3F132A5EAF550D7F /* OpenAIResponse.swift in Sources */,
-				D141D4003B0E41531EBF6A4D /* NetworkService.swift in Sources */,
-				15C60110D70A473D7AD19DFD /* OpenAIDiaryAnalysisService.swift in Sources */,
+				7254262B285264415235B1B1 /* FirestoreService.swift in Sources */,
+				588B1B620E50EEFB3643FA4A /* NetworkService.swift in Sources */,
+				E9E2B116A3DC52ECDCAAC16F /* OpenAIEndpoint.swift in Sources */,
+				C22C9D1822A9AA8B06802BE8 /* OpenAIService.swift in Sources */,
 				ECEF1EE5ABF56AFDE9AEC7D4 /* DiaryRepository.swift in Sources */,
+				58D280E0FC8C0F0902425CD1 /* FirestoreRepository.swift in Sources */,
 				EB6AB68A60C82846F3A72826 /* OpenAIRepository.swift in Sources */,
-				4E079164D54903C6734074BC /* StorageService.swift in Sources */,
+				DF1C22FE468C6F0529A89676 /* StorageService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -794,13 +845,17 @@
 			files = (
 				A50B6D402ECC3148BA9BBCA8 /* Diary.swift in Sources */,
 				55CEFDB32A361AE7040595DE /* DiaryAnalysis.swift in Sources */,
+				423EBE6B796320BDD49E648E /* OpenAIConfiguration.swift in Sources */,
 				B39F7D02F9ACCDE40A4E7767 /* DiaryRepositoryProtocol.swift in Sources */,
+				FA2BCF2B6D5CB8EDA0EC24E6 /* FirestoreRepositoryProtocol.swift in Sources */,
 				36F596937526CEB2E5432D29 /* OpenAIRepositoryProtocol.swift in Sources */,
-				C6681539786CC4916568EEDE /* AddDiaryUseCase.swift in Sources */,
-				CCF9BF88EFE7E041841062A4 /* AnalysisDiaryUseCase.swift in Sources */,
-				D5896E618CF96E183619FAC8 /* DeleteDiaryUseCase.swift in Sources */,
-				104BB7CB371E6B58F1F27C4A /* FetchDiaryUseCase.swift in Sources */,
-				00FEA868FC46B4C2E12697E2 /* UpdateDiaryUseCase.swift in Sources */,
+				AE4220A895202313DD90F029 /* AddDiaryUseCase.swift in Sources */,
+				8CDF38DE682CFBB49B0E139B /* DeleteDiaryUseCase.swift in Sources */,
+				4E2C1643C6D0C52763992A61 /* FetchDiaryUseCase.swift in Sources */,
+				838D697CB1E94011D92832A2 /* UpdateDiaryUseCase.swift in Sources */,
+				F3BE928899E39F982EBB8846 /* FetchOpenAIConfigurationUseCase.swift in Sources */,
+				BDB19196886836D71BA0CA5D /* AnalysisDiaryUseCase.swift in Sources */,
+				18188696917CA500815149B0 /* UpdateOpenAIConfigurationUseCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -971,6 +1026,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 5TQSUXNFZV;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/HowAboutNow-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1060,6 +1116,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 5TQSUXNFZV;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Derived/InfoPlists/HowAboutNow-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1268,7 +1325,7 @@
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.0;
+				minimumVersion = 11.6.0;
 			};
 		};
 		E03E552E7C06D5B48CD9BF19 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
@@ -1293,6 +1350,10 @@
 		90BF4128E6828519BA1700E0 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Alamofire;
+		};
+		D85A01C8B045A48D6377E2C8 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

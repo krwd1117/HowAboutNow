@@ -14,8 +14,14 @@ import FirebaseCrashlytics
 
 @main
 struct HowAboutNowApp: App {
-    let container: DIContainer = DIContainer()
-    
+    let container: DIContainer
+
+    init() {
+        FirebaseApp.configure()
+
+        container = DIContainer()
+    }
+
     var body: some Scene {
         WindowGroup {
             let viewModel = SplashViewModel(diContainer: container)

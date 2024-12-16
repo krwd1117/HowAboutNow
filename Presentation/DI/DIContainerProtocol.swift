@@ -7,4 +7,7 @@ public protocol DIContainerProtocol {
     var updateDiaryUseCase: UpdateDiaryUseCase { get }
     
     var analysisDiaryUseCase: AnalysisDiaryUseCase { get }
+    var updateOpenAIConfigurationUseCase: UpdateOpenAIConfigurationUseCase { get }
+
+    var fetchOpenAIConfigurationUseCase: FetchOpenAIConfigurationUseCase { get }
 }

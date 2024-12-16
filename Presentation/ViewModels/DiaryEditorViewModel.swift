@@ -85,25 +85,6 @@ public final class DiaryEditorViewModel: ObservableObject {
             return false
         }
         
-        // 제목이 비어있으면 AI로 분석하여 생성
-        if title.isEmpty {
-            await MainActor.run {
-                isAnalyzing = true
-                analyzeMessage = "제목을 분석 중입니다..."
-            }
-            
-            // TODO: AI 분석 로직 추가
-            // 임시로 내용의 첫 줄이나 첫 문장을 제목으로 사용
-            let firstLine = content.components(separatedBy: .newlines).first ?? ""
-            let firstSentence = content.components(separatedBy: [".", "!", "?"]).first ?? ""
-            title = firstLine.isEmpty ? firstSentence : firstLine
-            
-            await MainActor.run {
-                isAnalyzing = false
-                analyzeMessage = nil
-            }
-        }
-        
         await MainActor.run {
             isAnalyzing = true
         }

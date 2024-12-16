@@ -5,7 +5,7 @@ let project = Project(
     organizationName: "HowAboutNow",
     packages: [
         .remote(url: "https://github.com/Alamofire/Alamofire.git", requirement: .upToNextMajor(from: "5.8.1")),
-        .remote(url: "https://github.com/firebase/firebase-ios-sdk.git", requirement: .upToNextMajor(from: "10.0.0")),
+        .remote(url: "https://github.com/firebase/firebase-ios-sdk.git", requirement: .upToNextMajor(from: "11.6.0")),
     ],
     settings: .settings(
         base: [
@@ -107,12 +107,7 @@ let project = Project(
             sources: [
                 "Domain/**"
             ],
-            dependencies: [],
-            settings: .settings(
-                base: [
-                    "DEFINES_MODULE": "YES"
-                ]
-            )
+            dependencies: []
         ),
         
         // MARK: - Data Module
@@ -127,13 +122,14 @@ let project = Project(
             ],
             dependencies: [
                 .target(name: "Domain"),
-                .package(product: "Alamofire")
-            ],
-            settings: .settings(
-                base: [
-                    "DEFINES_MODULE": "YES"
-                ]
-            )
+                .package(product: "Alamofire"),
+                .package(product: "FirebaseFirestore")
+            ]
+            // settings: .settings(
+            //     base: [
+            //         "OTHER_LDFLAGS": "$(inherited) -ObjC"
+            //     ]
+            // )
         ),
         
         // MARK: - Presentation Module
@@ -148,12 +144,7 @@ let project = Project(
             ],
             dependencies: [
                 .target(name: "Domain")
-            ],
-            settings: .settings(
-                base: [
-                    "DEFINES_MODULE": "YES"
-                ]
-            )
+            ]
         )
     ]
 )

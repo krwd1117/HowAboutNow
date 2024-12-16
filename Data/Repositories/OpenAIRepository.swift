@@ -13,4 +13,8 @@ public final class OpenAIRepository: OpenAIRepositoryProtocol {
         let diaryAnalysis = try await openAIService.analyzeDiary(content: diary.content)
         return diaryAnalysis
     }
+
+    public func updateOpenAIConfiguration(configuration: OpenAIConfiguration) async {
+        await openAIService.updateOpenAIConfiguration(configuration: configuration)
+    }
 }

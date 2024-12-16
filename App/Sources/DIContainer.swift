@@ -9,6 +9,7 @@ public final class DIContainer: DIContainerProtocol {
     // MARK: - Repositories
     private let diaryRepository: DiaryRepositoryProtocol
     private let openAIRepository: OpenAIRepositoryProtocol
+    private let firestoreRepository: FirestoreRepositoryProtocol
 
     // MARK: - Use Cases
     public let addDiaryUseCase: AddDiaryUseCase
@@ -17,11 +18,15 @@ public final class DIContainer: DIContainerProtocol {
     public let deleteDiaryUseCase: DeleteDiaryUseCase
     public let updateDiaryUseCase: UpdateDiaryUseCase
 
+    public let fetchOpenAIConfigurationUseCase: FetchOpenAIConfigurationUseCase
+    public let updateOpenAIConfigurationUseCase: UpdateOpenAIConfigurationUseCase
+
     // MARK: - Initializer
-    init() {
+    public init() {
         // Data 계층 Repository 설정
         self.diaryRepository = DiaryRepository()
         self.openAIRepository = OpenAIRepository(openAIService: OpenAIService())
+        self.firestoreRepository = FirestoreRepository(firestoreService: FirestoreService())
 
         // UseCase 의존성 주입
         addDiaryUseCase = AddDiaryUseCase(repository: diaryRepository)
@@ -30,5 +35,8 @@ public final class DIContainer: DIContainerProtocol {
         updateDiaryUseCase = UpdateDiaryUseCase(repository: diaryRepository)
         
         analysisDiaryUseCase = AnalysisDiaryUseCase(repository: openAIRepository)
+        updateOpenAIConfigurationUseCase = UpdateOpenAIConfigurationUseCase(repository: openAIRepository)
+
+        fetchOpenAIConfigurationUseCase = FetchOpenAIConfigurationUseCase(repository: firestoreRepository)
     }
 }

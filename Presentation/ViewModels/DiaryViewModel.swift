@@ -57,7 +57,7 @@ public final class DiaryViewModel: ObservableObject {
                 
                 let analyzedDiary = Diary(
                     id: diary.id,
-                    title: diary.title,
+                    title: diary.title.isEmpty ? analysis.title : diary.title,
                     content: diary.content,
                     emotion: analysis.emotion,
                     summary: analysis.summary,

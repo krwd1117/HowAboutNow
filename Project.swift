@@ -30,7 +30,7 @@ let project = Project(
             infoPlist: .extendingDefault(with: [
                 "CFBundleDisplayName": "나의 매일",
                 "CFBundleIconName": "AppIcon",
-                "CFBundleShortVersionString": "1.1.0",
+                "CFBundleShortVersionString": "1.2.0",
                 "CFBundleVersion": "1",
                 "UILaunchScreen": [
                     "UILaunchScreen": []

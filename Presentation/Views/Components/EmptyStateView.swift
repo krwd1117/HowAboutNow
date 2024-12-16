@@ -23,31 +23,17 @@ public struct EmptyStateView: View {
     }
     
     public var body: some View {
-        ContentUnavailableView {
-            Label {
-                Text(title)
-            } icon: {
-                Image(systemName: "book.closed")
-                    .symbolEffect(.bounce)
-                    .foregroundStyle(.pink)
-                    .font(.largeTitle)
-            }
-        } description: {
+        ContentUnavailableView(label: {
+            Label(
+                title: {
+                    Text(title)
+                }, icon: {
+                    Image(systemName: "book.closed")
+                        .foregroundStyle(.pink)
+                        .font(.largeTitle)
+                })
+        }, description: {
             Text(description)
-                .foregroundStyle(.secondary)
-        } actions: {
-            NavigationLink(destination: {
-                let diaryEditoreViewModel = DiaryEditorViewModel(
-                    diaryViewModel: viewModel,
-                    date: viewModel.selectedDate
-                )
-                DiaryEditorView(viewModel: diaryEditoreViewModel)
-            }, label: {
-                Label(buttonTitle, systemImage: "plus")
-                    .font(.body.weight(.medium))
-            })
-            .buttonStyle(.borderedProminent)
-            .tint(.pink)
-        }
+        })
     }
 }

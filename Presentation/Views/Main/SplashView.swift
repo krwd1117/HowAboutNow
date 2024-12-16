@@ -34,7 +34,7 @@ public struct SplashView: View {
                         /// 앱 로고
                         Image(systemName: "book.fill")
                             .font(.system(size: 80))
-                            .foregroundStyle(.tint)
+                            .foregroundStyle(.pink)
                             .scaleEffect(size)
                             .opacity(opacity)
                             .onAppear {
@@ -45,7 +45,7 @@ public struct SplashView: View {
                             }
                         
                         /// 앱 제목
-                        Text("How About Now")
+                        Text("app_name")
                             .font(.title)
                             .fontWeight(.bold)
                             .opacity(opacity)

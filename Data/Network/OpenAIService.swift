@@ -14,22 +14,24 @@ public class OpenAIService: OpenAIServiceProtocol {
     private var configuration: OpenAIConfiguration = OpenAIConfiguration(
         model: "gpt-3.5-turbo",
         prompt: """
-        Analyze the diary entry below:
-
         Diary: "content"
 
-        Tasks:
-        1. Identify the main emotion: happy, joy, peaceful, sad, angry, anxious, hopeful.
-        2. Write a one-sentence summary in the same language as the diary. If the diary is in Korean, the summary must be in Korean.
+        Task:
+        Analyze the following diary entry. Detect the language (Korean, English, Japanese, Chinese) and respond in the same language.  
+        1. **Title**: A short title summarizing the main idea of the diary  
+        2. **Emotion**: The primary emotion (happy, joy, peaceful, sad, angry, anxious, hopeful). The emotion must always be returned in English, regardless of the diary's language.  
+        3. **Summary**: A brief summary of the diary in the same language as the input  
 
-        Response format:
+        Response format:  
         {
+            "title": "title",
             "emotion": "selected emotion",
             "summary": "summary"
         }
-        """,
+        """
+,
         systemContent: """
-        You are an assistant for analyzing diary entries. If the diary is written in Korean, provide the summary in Korean. If written in another language, use that language. Identify the main emotion and summarize the diary entry in one sentence. Do not include translations or additional explanations (e.g., parentheses). Respond naturally.
+        You are an assistant for analyzing diary entries. Detect the language of the diary (Korean, English, Japanese, Chinese) and respond in the same language. The emotion must be one of the following: happy, joy, peaceful, sad, angry, anxious, hopeful. Respond naturally and follow the requested format exactly. Do not provide translations or additional explanations.
         """,
         temperature: 0.7
     )
@@ -53,7 +55,7 @@ public class OpenAIService: OpenAIServiceProtocol {
     public func analyzeDiary(content: String) async throws -> DiaryAnalysis {
         let model = configuration.model // 사용 모델
         let temperature = configuration.temperature // 응답의 창의성 설정
-        let prompt = configuration.prompt.replacingOccurrences(of: "content\"", with: content)
+        let prompt = configuration.prompt.replacingOccurrences(of: "content", with: content)
         let systemContent = configuration.systemContent
 
         let parameters: [String: Any] = [
@@ -81,8 +83,8 @@ public class OpenAIService: OpenAIServiceProtocol {
             ]
         )
         
-        let response: OpenAIResponse = try await NetworkService().request(endpoint)
-            
+        let response: OpenAIResponse = try await networkService.request(endpoint)
+
         guard let content = response.choices.first?.message.content,
               let data = content.data(using: .utf8) else {
             throw NSError(

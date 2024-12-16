@@ -2,32 +2,22 @@ import SwiftUI
 import Domain
 
 public struct DiaryDetailView: View {
-    let viewModel: DiaryViewModel
-    let diary: Diary
-    
-    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var diaryCoordinator: DiaryCoordinator
+    @ObservedObject var viewModel: DiaryDetailViewModel
     @State private var showDeleteConfirmation = false
-    
-    public init(
-        viewModel: DiaryViewModel,
-        diary: Diary
-    ) {
-        self.viewModel = viewModel
-        self.diary = diary
-    }
     
     public var body: some View {
         ScrollView {
             VStack(spacing: 24) {
                 // 날짜와 감정 섹션
-                dateEmotionSection
+                DateEmotionSection(diary: viewModel.diary)
                 
                 // 제목과 내용 섹션
-                contentSection
+                ContentSection(diary: viewModel.diary)
                 
                 // AI 분석 섹션
-                if !diary.summary.isEmpty {
-                    analysisSection
+                if !viewModel.diary.summary.isEmpty {
+                    AnalysisSection(diary: viewModel.diary)
                 }
             }
             .padding()
@@ -40,16 +30,17 @@ public struct DiaryDetailView: View {
                 Menu {
                     NavigationLink(
                         destination: {
-                            let editorViewModel = DiaryEditorViewModel(
-                                diaryViewModel: viewModel,
-                                diary: diary,
-                                title: diary.title,
-                                content: diary.content,
-                                date: diary.date,
-                                emotion: diary.emotion,
-                                isEditing: true
-                            )
-                            DiaryEditorView(viewModel: editorViewModel)
+//                            let editorViewModel = DiaryEditorViewModel(
+//                                diaryViewModel: viewModel,
+//                                diary: diary,
+//                                title: diary.title,
+//                                content: diary.content,
+//                                date: diary.date,
+//                                emotion: diary.emotion,
+//                                isEditing: true
+//                            )
+//                            DiaryEditorView(viewModel: editorViewModel)
+                            EmptyView()
                         },
                         label: {
                             Label(LocalizedStringKey("edit"), systemImage: "pencil")
@@ -71,18 +62,27 @@ public struct DiaryDetailView: View {
             Button(LocalizedStringKey("cancel"), role: .cancel) { }
             Button(LocalizedStringKey("delete"), role: .destructive, action: {
                 Task {
-                    await viewModel.deleteDiary(diary)
-                    dismiss()
-                }  
+                    await viewModel.deleteDiary()
+                    diaryCoordinator.navigateBackToList()
+                }
             })
         } message: {
             Text(LocalizedStringKey("delete_diary_message"))
         }
     }
+}
+
+// MARK: - Sections
+
+fileprivate struct DateEmotionSection: View {
     
-    // MARK: - Sections
+    private let diary: Diary
     
-    private var dateEmotionSection: some View {
+    init(diary: Diary) {
+        self.diary = diary
+    }
+    
+    var body: some View {
         HStack(alignment: .center, spacing: 8) {
             Label {
                 Text(diary.date.formatted(date: .abbreviated, time: .omitted))
@@ -100,8 +100,17 @@ public struct DiaryDetailView: View {
                 .fill(Color(uiColor: .secondarySystemGroupedBackground))
         )
     }
+}
+
+fileprivate struct ContentSection: View {
     
-    private var contentSection: some View {
+    private let diary: Diary
+    
+    init(diary: Diary) {
+        self.diary = diary
+    }
+    
+    var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Text(diary.title)
@@ -123,8 +132,17 @@ public struct DiaryDetailView: View {
                 .fill(Color(uiColor: .secondarySystemGroupedBackground))
         )
     }
+}
+
+fileprivate struct AnalysisSection: View {
     
-    private var analysisSection: some View {
+    let diary: Diary
+    
+    init(diary: Diary) {
+        self.diary = diary
+    }
+    
+    var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Label {
                 Text(LocalizedStringKey("ai_analysis"))

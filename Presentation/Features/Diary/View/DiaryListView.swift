@@ -1,11 +1,12 @@
 import SwiftUI
 import Domain
 
-public struct DiaryView: View {
-    @ObservedObject private var viewModel: DiaryViewModel
+public struct DiaryListView: View {
+    @EnvironmentObject private var diaryCoordinator: DiaryCoordinator
+    @ObservedObject private var viewModel: DiaryListViewModel
     @State private var showingListView = false
     
-    public init(viewModel: DiaryViewModel) {
+    public init(viewModel: DiaryListViewModel) {
         self.viewModel = viewModel
     }
     
@@ -59,7 +60,7 @@ public struct DiaryView: View {
 // MARK: - Subviews
 
 fileprivate struct DiaryCalendarSection: View {
-    @ObservedObject var viewModel: DiaryViewModel
+    @ObservedObject var viewModel: DiaryListViewModel
     
     var body: some View {
         CalendarView(
@@ -76,7 +77,8 @@ fileprivate struct DiaryCalendarSection: View {
 }
 
 fileprivate struct DiaryContentSection: View {
-    @ObservedObject var viewModel: DiaryViewModel
+    @EnvironmentObject private var diaryCoordinator: DiaryCoordinator
+    @ObservedObject var viewModel: DiaryListViewModel
     let showingListView: Bool
     
     var body: some View {
@@ -93,27 +95,27 @@ fileprivate struct DiaryContentSection: View {
                     buttonTitle: LocalizedStringKey("write_new_diary")
                 ) {}
             } else {
-                DiaryListView(
-                    diaries: diariesToShow,
-                    viewModel: viewModel
-                )
+                DiaryList(diaries: diariesToShow)
+                    .environmentObject(diaryCoordinator)
             }
         }
     }
 }
 
-fileprivate struct DiaryListView: View {
+fileprivate struct DiaryList: View {
+    @EnvironmentObject private var diaryCoordinator: DiaryCoordinator
+    
     let diaries: [Diary]
-    @ObservedObject var viewModel: DiaryViewModel
     
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 16) {
                 ForEach(diaries) { diary in
-                    DiaryCardView(
-                        viewModel: viewModel,
-                        diary: diary
-                    )
+                    Button(action: {
+                        diaryCoordinator.navigateToDetail(diary: diary)
+                    }, label: {
+                        DiaryCardView(diary: diary)
+                    })
                 }
             }
             .padding()

@@ -12,7 +12,7 @@ import Combine
 
 @MainActor
 public final class DiaryEditorViewModel: ObservableObject {
-    private let diaryViewModel: DiaryViewModel
+    private let diaryViewModel: DiaryListViewModel
     private let diary: Diary?
     
     @Published public var title: String
@@ -31,7 +31,7 @@ public final class DiaryEditorViewModel: ObservableObject {
     @Published var showEmotionPicker: Bool = false
     
     public init(
-        diaryViewModel: DiaryViewModel,
+        diaryViewModel: DiaryListViewModel,
         diary: Diary? = nil,
         title: String = "",
         content: String = "",
@@ -100,7 +100,8 @@ public final class DiaryEditorViewModel: ObservableObject {
                 diary,
                 title: title,
                 content: content,
-                emotion: emotion
+                emotion: emotion,
+                date: date
             )
             return true
         } else {

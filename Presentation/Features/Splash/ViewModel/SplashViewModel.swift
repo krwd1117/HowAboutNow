@@ -3,12 +3,9 @@ import Domain
 
 public final class SplashViewModel: ObservableObject {
     
-    @Published public private(set) var isInitialized = false
-    @Published public private(set) var error: Error?
+    private let diContainer: DIContainerProtocol
     
     public private(set) var initialDiaries: [Diary]?
-
-    let diContainer: DIContainerProtocol
     
     public init(diContainer: DIContainerProtocol) {
         self.diContainer = diContainer
@@ -23,14 +20,13 @@ public final class SplashViewModel: ObservableObject {
                collection: "AIConfigurations",
                document: "Settings"
            )
+            // OpenAI Prompt 업데이트
+            await diContainer.updateOpenAIConfigurationUseCase.execute(
+                configuration: initialOpenAIConfigurateion
+            )
 
-            await diContainer.updateOpenAIConfigurationUseCase.execute(configuration: initialOpenAIConfigurateion)
-
-            self.isInitialized = true
-            self.error = nil
         } catch {
-            self.isInitialized = false
-            self.error = error
+            
         }
     }
 }

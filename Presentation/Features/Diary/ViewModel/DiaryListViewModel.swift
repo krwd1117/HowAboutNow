@@ -3,7 +3,7 @@ import Domain
 import Combine
 
 @MainActor
-public final class DiaryViewModel: ObservableObject {
+public final class DiaryListViewModel: ObservableObject {
     @Published public private(set) var diaries: [Diary] = []
     @Published public private(set) var isLoading = false
     @Published public var selectedDate = Date()
@@ -74,7 +74,7 @@ public final class DiaryViewModel: ObservableObject {
         }
     }
     
-    public func updateDiary(_ diary: Diary, title: String, content: String, emotion: String) async {
+    public func updateDiary(_ diary: Diary, title: String, content: String, emotion: String, date: Date) async {
         do {
             let updatedDiary = Diary(
                 id: diary.id,
@@ -82,7 +82,7 @@ public final class DiaryViewModel: ObservableObject {
                 content: content,
                 emotion: emotion,
                 summary: diary.summary,
-                date: diary.date
+                date: date
             )
             try await diContainer.updateDiaryUseCase.execute(diary: updatedDiary)
             await loadDiaries()

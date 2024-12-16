@@ -2,14 +2,14 @@ import SwiftUI
 
 /// 빈 상태 뷰
 public struct EmptyStateView: View {
-    let viewModel: DiaryViewModel
+    let viewModel: DiaryListViewModel
     let title: LocalizedStringKey
     let description: LocalizedStringKey
     let buttonTitle: LocalizedStringKey
     let action: () -> Void
     
     public init(
-        viewModel: DiaryViewModel,
+        viewModel: DiaryListViewModel,
         title: LocalizedStringKey,
         description: LocalizedStringKey,
         buttonTitle: LocalizedStringKey,

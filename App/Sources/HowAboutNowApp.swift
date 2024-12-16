@@ -14,18 +14,33 @@ import FirebaseCrashlytics
 
 @main
 struct HowAboutNowApp: App {
-    let container: DIContainer
+    @StateObject private var appCoordinator: AppCoordinator
+    private let diContainer: DIContainerProtocol
 
     init() {
         FirebaseApp.configure()
+        
+        // DIContainer 초기화
+        let diContainer = DIContainer()
+        self.diContainer = diContainer
 
-        container = DIContainer()
+        // AppCoordinator 초기화
+        self._appCoordinator = StateObject(wrappedValue: AppCoordinator(diContainer: diContainer))
     }
 
     var body: some Scene {
         WindowGroup {
-            let viewModel = SplashViewModel(diContainer: container)
-            SplashView(viewModel: viewModel)
+            Group {
+                switch appCoordinator.currentView {
+                case .splash:
+                    let viewModel = SplashViewModel(diContainer: diContainer)
+                    SplashView(viewModel: viewModel)
+                        .environmentObject(appCoordinator)
+                case .mainTab:
+                    BottomTabView(diContainer: diContainer)
+                        .environmentObject(BottomTabCoordinator(diContainer: diContainer))
+                }
+            }
         }
     }
 }

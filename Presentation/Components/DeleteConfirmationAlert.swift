@@ -2,13 +2,13 @@ import SwiftUI
 import Domain
 
 public struct DeleteConfirmationAlert {
-    let viewModel: DiaryViewModel
+    let viewModel: DiaryListViewModel
     let diary: Diary
     let isPresented: Binding<Bool>
     let onComplete: () -> Void
     
     public init(
-        viewModel: DiaryViewModel,
+        viewModel: DiaryListViewModel,
         diary: Diary,
         isPresented: Binding<Bool>,
         onComplete: @escaping () -> Void

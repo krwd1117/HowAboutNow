@@ -8,6 +8,10 @@
 
 import SwiftUI
 
-protocol CoordinatorProtocol {
-    func start()
+public protocol CoordinatorProtocol: ObservableObject {
+    associatedtype Route: Hashable
+
+    var navigationPath: [Route] { get set }
+    func push(route: Route)
+    func pop()
 }

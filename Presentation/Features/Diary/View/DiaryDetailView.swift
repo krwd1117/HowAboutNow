@@ -2,72 +2,100 @@ import SwiftUI
 import Domain
 
 public struct DiaryDetailView: View {
-    @EnvironmentObject private var diaryCoordinator: DiaryCoordinator
-    @ObservedObject var viewModel: DiaryDetailViewModel
+    @ObservedObject private var coordinator: DiaryCoordinator
+    @StateObject private var viewModel: DiaryDetailViewModel
     @State private var showDeleteConfirmation = false
-    
+
+    init(
+        coordinator: DiaryCoordinator,
+        diary: Diary,
+        showDeleteConfirmation: Bool = false
+    ) {
+        self.coordinator = coordinator
+        self._viewModel = StateObject(wrappedValue: DiaryDetailViewModel(
+            diContainer: coordinator.diContainer, diary: diary
+        ))
+        self.showDeleteConfirmation = showDeleteConfirmation
+    }
+
     public var body: some View {
-        ScrollView {
-            VStack(spacing: 24) {
-                // 날짜와 감정 섹션
-                DateEmotionSection(diary: viewModel.diary)
-                
-                // 제목과 내용 섹션
-                ContentSection(diary: viewModel.diary)
-                
-                // AI 분석 섹션
-                if !viewModel.diary.summary.isEmpty {
-                    AnalysisSection(diary: viewModel.diary)
-                }
-            }
-            .padding()
-        }
-        .background(Color(uiColor: .systemGroupedBackground))
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(LocalizedStringKey("diary_detail"))
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Menu {
-                    NavigationLink(
-                        destination: {
-//                            let editorViewModel = DiaryEditorViewModel(
-//                                diaryViewModel: viewModel,
-//                                diary: diary,
-//                                title: diary.title,
-//                                content: diary.content,
-//                                date: diary.date,
-//                                emotion: diary.emotion,
-//                                isEditing: true
-//                            )
-//                            DiaryEditorView(viewModel: editorViewModel)
-                            EmptyView()
-                        },
-                        label: {
-                            Label(LocalizedStringKey("edit"), systemImage: "pencil")
-                        }
+        VStack(spacing: 0) {
+            CustomNavigationBar(
+                coordinator: coordinator,
+                title: "diary_detail",
+                showBackButton: true,
+                rightButton: {
+                    AnyView(
+                        NavigationBarMenu(
+                            coordinator: coordinator,
+                            showDeleteConfirmation: $showDeleteConfirmation,
+                            diary: viewModel.diary
+                        )
                     )
-                    
-                    Button(role: .destructive) {
-                        showDeleteConfirmation = true
-                    } label: {
-                        Label(LocalizedStringKey("delete"), systemImage: "trash")
-                    }
-                } label: {
-                    Image(systemName: "ellipsis.circle")
-                        .foregroundStyle(.secondary)
                 }
+            )
+            ScrollView {
+                VStack(spacing: 24) {
+                    // 날짜와 감정 섹션
+                    DateEmotionSection(diary: viewModel.diary)
+
+                    // 제목과 내용 섹션
+                    ContentSection(diary: viewModel.diary)
+
+                    // AI 분석 섹션
+                    if !viewModel.diary.summary.isEmpty {
+                        AnalysisSection(diary: viewModel.diary)
+                    }
+                }
+                .padding()
+            }
+            .alert(LocalizedStringKey("delete_diary_confirm"), isPresented: $showDeleteConfirmation) {
+                Button(LocalizedStringKey("cancel"), role: .cancel) { }
+                Button(LocalizedStringKey("delete"), role: .destructive, action: {
+                    Task {
+                        await viewModel.deleteDiary()
+                        coordinator.navigateBackToList()
+                    }
+                })
+            } message: {
+                Text(LocalizedStringKey("delete_diary_message"))
             }
         }
-        .alert(LocalizedStringKey("delete_diary_confirm"), isPresented: $showDeleteConfirmation) {
-            Button(LocalizedStringKey("cancel"), role: .cancel) { }
-            Button(LocalizedStringKey("delete"), role: .destructive, action: {
-                Task {
-                    await viewModel.deleteDiary()
-                    diaryCoordinator.navigateBackToList()
+        .navigationBarHidden(true)
+        .background(Color(uiColor: .systemGroupedBackground))
+        .contentShape(Rectangle()) // 제스처 감지 영역 확장
+        .gesture(
+            DragGesture(minimumDistance: 20)
+                .onEnded { value in
+                    // 좌에서 우로 스와이프 판별
+                    if value.translation.width > 50 && abs(value.translation.height) < 30 {
+                        coordinator.pop() // 뒤로가기 호출
+                    }
                 }
+        )
+    }
+}
+
+fileprivate struct NavigationBarMenu: View {
+    @ObservedObject var coordinator: DiaryCoordinator
+    @Binding var showDeleteConfirmation: Bool
+    var diary: Diary
+
+    var body: some View {
+        Menu {
+            Button(action: {
+                coordinator.push(route: .editor(.edit, diary))
+            }, label: {
+                Label(LocalizedStringKey("edit"), systemImage: "pencil")
             })
-        } message: {
-            Text(LocalizedStringKey("delete_diary_message"))
+            Button(role: .destructive) {
+                showDeleteConfirmation = true
+            } label: {
+                Label(LocalizedStringKey("delete"), systemImage: "trash")
+            }
+        } label: {
+            Image(systemName: "ellipsis.circle")
+                .foregroundStyle(.secondary)
         }
     }
 }

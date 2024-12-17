@@ -56,7 +56,7 @@ public struct CalendarView: View {
     }
     
     /// 요일 헤더 뷰
-    private var daysHeader: some View {
+    private var `daysHeader`: some View {
         HStack {
             ForEach(["sun", "mon", "tue", "wed", "thu", "fri", "sat"], id: \.self) { day in
                 Text(LocalizedStringKey(day))

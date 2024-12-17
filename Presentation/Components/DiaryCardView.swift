@@ -62,32 +62,32 @@ public struct DiaryCardView: View {
                 .fill(colorScheme == .dark ? Color(white: 0.15) : .white)
                 .shadow(color: .black.opacity(0.1), radius: 8, x: 0, y: 4)
         )
-//        .contextMenu {
-//            NavigationLink(
-//                destination: {
-//                    let editorViewModel = DiaryEditorViewModel(
-//                        diaryViewModel: viewModel,
-//                        diary: diary,
-//                        title: diary.title,
-//                        content: diary.content,
-//                        date: diary.date,
-//                        emotion: diary.emotion,
-//                        isEditing: true
-//                    )
-//                    DiaryEditorView(viewModel: editorViewModel)
-//                },
-//                label: {
-//                    Label(LocalizedStringKey("edit"), systemImage: "pencil")
-//                }
-//            )
-//            
-//            Button(role: .destructive, action: {
-//                Task {
-//                    await viewModel.deleteDiary(diary)
-//                }
-//            }) {
-//                Label("delete", systemImage: "trash")
-//            }
-//        }
+        //        .contextMenu {
+        //            NavigationLink(
+        //                destination: {
+        //                    let editorViewModel = DiaryEditorViewModel(
+        //                        diaryViewModel: viewModel,
+        //                        diary: diary,
+        //                        title: diary.title,
+        //                        content: diary.content,
+        //                        date: diary.date,
+        //                        emotion: diary.emotion,
+        //                        isEditing: true
+        //                    )
+        //                    DiaryEditorView(viewModel: editorViewModel)
+        //                },
+        //                label: {
+        //                    Label(LocalizedStringKey("edit"), systemImage: "pencil")
+        //                }
+        //            )
+        //            
+        //            Button(role: .destructive, action: {
+        //                Task {
+        //                    await viewModel.deleteDiary(diary)
+        //                }
+        //            }) {
+        //                Label("delete", systemImage: "trash")
+        //            }
+        //        }
     }
 }

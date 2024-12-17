@@ -19,15 +19,14 @@ public final class DiaryListViewModel: ObservableObject {
             self.diaries = initialDiaries
         }
     }
-    
+
+    // 다이어리 초기 값 불러옴
+    @MainActor
     public func loadDiaries() async {
-        await MainActor.run {
-            isLoading = true
-        }
+        isLoading = true
+
         defer {
-            Task { @MainActor in
-                isLoading = false
-            }
+            isLoading = false
         }
         do {
             let loadedDiaries = try await diContainer.fetchDiaryUseCase.execute()

@@ -1,21 +1,22 @@
 import SwiftUI
+import Domain
 
 /// 플로팅 액션 버튼
-public struct FloatingActionButton<Destination: View>: View {
-    let destination: Destination
-    
-    public init(destination: Destination) {
-        self.destination = destination
+public struct FloatingActionButton: View {
+    @ObservedObject var coordinator: DiaryCoordinator
+
+    public init(coordinator: DiaryCoordinator) {
+        self.coordinator = coordinator
     }
-    
+
     public var body: some View {
         VStack {
             Spacer()
             HStack {
                 Spacer()
-                NavigationLink {
-                    destination
-                } label: {
+                Button(action: {
+                    coordinator.push(route: .editor(.new, nil))
+                }, label: {
                     Image(systemName: "plus")
                         .font(.title2)
                         .fontWeight(.semibold)
@@ -36,7 +37,7 @@ public struct FloatingActionButton<Destination: View>: View {
                             Circle()
                                 .stroke(.white.opacity(0.2), lineWidth: 1)
                         )
-                }
+                })
                 .buttonStyle(BounceButtonStyle())
                 .padding()
             }
@@ -47,7 +48,7 @@ public struct FloatingActionButton<Destination: View>: View {
 /// 바운스 버튼 스타일
 public struct BounceButtonStyle: ButtonStyle {
     public init() {}
-    
+
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .scaleEffect(configuration.isPressed ? 0.88 : 1)

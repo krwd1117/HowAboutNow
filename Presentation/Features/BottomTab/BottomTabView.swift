@@ -3,10 +3,14 @@ import Domain
 
 public struct BottomTabView: View {
     @EnvironmentObject private var bottomTabCoordinator: BottomTabCoordinator
+    @StateObject private var diaryCoordinator: DiaryCoordinator
+
     private let diContainer: DIContainerProtocol
 
     public init(diContainer: DIContainerProtocol) {
         self.diContainer = diContainer
+
+        self._diaryCoordinator = StateObject(wrappedValue: DiaryCoordinator(diContainer: diContainer))
     }
 
     public var body: some View {
@@ -15,8 +19,7 @@ public struct BottomTabView: View {
             ZStack {
                 switch bottomTabCoordinator.selectedTab {
                 case .diary:
-                    DiaryView(diContainer: diContainer)
-                        .environmentObject(DiaryCoordinator(diContainer: diContainer))
+                    DiaryRootView(coordinator: diaryCoordinator)
                 case .setting:
                     SettingsView()
                 }

@@ -13,12 +13,12 @@ fileprivate enum Field {
 /// 다이어리 작성 및 수정 화면
 public struct DiaryEditorView: View {
     @Environment(\.colorScheme) private var colorScheme
-
+    
     @ObservedObject private var coordinator: DiaryCoordinator
     @StateObject private var viewModel: DiaryEditorViewModel
-
+    
     @FocusState private var focusField: Field?
-
+    
     private var editorType: DiaryEditorType
     
     /// 초기화
@@ -47,7 +47,7 @@ public struct DiaryEditorView: View {
                     )
                 }
             )
-
+            
             DiaryEditorListView(
                 viewModel: viewModel,
                 focusField: focusField,
@@ -55,19 +55,24 @@ public struct DiaryEditorView: View {
             )
         }
         .navigationBarHidden(true)
+        .onAppear {
+            Task {
+                try await viewModel.reloadDiary()
+            }
+        }
     }
 }
 
 fileprivate struct NavigationBarSaveButton: View {
     @ObservedObject var coordinator: DiaryCoordinator
     @ObservedObject var viewModel: DiaryEditorViewModel
-
+    
     var body: some View {
         Button {
             Task {
-                _ = await viewModel.save()
+                await viewModel.addButtonTapped()
                 if !viewModel.showAlert {
-                    coordinator.pop()
+                    coordinator.navigateBackToList()
                 }
             }
         } label: {
@@ -81,7 +86,7 @@ fileprivate struct DiaryEditorListView: View {
     @ObservedObject private var viewModel: DiaryEditorViewModel
     @FocusState private var focusField: Field?
     @State private var editorType: DiaryEditorType
-
+    
     init(
         viewModel: DiaryEditorViewModel,
         focusField: Field? = nil,
@@ -91,24 +96,24 @@ fileprivate struct DiaryEditorListView: View {
         self.editorType = editorType
         self.focusField = focusField
     }
-
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
                 // 제목 입력 섹션
                 TitleSection(viewModel: viewModel, focusField: focusField)
-
+                
                 // 날짜 선택 섹션
                 DateSection(viewModel: viewModel)
-
+                
                 // 감정 선택 섹션 (수정 모드에서만 표시)
                 if editorType == .edit {
                     EmotionSection(viewModel: viewModel)
                 }
-
+                
                 // 내용 입력 섹션
                 ContentSection(viewModel: viewModel, focusField: focusField)
-
+                
                 // AI 분석 안내 메시지 (새 다이어리 작성 시에만 표시)
                 if editorType == .new {
                     AISummarySection()
@@ -120,7 +125,7 @@ fileprivate struct DiaryEditorListView: View {
         .environment(\.defaultMinListRowHeight, 0)
         .alert(viewModel.alertTitle, isPresented: $viewModel.showAlert) {
             Button(LocalizedStringKey("confirm")) {
-                viewModel.resetAlert()
+                //                viewModel.resetAlert()
             }
         } message: {
             Text(viewModel.alertMessage)
@@ -132,12 +137,12 @@ fileprivate struct DiaryEditorListView: View {
 fileprivate struct TitleSection: View {
     @ObservedObject private var viewModel: DiaryEditorViewModel
     @FocusState private var focusField: Field?
-
+    
     init(viewModel: DiaryEditorViewModel, focusField: Field? = nil) {
         self.viewModel = viewModel
         self.focusField = focusField
     }
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
@@ -148,12 +153,12 @@ fileprivate struct TitleSection: View {
                     .foregroundStyle(.pink)
             }
             .font(.headline)
-
+            
             TextField(LocalizedStringKey("title_placeholder"), text: $viewModel.title)
                 .focused($focusField, equals: .title)
                 .textFieldStyle(.roundedBorder)
                 .font(.body)
-
+            
             Text(LocalizedStringKey("title_auto_generate"))
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -164,11 +169,12 @@ fileprivate struct TitleSection: View {
 /// 날짜 선택 섹션
 fileprivate struct DateSection: View {
     @ObservedObject var viewModel: DiaryEditorViewModel
-
+    @State var showDatePicker: Bool = false
+    
     init(viewModel: DiaryEditorViewModel) {
         self.viewModel = viewModel
     }
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
@@ -178,10 +184,10 @@ fileprivate struct DateSection: View {
                 Image(systemName: "calendar")
                     .foregroundStyle(.pink)
             }
-
+            
             Button {
                 withAnimation(.spring(response: 0.3)) {
-                    viewModel.showDatePicker.toggle()
+                    showDatePicker.toggle()
                 }
             } label: {
                 HStack {
@@ -191,7 +197,7 @@ fileprivate struct DateSection: View {
                     Image(systemName: "chevron.right")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
-                        .rotationEffect(.degrees(viewModel.showDatePicker ? 90 : 0))
+                        .rotationEffect(.degrees(showDatePicker ? 90 : 0))
                 }
                 .padding()
                 .background(
@@ -200,8 +206,8 @@ fileprivate struct DateSection: View {
                 )
             }
             .buttonStyle(.plain)
-
-            if viewModel.showDatePicker {
+            
+            if showDatePicker {
                 VStack(spacing: 16) {
                     HStack {
                         Text(LocalizedStringKey("select_date"))
@@ -209,7 +215,7 @@ fileprivate struct DateSection: View {
                         Spacer()
                         Button {
                             withAnimation(.spring(response: 0.3)) {
-                                viewModel.showDatePicker.toggle()
+                                showDatePicker.toggle()
                             }
                         } label: {
                             Image(systemName: "xmark.circle.fill")
@@ -217,7 +223,7 @@ fileprivate struct DateSection: View {
                         }
                         .buttonStyle(.plain)
                     }
-
+                    
                     DatePicker(
                         "",
                         selection: $viewModel.date,
@@ -225,6 +231,11 @@ fileprivate struct DateSection: View {
                     )
                     .datePickerStyle(.graphical)
                     .tint(.pink)
+                    .onChange(of: viewModel.date) { _, _ in
+                        withAnimation(.spring(response: 0.3)) {
+                            showDatePicker = false
+                        }
+                    }
                 }
                 .padding()
                 .background(
@@ -238,28 +249,15 @@ fileprivate struct DateSection: View {
 
 /// 감정 선택 섹션
 fileprivate struct EmotionSection: View {
-    @State private var cancellables: Set<AnyCancellable> = []
-
+    
     @ObservedObject private var viewModel: DiaryEditorViewModel
     @State private var showEmotionPicker: Bool
-
+    
     init(viewModel: DiaryEditorViewModel) {
         self.viewModel = viewModel
         self.showEmotionPicker = false
-
-        binding()
     }
-
-    private func binding() {
-        viewModel.$emotion
-            .receive(on: DispatchQueue.main)
-            .sink { emotion in
-                print(emotion)
-//                self.showEmotionPicker = false
-            }
-            .store(in: &cancellables)
-    }
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Label {
@@ -270,26 +268,26 @@ fileprivate struct EmotionSection: View {
                     .foregroundStyle(.pink)
                     .symbolEffect(.bounce)
             }
-
+            
             if showEmotionPicker {
                 VStack(spacing: 12) {
                     Text(LocalizedStringKey("select_emotion"))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
-
+                    
                     LazyVGrid(columns: [
                         GridItem(.flexible()),
                         GridItem(.flexible()),
                         GridItem(.flexible()),
                         GridItem(.flexible())
                     ], spacing: 12) {
-                        EmotionButton(emotion: "happy", selectedEmotion: $viewModel.emotion)
-                        EmotionButton(emotion: "joy", selectedEmotion: $viewModel.emotion)
-                        EmotionButton(emotion: "peaceful", selectedEmotion: $viewModel.emotion)
-                        EmotionButton(emotion: "hopeful", selectedEmotion: $viewModel.emotion)
-                        EmotionButton(emotion: "sad", selectedEmotion: $viewModel.emotion)
-                        EmotionButton(emotion: "angry", selectedEmotion: $viewModel.emotion)
-                        EmotionButton(emotion: "anxious", selectedEmotion: $viewModel.emotion)
+                        EmotionButton(emotion: "happy", selectedEmotion: $viewModel.emotion, showEmotionPicker: $showEmotionPicker)
+                        EmotionButton(emotion: "joy", selectedEmotion: $viewModel.emotion, showEmotionPicker: $showEmotionPicker)
+                        EmotionButton(emotion: "peaceful", selectedEmotion: $viewModel.emotion, showEmotionPicker: $showEmotionPicker)
+                        EmotionButton(emotion: "hopeful", selectedEmotion: $viewModel.emotion, showEmotionPicker: $showEmotionPicker)
+                        EmotionButton(emotion: "sad", selectedEmotion: $viewModel.emotion, showEmotionPicker: $showEmotionPicker)
+                        EmotionButton(emotion: "angry", selectedEmotion: $viewModel.emotion, showEmotionPicker: $showEmotionPicker)
+                        EmotionButton(emotion: "anxious", selectedEmotion: $viewModel.emotion, showEmotionPicker: $showEmotionPicker)
                     }
                 }
                 .padding()
@@ -308,9 +306,9 @@ fileprivate struct EmotionSection: View {
                             emotion: viewModel.emotion,
                             isLoading: viewModel.isAnalyzing
                         )
-                            .font(.title)
-                            .symbolEffect(.bounce)
-
+                        .font(.title)
+                        .symbolEffect(.bounce)
+                        
                         VStack(alignment: .leading, spacing: 4) {
                             Text(LocalizedStringKey(viewModel.emotion))
                                 .font(.headline)
@@ -318,9 +316,9 @@ fileprivate struct EmotionSection: View {
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
-
+                        
                         Spacer()
-
+                        
                         Image(systemName: "chevron.right")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
@@ -342,12 +340,12 @@ fileprivate struct EmotionSection: View {
 fileprivate struct ContentSection: View {
     @ObservedObject var viewModel: DiaryEditorViewModel
     @FocusState var focusField: Field?
-
+    
     init(viewModel: DiaryEditorViewModel, focusField: Field? = nil) {
         self.viewModel = viewModel
         self.focusField = focusField
     }
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
@@ -357,7 +355,7 @@ fileprivate struct ContentSection: View {
                 Image(systemName: "text.alignleft")
                     .foregroundStyle(.pink)
             }
-
+            
             TextEditor(text: $viewModel.content)
                 .focused($focusField, equals: .content)
                 .frame(minHeight: 240)
@@ -382,7 +380,7 @@ fileprivate struct AISummarySection: View {
             }
             .font(.subheadline)
             .foregroundStyle(.pink)
-
+            
             Text(LocalizedStringKey("ai_analyze_description"))
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -400,17 +398,19 @@ fileprivate struct AISummarySection: View {
 fileprivate struct EmotionButton: View {
     let emotion: String
     @Binding var selectedEmotion: String
-
+    @Binding var showEmotionPicker: Bool
+    
     var body: some View {
         Button {
             withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                 selectedEmotion = emotion
+                showEmotionPicker = false
             }
         } label: {
             VStack(spacing: 8) {
                 EmotionIcon(emotion: emotion)
                     .font(.title2)
-
+                
                 Text(LocalizedStringKey(emotion))
                     .font(.caption)
                     .lineLimit(1)
@@ -421,14 +421,14 @@ fileprivate struct EmotionButton: View {
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .fill(selectedEmotion == emotion ?
-                        Color.pink.opacity(0.15) :
-                        Color(uiColor: .tertiarySystemGroupedBackground))
+                          Color.pink.opacity(0.15) :
+                            Color(uiColor: .tertiarySystemGroupedBackground))
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .strokeBorder(selectedEmotion == emotion ?
-                        Color.pink.opacity(0.3) : Color.clear,
-                        lineWidth: 1.5)
+                                  Color.pink.opacity(0.3) : Color.clear,
+                                  lineWidth: 1.5)
             )
         }
         .foregroundStyle(selectedEmotion == emotion ? .pink : .primary)

@@ -1,9 +1,8 @@
-public protocol AnalysisDiaryUseCaseProtocol {
+public protocol AnalyzeDiaryUseCaseProtocol {
     func excute(diary: Diary) async throws -> DiaryAnalysis?
 }
 
-public final class AnalysisDiaryUseCase: AnalysisDiaryUseCaseProtocol {
-    
+public final class AnalyzeDiaryUseCase: AnalyzeDiaryUseCaseProtocol {
     let repository: OpenAIRepositoryProtocol
     
     public init(repository: OpenAIRepositoryProtocol) {

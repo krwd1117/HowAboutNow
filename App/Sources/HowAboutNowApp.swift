@@ -37,7 +37,7 @@ struct HowAboutNowApp: App {
                     SplashView(viewModel: viewModel)
                         .environmentObject(appCoordinator)
                 case .mainTab:
-                    BottomTabView(diContainer: diContainer)
+                    CustomBottomTabView(diContainer: diContainer)
                         .environmentObject(BottomTabCoordinator(diContainer: diContainer))
                 }
             }

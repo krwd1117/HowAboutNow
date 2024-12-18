@@ -19,7 +19,6 @@ public class DiaryRepository: DiaryRepositoryProtocol {
         guard let data = userDefaults.data(forKey: diaryKey) else {
             return []
         }
-        
         do {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
@@ -37,7 +36,30 @@ public class DiaryRepository: DiaryRepositoryProtocol {
             throw RepositoryError.databaseError(error)
         }
     }
-    
+
+    public func fetchDiary(diary: Diary) async throws -> Diary? {
+        guard let data = userDefaults.data(forKey: diaryKey) else {
+            return nil
+        }
+        do {
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            let diaries = try decoder.decode([Diary].self, from: data)
+            let filteredDiaries = diaries.filter { $0.id == diary.id }
+            return filteredDiaries.first
+        } catch {
+            // 이전 버전의 데이터 구조와 호환성 유지
+            if let decodingError = error as? DecodingError,
+               case .keyNotFound(let key, _) = decodingError,
+               key.stringValue == "title" || key.stringValue == "summary" {
+                // 기존 데이터 삭제
+                userDefaults.removeObject(forKey: self.diaryKey)
+                return nil
+            }
+            throw RepositoryError.databaseError(error)
+        }
+    }
+
     public func addDiary(diary: Diary) async throws {
         var diaries = try await fetchDiaries()
         diaries.append(diary)

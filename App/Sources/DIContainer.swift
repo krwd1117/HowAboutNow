@@ -13,7 +13,8 @@ public final class DIContainer: DIContainerProtocol {
 
     // MARK: - Use Cases
     public let addDiaryUseCase: AddDiaryUseCase
-    public let analysisDiaryUseCase: AnalysisDiaryUseCase
+    public let analyzeDiaryUseCase: AnalyzeDiaryUseCase
+    public let fetchDiariesUseCase: FetchDiariesUseCase
     public let fetchDiaryUseCase: FetchDiaryUseCase
     public let deleteDiaryUseCase: DeleteDiaryUseCase
     public let updateDiaryUseCase: UpdateDiaryUseCase
@@ -31,10 +32,11 @@ public final class DIContainer: DIContainerProtocol {
         // UseCase 의존성 주입
         addDiaryUseCase = AddDiaryUseCase(repository: diaryRepository)
         deleteDiaryUseCase = DeleteDiaryUseCase(repository: diaryRepository)
+        fetchDiariesUseCase = FetchDiariesUseCase(repository: diaryRepository)
         fetchDiaryUseCase = FetchDiaryUseCase(repository: diaryRepository)
         updateDiaryUseCase = UpdateDiaryUseCase(repository: diaryRepository)
         
-        analysisDiaryUseCase = AnalysisDiaryUseCase(repository: openAIRepository)
+        analyzeDiaryUseCase = AnalyzeDiaryUseCase(repository: openAIRepository)
         updateOpenAIConfigurationUseCase = UpdateOpenAIConfigurationUseCase(repository: openAIRepository)
 
         fetchOpenAIConfigurationUseCase = FetchOpenAIConfigurationUseCase(repository: firestoreRepository)

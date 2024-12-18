@@ -37,7 +37,6 @@ public enum DiaryRoute: Identifiable, Hashable {
 
 public final class DiaryCoordinator: CoordinatorProtocol {
 
-//    @Published var navigationPath: [DiaryRoute] = [.list]
     @Published public var navigationPath: [DiaryRoute] = []
 
     let diContainer: DIContainerProtocol
@@ -47,7 +46,6 @@ public final class DiaryCoordinator: CoordinatorProtocol {
     }
     
     func navigateBackToList() {
-//        navigationPath = [.list]
         navigationPath = []
     }
 

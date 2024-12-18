@@ -14,7 +14,7 @@ public final class SplashViewModel: ObservableObject {
     @MainActor
     public func initializeServices() async {
         do {
-            self.initialDiaries = try await diContainer.fetchDiaryUseCase.execute()
+            self.initialDiaries = try await diContainer.fetchDiariesUseCase.execute()
 
             let initialOpenAIConfigurateion = try await diContainer.fetchOpenAIConfigurationUseCase.execute(
                collection: "AIConfigurations",

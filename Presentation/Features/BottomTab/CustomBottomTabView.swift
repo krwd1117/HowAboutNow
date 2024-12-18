@@ -1,7 +1,7 @@
 import SwiftUI
 import Domain
 
-public struct BottomTabView: View {
+public struct CustomBottomTabView: View {
     @EnvironmentObject private var bottomTabCoordinator: BottomTabCoordinator
     @StateObject private var diaryCoordinator: DiaryCoordinator
 

@@ -3,9 +3,7 @@ import Domain
 
 public struct DiaryListView: View {
     @ObservedObject private var coordinator: DiaryCoordinator
-
     @StateObject private var viewModel: DiaryListViewModel
-    @State private var showingListView = false
 
     public init(coordinator: DiaryCoordinator) {
         self.coordinator = coordinator
@@ -23,23 +21,26 @@ public struct DiaryListView: View {
                     showBackButton: false,
                     rightButton: {
                         AnyView(ListToggleButton(
-                            showingListView: $showingListView
+                            showingListView: $viewModel.showingListView
                         ))
                     }
                 )
 
-                if !showingListView {
+                if !viewModel.showingListView {
                     DiaryCalendarSection(viewModel: viewModel)
                     Divider().padding(.vertical)
                 }
 
-                DiaryList(coordinator: coordinator, diaries: viewModel.diaries)
+                DiaryContentSection(
+                    coordinator: coordinator,
+                    viewModel: viewModel
+                )
             }
 
             FloatingActionButton(coordinator: coordinator)
         }
         .task {
-            await viewModel.loadDiaries()
+            viewModel.loadDiaries()
         }
     }
 }
@@ -69,49 +70,44 @@ fileprivate struct DiaryCalendarSection: View {
             selectedDate: $viewModel.selectedDate,
             diaries: viewModel.diaries,
             onDateSelected: { date in
-                withAnimation {
-                    viewModel.selectedDate = date
-                }
+                viewModel.selectedDate = date
             }
         )
         .padding(.horizontal)
     }
 }
 
-//fileprivate struct DiaryContentSection: View {
-//    @EnvironmentObject private var diaryCoordinator: DiaryCoordinator
-//    @ObservedObject var viewModel: DiaryListViewModel
-//    let showingListView: Bool
-//
-//    var body: some View {
-//        Group {
-//            let diariesToShow = showingListView ? viewModel.diaries : viewModel.filteredDiaries
-//            let emptyTitle = showingListView ? LocalizedStringKey("empty_diary") : LocalizedStringKey("empty_diary_for_date")
-//            let emptyDescription = showingListView ? LocalizedStringKey("write_first_diary") : LocalizedStringKey("write_diary_for_date")
-//
-//            if diariesToShow.isEmpty {
-//                EmptyStateView(
-//                    viewModel: viewModel,
-//                    title: emptyTitle,
-//                    description: emptyDescription,
-//                    buttonTitle: LocalizedStringKey("write_new_diary")
-//                ) {}
-//            } else {
-//                DiaryList(diaries: diariesToShow)
-//                    .environmentObject(diaryCoordinator)
-//            }
-//        }
-//    }
-//}
+fileprivate struct DiaryContentSection: View {
+    @ObservedObject var coordinator: DiaryCoordinator
+    @ObservedObject var viewModel: DiaryListViewModel
+
+    var body: some View {
+        let emptyTitle = viewModel.showingListView ? LocalizedStringKey("empty_diary") : LocalizedStringKey("empty_diary_for_date")
+        let emptyDescription = viewModel.showingListView ? LocalizedStringKey("write_first_diary") : LocalizedStringKey("write_diary_for_date")
+
+        if viewModel.filteredDiaries.isEmpty {
+            EmptyStateView(
+                viewModel: viewModel,
+                title: emptyTitle,
+                description: emptyDescription,
+                buttonTitle: LocalizedStringKey("write_new_diary")
+            ) {}
+        } else {
+            DiaryList(
+                coordinator: coordinator,
+                viewModel: viewModel
+            )
+        }
+    }
+}
 
 fileprivate struct DiaryList: View {
     @ObservedObject var coordinator: DiaryCoordinator
-
-    let diaries: [Diary]
+    @ObservedObject var viewModel: DiaryListViewModel
 
     var body: some View {
         LazyVStack(spacing: 16) {
-            ForEach(diaries) { diary in
+            ForEach(viewModel.filteredDiaries) { diary in
                 Button(action: {
                     coordinator.push(route: .detail(diary))
                 }, label: {

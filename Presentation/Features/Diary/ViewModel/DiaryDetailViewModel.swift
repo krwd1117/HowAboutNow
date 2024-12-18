@@ -18,7 +18,15 @@ final class DiaryDetailViewModel: ObservableObject {
         self.diContainer = diContainer
         self.diary = diary
     }
-    
+
+    @MainActor
+    func loadDiary() {
+        Task {
+            guard let diary = try await diContainer.fetchDiaryUseCase.execute(diary: diary) else { return }
+            self.diary = diary
+        }
+    }
+
     func deleteDiary() async {
         do {
             try await diContainer.deleteDiaryUseCase.execute(diary: diary)

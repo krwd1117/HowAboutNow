@@ -73,6 +73,9 @@ public struct DiaryDetailView: View {
                     }
                 }
         )
+        .onAppear {
+            viewModel.loadDiary()
+        }
     }
 }
 

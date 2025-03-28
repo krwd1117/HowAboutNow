@@ -2,10 +2,10 @@ import SwiftUI
 import Domain
 
 public struct DiaryDetailView: View {
-    let viewModel: DiaryViewModel
-    let diary: Diary
-    
     @Environment(\.dismiss) private var dismiss
+    
+    let viewModel: DiaryViewModel
+    @State var diary: Diary
     @State private var showDeleteConfirmation = false
     
     public init(
@@ -43,10 +43,6 @@ public struct DiaryDetailView: View {
                             let editorViewModel = DiaryEditorViewModel(
                                 diaryViewModel: viewModel,
                                 diary: diary,
-                                title: diary.title,
-                                content: diary.content,
-                                date: diary.date,
-                                emotion: diary.emotion,
                                 isEditing: true
                             )
                             DiaryEditorView(viewModel: editorViewModel)

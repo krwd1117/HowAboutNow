@@ -6,26 +6,35 @@
 //
 
 import SwiftUI
-import Domain
-import Data
-import Presentation
 import Firebase
 import FirebaseCrashlytics
 
+import Data
+import DI
+import Domain
+import Presentation
+
 @main
 struct HowAboutNowApp: App {
-    let container: DIContainer
-
+    
+    @State var isDIInitialized: Bool = false
+    
     init() {
         FirebaseApp.configure()
-
-        container = DIContainer()
     }
-
+    
     var body: some Scene {
         WindowGroup {
-            let viewModel = SplashViewModel(diContainer: container)
-            SplashView(viewModel: viewModel)
+            if isDIInitialized {
+                let viewModel = SplashViewModel()
+                SplashView(viewModel: viewModel)
+            } else {
+                Text("Loading..")
+                    .task {
+                        await DIContainer.shared.initialize()
+                        self.isDIInitialized = true
+                    }
+            }
         }
     }
 }

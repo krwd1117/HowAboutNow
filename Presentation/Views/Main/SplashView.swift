@@ -23,7 +23,7 @@ public struct SplashView: View {
     public var body: some View {
         Group {
             if viewModel.isInitialized {
-                MainTabView(diContainer: viewModel.diContainer)
+                MainTabView()
             } else {
                 ZStack {
                     /// 배경 색상

@@ -307,14 +307,14 @@ public struct DiaryEditorView: View {
                 .background(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .fill(selectedEmotion == emotion ? 
-                            Color.pink.opacity(0.15) : 
-                            Color(uiColor: .tertiarySystemGroupedBackground))
+                              Color.pink.opacity(0.15) : 
+                                Color(uiColor: .tertiarySystemGroupedBackground))
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
                         .strokeBorder(selectedEmotion == emotion ? 
-                            Color.pink.opacity(0.3) : Color.clear,
-                            lineWidth: 1.5)
+                                      Color.pink.opacity(0.3) : Color.clear,
+                                      lineWidth: 1.5)
                 )
             }
             .foregroundStyle(selectedEmotion == emotion ? .pink : .primary)

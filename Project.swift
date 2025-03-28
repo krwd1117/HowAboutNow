@@ -143,7 +143,24 @@ let project = Project(
                 "Presentation/**"
             ],
             dependencies: [
+                .target(name: "DI"),
                 .target(name: "Domain")
+            ]
+        ),
+
+        // MARK: - DI Module
+        .target(
+            name: "DI",
+            destinations: [.iPhone],
+            product: .framework,
+            bundleId: "com.krwd.howaboutnow.di",
+            infoPlist: .default,
+            sources: [
+                "DI/**"
+            ],
+            dependencies: [
+                .target(name: "Domain"),
+                .target(name: "Data")
             ]
         )
     ]

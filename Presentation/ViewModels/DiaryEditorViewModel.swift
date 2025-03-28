@@ -6,26 +6,29 @@
 //  Copyright 2024 HowAboutNow. All rights reserved.
 //
 
-import SwiftUI
+import Foundation
+
+//import SwiftUI
 import Domain
 import Combine
 
 @MainActor
 public final class DiaryEditorViewModel: ObservableObject {
     private let diaryViewModel: DiaryViewModel
-    private let diary: Diary?
+    @Published var diary: Diary?
     
-    @Published public var title: String
-    @Published public var content: String
-    @Published public var date: Date
-    @Published public var emotion: String
-    @Published public var isEditing: Bool
-    @Published public private(set) var isValid = false
-    @Published public var alertTitle: LocalizedStringKey = ""
-    @Published public var alertMessage: LocalizedStringKey = ""
-    @Published public var showAlert = false
-    @Published public var isAnalyzing = false
-    @Published public var analyzeMessage: String?
+    @Published var title: String = ""
+    @Published var content: String = ""
+    @Published var date: Date = Date()
+    @Published var emotion: String = ""
+    @Published var isEditing: Bool = false
+    
+    @Published private(set) var isValid = false
+    @Published var alertTitle: String = ""
+    @Published var alertMessage: String = ""
+    @Published var showAlert = false
+    @Published var isAnalyzing = false
+    @Published var analyzeMessage: String? = nil
     
     @Published var showDatePicker: Bool = false
     @Published var showEmotionPicker: Bool = false
@@ -33,18 +36,18 @@ public final class DiaryEditorViewModel: ObservableObject {
     public init(
         diaryViewModel: DiaryViewModel,
         diary: Diary? = nil,
-        title: String = "",
-        content: String = "",
-        date: Date = Date(),
-        emotion: String = "",
         isEditing: Bool = false
     ) {
         self.diaryViewModel = diaryViewModel
         self.diary = diary
-        self.title = title
-        self.content = content
-        self.date = date
-        self.emotion = emotion
+        
+        if let diary = diary {
+            self.title = diary.title
+            self.content = diary.content
+            self.date = diary.date
+            self.emotion = diary.emotion
+        }
+        
         self.isEditing = isEditing
         
         // 입력값 유효성 검사 - 내용만 필수로 변경
@@ -100,7 +103,8 @@ public final class DiaryEditorViewModel: ObservableObject {
                 diary,
                 title: title,
                 content: content,
-                emotion: emotion
+                emotion: emotion,
+                date: date
             )
             return true
         } else {

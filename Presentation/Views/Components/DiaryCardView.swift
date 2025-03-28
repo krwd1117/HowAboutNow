@@ -78,13 +78,7 @@ public struct DiaryCardView: View {
                 NavigationLink(
                     destination: {
                         let editorViewModel = DiaryEditorViewModel(
-                            diaryViewModel: viewModel,
-                            diary: diary,
-                            title: diary.title,
-                            content: diary.content,
-                            date: diary.date,
-                            emotion: diary.emotion,
-                            isEditing: true
+                            diaryViewModel: viewModel, diary: diary, isEditing: true
                         )
                         DiaryEditorView(viewModel: editorViewModel)
                     },

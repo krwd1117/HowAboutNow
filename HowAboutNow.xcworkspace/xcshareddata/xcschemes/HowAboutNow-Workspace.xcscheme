@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "39664E950809A83D847ECC10"
+               BuildableName = "DI.framework"
+               BlueprintName = "DI"
+               ReferencedContainer = "container:HowAboutNow.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "7416D6775D55D94F4C5ECD2A"
                BuildableName = "Data.framework"
                BlueprintName = "Data"
@@ -85,9 +99,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7416D6775D55D94F4C5ECD2A"
-            BuildableName = "Data.framework"
-            BlueprintName = "Data"
+            BlueprintIdentifier = "39664E950809A83D847ECC10"
+            BuildableName = "DI.framework"
+            BlueprintName = "DI"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -101,9 +115,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7416D6775D55D94F4C5ECD2A"
-            BuildableName = "Data.framework"
-            BlueprintName = "Data"
+            BlueprintIdentifier = "39664E950809A83D847ECC10"
+            BuildableName = "DI.framework"
+            BlueprintName = "DI"
             ReferencedContainer = "container:HowAboutNow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

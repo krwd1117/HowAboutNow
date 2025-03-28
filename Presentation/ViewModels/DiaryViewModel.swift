@@ -1,6 +1,7 @@
 import Foundation
 import Domain
 import Combine
+import DI
 
 @MainActor
 public final class DiaryViewModel: ObservableObject {
@@ -8,13 +9,27 @@ public final class DiaryViewModel: ObservableObject {
     @Published public private(set) var isLoading = false
     @Published public var selectedDate = Date()
     
-    private let diContainer: DIContainerProtocol
+    private let addDiaryUseCase: AddDiaryUseCase
+    private let fetchUseCase: FetchDiaryUseCase
+    private let updateUseCase: UpdateDiaryUseCase
+    private let deleteUseCase: DeleteDiaryUseCase
+    private let analysisDiaryUseCase: AnalysisDiaryUseCase
     
     public init(
-        diContainer: DIContainerProtocol,
+        addDiaryUseCase: AddDiaryUseCase? = nil,
+        fetchUseCase: FetchDiaryUseCase? = nil,
+        updateUseCase: UpdateDiaryUseCase? = nil,
+        deleteUseCase: DeleteDiaryUseCase? = nil,
+        analysisDiaryUseCase: AnalysisDiaryUseCase? = nil,
         initialDiaries: [Diary]? = nil
     ) {
-        self.diContainer = diContainer
+        
+        self.addDiaryUseCase = addDiaryUseCase ?? DIContainer.shared.resolve(AddDiaryUseCase.self)
+        self.fetchUseCase = fetchUseCase ?? DIContainer.shared.resolve(FetchDiaryUseCase.self)
+        self.updateUseCase = updateUseCase ?? DIContainer.shared.resolve(UpdateDiaryUseCase.self)
+        self.deleteUseCase = deleteUseCase ?? DIContainer.shared.resolve(DeleteDiaryUseCase.self)
+        self.analysisDiaryUseCase = analysisDiaryUseCase ?? DIContainer.shared.resolve(AnalysisDiaryUseCase.self)
+        
         if let initialDiaries {
             self.diaries = initialDiaries
         }
@@ -30,7 +45,7 @@ public final class DiaryViewModel: ObservableObject {
             }
         }
         do {
-            let loadedDiaries = try await diContainer.fetchDiaryUseCase.execute()
+            let loadedDiaries = try await fetchUseCase.execute()
             diaries = loadedDiaries
         } catch {
             print("Error loading diaries: \(error)")
@@ -43,13 +58,13 @@ public final class DiaryViewModel: ObservableObject {
     
     public func saveDiary(diary: Diary) async throws {
         // 먼저 일기를 저장
-        try await diContainer.addDiaryUseCase.execute(diary: diary)
+        try await addDiaryUseCase.execute(diary: diary)
         await loadDiaries()
         
         // 백그라운드에서 감정 분석 수행
         Task.detached { [weak self] in
             do {
-                let analysis = try await self?.diContainer.analysisDiaryUseCase.excute(diary: diary)
+                let analysis = try await self?.analysisDiaryUseCase.excute(diary: diary)
                 
                 guard let analysis = analysis else {
                     return
@@ -64,7 +79,8 @@ public final class DiaryViewModel: ObservableObject {
                     date: diary.date
                 )
                 
-                try? await self?.diContainer.updateDiaryUseCase.execute(diary: analyzedDiary)
+                try await self?.updateUseCase.execute(diary: analyzedDiary)
+                
                 Task {
                     await self?.loadDiaries()
                 }
@@ -74,7 +90,7 @@ public final class DiaryViewModel: ObservableObject {
         }
     }
     
-    public func updateDiary(_ diary: Diary, title: String, content: String, emotion: String) async {
+    public func updateDiary(_ diary: Diary, title: String, content: String, emotion: String, date: Date) async {
         do {
             let updatedDiary = Diary(
                 id: diary.id,
@@ -82,9 +98,9 @@ public final class DiaryViewModel: ObservableObject {
                 content: content,
                 emotion: emotion,
                 summary: diary.summary,
-                date: diary.date
+                date: date
             )
-            try await diContainer.updateDiaryUseCase.execute(diary: updatedDiary)
+            try await updateUseCase.execute(diary: updatedDiary)
             await loadDiaries()
         } catch {
             print("Error updating diary: \(error)")
@@ -93,7 +109,7 @@ public final class DiaryViewModel: ObservableObject {
     
     public func deleteDiary(_ diary: Diary) async {
         do {
-            try await diContainer.deleteDiaryUseCase.execute(diary: diary)
+            try await deleteUseCase.execute(diary: diary)
             await loadDiaries()
         } catch {
             print("Error deleting diary: \(error)")

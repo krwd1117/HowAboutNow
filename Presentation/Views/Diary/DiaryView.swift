@@ -28,11 +28,6 @@ public struct DiaryView: View {
                     destination: DiaryEditorView(
                         viewModel: DiaryEditorViewModel(
                             diaryViewModel: viewModel,
-                            diary: nil,
-                            title: "",
-                            content: "",
-                            date: viewModel.selectedDate,
-                            emotion: "",
                             isEditing: false
                         )
                     )

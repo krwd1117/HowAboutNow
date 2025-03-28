@@ -1,4 +1,6 @@
 import SwiftUI
+
+import DI
 import Domain
 
 /// 메인 탭 뷰
@@ -12,18 +14,16 @@ public struct MainTabView: View {
         case settings
     }
     
-    private let diContainer: DIContainerProtocol
+    private let diContainer: DIContainer = DIContainer.shared
     
     /// 초기화
-    public init(diContainer: DIContainerProtocol) {
-        self.diContainer = diContainer
-    }
+    public init() {}
     
     public var body: some View {
         ZStack {
             TabView(selection: $selectedTab) {
                 // 다이어리 목록 탭
-                let viewModel = DiaryViewModel(diContainer: diContainer)
+                let viewModel = DiaryViewModel()
                 DiaryView(viewModel: viewModel)
                     .tag(0)
                     .tabItem {
